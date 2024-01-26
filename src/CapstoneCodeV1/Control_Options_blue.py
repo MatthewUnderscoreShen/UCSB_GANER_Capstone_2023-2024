@@ -19,7 +19,7 @@ import pygame
 import pigpio
 import xarm
 import math
-
+import time
 
 xmax = 315 # Max x value of camera
 xcenter = xmax/2 # Center of camera x axis
@@ -73,19 +73,38 @@ def KeyBoard_Control(motor):
     elif kp.getKey('DOWN'):
         motor.move(-0.6,0,0.1); ###print('Key DOWN was pressed')
     elif kp.getKey('LEFT'):
-        motor.move(0.5,0.3,0.1); ###print('Key LEFT was pressed')
+        motor.move(0.5,0.3,0.1); ###print('Key LEFT was presssed')
     elif kp.getKey('RIGHT'):
         motor.move(0.5,-0.3,0.1); ###print('Key RIGHT was pressed')
     else:
         motor.stop(0.1)
 
 def Autonomous_Control(motor, pixy2, dist1,dist2,servo1_2,servo3):
-    pass
-#     if pixy2.x_coord() != -1: # if pixy detects an object
-#         motor.move(dt_speed, ((xcenter - pixy2.x_coord()) / xcenter) , 0.1) # DC motors move to center object
-#     else:
-#         motor.stop(0.1) # if pixy does not detect an object --> stop
-    ###print(pixy2.x_coord())
+    
+   foward = motor.move(0.6,0,0.1)
+   backward = motor.move(-0.6,0,0.1)
+   left = motor.move(0.5,0.3,0.1)
+   right = motor.move(0.5,-0.3,0.1)
+   stop =  motor.stop(0.1)
+   while True:
+       foward
+       time.sleep(5)
+       right
+       time.sleep(5)
+       left
+       time.sleep(5)
+       backward
+       time.sleep(5)
+       stop
+       time.sleep(5)
+   
+
+       
+   
+
+
+
+    
 
 def JoyStick_Control(motor, motor_DTLever): #servo1_2, servo3
     global oldtheta1, oldtheta2, oldtheta3,y, z, outofrange,angle1,angle2,angle3,angle4,angle5,angle6, arm, kinematics, shutdown_started
