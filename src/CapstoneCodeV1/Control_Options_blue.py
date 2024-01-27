@@ -17,7 +17,7 @@ from os import environ
 from os import system
 import pygame
 import pigpio
-import xarm
+#import xarm
 import math
 import time
 
@@ -50,19 +50,19 @@ l1 = 11; l2 = 15.2;
 waitTime = 1
 
 
-arm = xarm.Controller('USB')
-servo1 = xarm.Servo(1,0.0)
-servo2 = xarm.Servo(2,0.0)
-servo3 = xarm.Servo(3,0.0)
-servo4 = xarm.Servo(4,0.0)
-servo5 = xarm.Servo(5,0.0)
-servo6 = xarm.Servo(6,0.0)
+#arm = xarm.Controller('USB')
+#servo1 = xarm.Servo(1,0.0)
+#servo2 = xarm.Servo(2,0.0)
+#servo3 = xarm.Servo(3,0.0)
+#servo4 = xarm.Servo(4,0.0)
+#servo5 = xarm.Servo(5,0.0)
+#servo6 = xarm.Servo(6,0.0)
 sleep(1)
 # angle1 = arm.getPosition(1,True);angle2 = arm.getPosition(2,True);angle3 = arm.getPosition(3,True);angle4 = arm.getPosition(4,True);angle5 = arm.getPosition(5,True);angle6 = arm.getPosition(6,True);
-angle1 = 0.0; angle2 = 0.0; angle3 = -21.0; angle4 = 118.0; angle5 = -62.0; angle6 = 0.0
-arm.setPosition(1,angle1,100,wait=True); arm.setPosition(2,angle2,100,wait=True); arm.setPosition(3,angle3,100,wait=True); arm.setPosition(4,angle4,100,wait=True); arm.setPosition(5,angle5,100,wait=True); arm.setPosition(6,angle6,100,wait=True);
-kinematics = False; shutdown_started = False
-oldtheta3 = -20.0; oldtheta2 = 100.0; oldtheta1 = -45.0
+#angle1 = 0.0; angle2 = 0.0; angle3 = -21.0; angle4 = 118.0; angle5 = -62.0; angle6 = 0.0
+#arm.setPosition(1,angle1,100,wait=True); arm.setPosition(2,angle2,100,wait=True); arm.setPosition(3,angle3,100,wait=True); arm.setPosition(4,angle4,100,wait=True); arm.setPosition(5,angle5,100,wait=True); arm.setPosition(6,angle6,100,wait=True);
+#kinematics = False; shutdown_started = False
+#oldtheta3 = -20.0; oldtheta2 = 100.0; oldtheta1 = -45.0
 
 
 
