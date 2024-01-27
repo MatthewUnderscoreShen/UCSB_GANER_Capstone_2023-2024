@@ -6,9 +6,9 @@ import RPi.GPIO as GPIO
 
 
 # Define Method of Control
-movement = 'JoyStick'
+#movement = 'JoyStick'
 # movement = 'KeyBoard'
-# movement = 'Autonomous'
+movement = 'Autonomous'
 
 # motor, motor_DTLever, servo_motor, pixy2, dist1,dist2, servo1_2, servo3 = ctl.Initialize_Objects(movement)
 motor, motor_DTLever = ctl.Initialize_Objects(movement)
