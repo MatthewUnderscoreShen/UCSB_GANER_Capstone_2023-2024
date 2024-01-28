@@ -23,7 +23,7 @@ def main():
     elif movement == 'KeyBoard':
         ctl.KeyBoard_Control(motor)
     elif movement == 'Autonomous':
-        ctl.Autonomous_Control(motor,pixy2,dist1,dist2,servo1_2,servo3)
+        ctl.Autonomous_Control(motor)
     else:
         print('Set Type of Control')
 

@@ -79,7 +79,7 @@ def KeyBoard_Control(motor):
     else:
         motor.stop(0.1)
 
-def Autonomous_Control(motor, pixy2, dist1,dist2,servo1_2,servo3):
+def Autonomous_Control(motor):
     
    foward = motor.move(0.6,0,0.1)
    backward = motor.move(-0.6,0,0.1)
