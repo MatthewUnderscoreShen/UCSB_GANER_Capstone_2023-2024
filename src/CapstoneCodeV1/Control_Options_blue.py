@@ -81,22 +81,26 @@ def KeyBoard_Control(motor):
 
 def Autonomous_Control(motor):
     
-   foward = motor.move(0.6,0,0.1)
-   backward = motor.move(-0.6,0,0.1)
-   left = motor.move(0.5,0.3,0.1)
-   right = motor.move(0.5,-0.3,0.1)
-   stop =  motor.stop(0.1)
-   while True:
-       foward
-       time.sleep(5)
-       right
-       time.sleep(5)
-       left
-       time.sleep(5)
-       backward
-       time.sleep(5)
-       stop
-       time.sleep(5)
+    while True:
+        start_time = time.time()
+        while time.time() - start_time < 5:
+            motor.move(0.6, 0, 0.1)
+
+        start_time = time.time()
+        while time.time() - start_time < 5:
+            motor.move(0.5, -0.3, 0.1)
+
+        start_time = time.time()
+        while time.time() - start_time < 5:
+            motor.move(0.5, 0.3, 0.1)
+
+        start_time = time.time()
+        while time.time() - start_time < 5:
+            motor.move(-0.6, 0, 0.1)
+
+        start_time = time.time()
+        while time.time() - start_time < 5:
+            motor.stop(0.1)
    
 
        
