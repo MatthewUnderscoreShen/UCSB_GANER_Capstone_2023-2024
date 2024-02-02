@@ -1,4 +1,4 @@
-import Control_Options_blue as ctl
+import Control_Options_autonomous as ctl
 #import test_arm as ctl
 import xarm
 import math

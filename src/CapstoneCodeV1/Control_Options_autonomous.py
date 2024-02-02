@@ -17,9 +17,9 @@ from os import environ
 from os import system
 import pygame
 import pigpio
-import xarm
+#import xarm
 import math
-
+import time
 
 xmax = 315 # Max x value of camera
 xcenter = xmax/2 # Center of camera x axis
@@ -50,19 +50,19 @@ l1 = 11; l2 = 15.2;
 waitTime = 1
 
 
-arm = xarm.Controller('USB')
-servo1 = xarm.Servo(1,0.0)
-servo2 = xarm.Servo(2,0.0)
-servo3 = xarm.Servo(3,0.0)
-servo4 = xarm.Servo(4,0.0)
-servo5 = xarm.Servo(5,0.0)
-servo6 = xarm.Servo(6,0.0)
+#arm = xarm.Controller('USB')
+#servo1 = xarm.Servo(1,0.0)
+#servo2 = xarm.Servo(2,0.0)
+#servo3 = xarm.Servo(3,0.0)
+#servo4 = xarm.Servo(4,0.0)
+#servo5 = xarm.Servo(5,0.0)
+#servo6 = xarm.Servo(6,0.0)
 sleep(1)
 # angle1 = arm.getPosition(1,True);angle2 = arm.getPosition(2,True);angle3 = arm.getPosition(3,True);angle4 = arm.getPosition(4,True);angle5 = arm.getPosition(5,True);angle6 = arm.getPosition(6,True);
-angle1 = 0.0; angle2 = 0.0; angle3 = -21.0; angle4 = 118.0; angle5 = -62.0; angle6 = 0.0
-arm.setPosition(1,angle1,100,wait=True); arm.setPosition(2,angle2,100,wait=True); arm.setPosition(3,angle3,100,wait=True); arm.setPosition(4,angle4,100,wait=True); arm.setPosition(5,angle5,100,wait=True); arm.setPosition(6,angle6,100,wait=True);
-kinematics = False; shutdown_started = False
-oldtheta3 = -20.0; oldtheta2 = 100.0; oldtheta1 = -45.0
+#angle1 = 0.0; angle2 = 0.0; angle3 = -21.0; angle4 = 118.0; angle5 = -62.0; angle6 = 0.0
+#arm.setPosition(1,angle1,100,wait=True); arm.setPosition(2,angle2,100,wait=True); arm.setPosition(3,angle3,100,wait=True); arm.setPosition(4,angle4,100,wait=True); arm.setPosition(5,angle5,100,wait=True); arm.setPosition(6,angle6,100,wait=True);
+#kinematics = False; shutdown_started = False
+#oldtheta3 = -20.0; oldtheta2 = 100.0; oldtheta1 = -45.0
 
 
 
@@ -73,19 +73,42 @@ def KeyBoard_Control(motor):
     elif kp.getKey('DOWN'):
         motor.move(-0.6,0,0.1); ###print('Key DOWN was pressed')
     elif kp.getKey('LEFT'):
-        motor.move(0.5,0.3,0.1); ###print('Key LEFT was pressed')
+        motor.move(0.5,0.3,0.1); ###print('Key LEFT was presssed')
     elif kp.getKey('RIGHT'):
         motor.move(0.5,-0.3,0.1); ###print('Key RIGHT was pressed')
     else:
         motor.stop(0.1)
 
-def Autonomous_Control(motor, pixy2, dist1,dist2,servo1_2,servo3):
-    pass
-#     if pixy2.x_coord() != -1: # if pixy detects an object
-#         motor.move(dt_speed, ((xcenter - pixy2.x_coord()) / xcenter) , 0.1) # DC motors move to center object
-#     else:
-#         motor.stop(0.1) # if pixy does not detect an object --> stop
-    ###print(pixy2.x_coord())
+def Autonomous_Control(motor):
+    
+    while True:
+        start_time = time.time()
+        while time.time() - start_time < 5:
+            foward =motor.move(0.6, 0, 0.1)
+
+        start_time = time.time()
+        while time.time() - start_time < 5:
+             down =motor.move(0.5, -0.3, 0.1)
+
+        start_time = time.time()
+        while time.time() - start_time < 5:
+            left =motor.move(0.5, 0.3, 0.1)
+
+        start_time = time.time()
+        while time.time() - start_time < 5:
+           right = motor.move(-0.6, 0, 0.1)
+
+        start_time = time.time()
+        while time.time() - start_time < 5:
+            stop = motor.stop(0.1)
+   
+
+       
+   
+
+
+
+    
 
 def JoyStick_Control(motor, motor_DTLever): #servo1_2, servo3
     global oldtheta1, oldtheta2, oldtheta3,y, z, outofrange,angle1,angle2,angle3,angle4,angle5,angle6, arm, kinematics, shutdown_started
