@@ -65,18 +65,17 @@ sleep(1)
 #oldtheta3 = -20.0; oldtheta2 = 100.0; oldtheta1 = -45.0
 
 
-def movement(motor, movement_type, t):
+def movement(motor, movement_type, time):
     ## motor.move(power, turn, time)
     ## Negative value is okay, goes backwards
-   
     if movement_type == 'fw':
-        motor.move(speed = 0.5,turn= 0, t=t)
+        motor.move(speed = 0.5,turn= 0, t=time)
     elif movement_type == 'bw':
-        motor.move(speed =-0.5,turn =0,t=t)
+        motor.move(speed =-0.5,turn =0,t=time)
     elif movement_type == 'lw':
-        motor.move(speed = 0.5, turn =0.5, t=t)
+        motor.move(speed = 0.5, turn =0.5, t=time)
     elif movement_type == 'rw':
-        motor.move(speed =0.5, turn = 0.5,t= t)
+        motor.move(speed =0.5, turn = 0.5,t=time)
     elif movement_type == 'stop':
         motor.stop(0.1)
     else:
