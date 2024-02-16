@@ -69,7 +69,7 @@ def movement(motor, movement_type, time):
     ## motor.move(power, turn, time)
     ## Negative value is okay, goes backwards
     if movement_type == 'fw':
-        motor.move(speed = 0.5,turn= 1, t=time)
+        motor.move(speed = -0.5,turn= 1, t=time)
     elif movement_type == 'bw':
         motor.move(speed = 0.5,turn =0.5,t=time)
     elif movement_type == 'lw':
@@ -100,16 +100,16 @@ def Autonomous_Control(motor):
         movement(motor, 'fw', 5)
         
 
-        movement(motor, 'bw', 5)
+        #movement(motor, 'bw', 5)
         
 
-        movement(motor, 'lw', 5)
+        #movement(motor, 'lw', 5)
         
 
-        movement(motor, 'rw', 5)
+        #movement(motor, 'rw', 5)
         
 
-        movement(motor, 'stop',5)
+        #movement(motor, 'stop',5)
         
 
 
