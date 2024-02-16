@@ -73,9 +73,9 @@ def movement(motor, movement_type, time):
     elif movement_type == 'bw':
         motor.move(speed = 0.2,turn =1,t=time)
     elif movement_type == 'lw':
-        motor.move(speed = 0.5, turn = 0.8, t=time)
+        motor.move(speed = 0.5, turn = 0, t=time)
     elif movement_type == 'rw':
-        motor.move(speed = 0.5, turn = 0.1,t=time)
+        motor.move(speed = 0.5, turn = 2,t=time)
     elif movement_type == 'stop':
         motor.stop(t= 0.1)
     else:
@@ -97,20 +97,17 @@ def KeyBoard_Control(motor):
 def Autonomous_Control(motor):
     while True:
 
-        movement(motor, 'fw', 5)
+        #movement(motor, 'fw', 5)
         
 
-        movement(motor, 'bw', 5)
+        #movement(motor, 'bw', 5)
         
 
         movement(motor, 'lw', 10)
 
-        movement(motor, 'fw', 5)
         
 
         movement(motor, 'rw', 10)
-
-        movement(motor, 'fw', 5)
         
 
         movement(motor, 'stop',5)
