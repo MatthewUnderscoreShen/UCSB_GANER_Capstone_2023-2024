@@ -99,19 +99,19 @@ def Autonomous_Control(motor):
     while True:
 
         movement(motor, 'foward', 5)
-        time.wait(5)
+        
 
         movement(motor, 'backward', 5)
-        time.wait(5)
+        
 
         movement(motor, 'right', 5)
-        time.wait(5)
+        
 
         movement(motor, 'left', 5)
-        time.wait(5)
+        
 
         movement(motor, 'stop')
-        time.wait(5)
+        
 
 
 
