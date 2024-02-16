@@ -74,7 +74,7 @@ def movement(motor, movement_type, time):
         motor.move(speed = 0.5,turn = 1,t=time)
     elif movement_type == 'right':
         motor.move(1, 0.5, time)
-    elif movement_type == 'rw':
+    elif movement_type == 'left':
         motor.move(1, -0.5, t=time)
     elif movement_type == 'stop':
         motor.stop(t =time)
