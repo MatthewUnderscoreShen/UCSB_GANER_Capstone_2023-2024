@@ -70,13 +70,13 @@ def movement(motor, movement_type, t):
     ## Negative value is okay, goes backwards
    
     if movement_type == 'right':
-        motor.move(0.5, 0, t)
+        motor.move(self, 0.5, 0, t)
     elif movement_type == 'left':
-        motor.move(-0.5,0,t)
+        motor.move(self,-0.5,0,t)
     elif movement_type == 'lw':
-        motor.move(0.5, 0.5, t)
+        motor.move(self,0.5, 0.5, t)
     elif movement_type == 'rw':
-        motor.move(0.5, 1, t)
+        motor.move(self,0.5, 1, t)
     elif movement_type == 'stop':
         motor.stop(0.1)
     else:
