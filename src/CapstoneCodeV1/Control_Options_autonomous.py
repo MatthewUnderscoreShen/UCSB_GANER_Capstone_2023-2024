@@ -73,9 +73,9 @@ def movement(motor, movement_type, time):
     elif movement_type == 'bw':
         motor.move(speed = 0.2,turn =1,t=time)
     elif movement_type == 'lw':
-        motor.move(speed = 0.5, turn = 0, t=time)
+        motor.move(0.5, 0, 0.5, time)
     elif movement_type == 'rw':
-        motor.move(speed = 0.5, turn = 2,t=time)
+        motor.move(0.5, 0.5, 0.5, t=time)
     elif movement_type == 'stop':
         motor.stop(t= 0.1)
     else:
