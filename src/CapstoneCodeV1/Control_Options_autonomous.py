@@ -65,6 +65,18 @@ sleep(1)
 #oldtheta3 = -20.0; oldtheta2 = 100.0; oldtheta1 = -45.0
 
 
+def movement(motor, movement_type, t):
+   
+    if movement_type == 'foward':
+        motor.move(0.5, 0, t)
+    elif movement_type == 'left':
+        motor.move(0.5, -0.3, t)
+    elif movement_type == 'right':
+        motor.move(0.5, 0.3, t)
+    elif movement_type == 'stop':
+        motor.stop(0.1)
+    else:
+        print("Unknown movement type")
 
 def KeyBoard_Control(motor):
 
@@ -80,27 +92,22 @@ def KeyBoard_Control(motor):
         motor.stop(0.1)
 
 def Autonomous_Control(motor):
-    
     while True:
-        start_time = time.time()
-        while time.time() - start_time < 5:
-            foward =motor.move(0.6, 0, 0.1)
 
-        start_time = time.time()
-        while time.time() - start_time < 5:
-             down =motor.move(0.5, -0.3, 0.1)
+        movement(motor, 'foward', 5)
 
-        start_time = time.time()
-        while time.time() - start_time < 5:
-            left =motor.move(0.5, 0.3, 0.1)
+        movement(motor, 'right', 5)
 
-        start_time = time.time()
-        while time.time() - start_time < 5:
-           right = motor.move(-0.6, 0, 0.1)
+        movement(motor, 'left', 5)
 
-        start_time = time.time()
-        while time.time() - start_time < 5:
-            stop = motor.stop(0.1)
+        movement(motor, 'stop')
+
+
+    
+    
+
+    
+
    
 
        
