@@ -100,16 +100,16 @@ def Autonomous_Control(motor):
         movement(motor, 'foward', 5)
         
 
-        movement(motor, 'right', 0.5)
+        movement(motor, 'right', 0.7)
         
 
         movement(motor, 'foward', 5)
 
-        movement(motor, 'right', 0.5)
+        movement(motor, 'right', 0.7)
 
         movement(motor, 'foward', 5)
 
-        movement(motor, 'right', 0.5)
+        movement(motor, 'right', 0.7)
 
         movement(motor, 'foward', 5)
 
