@@ -73,9 +73,9 @@ def movement(motor, movement_type, time):
     elif movement_type == 'bw':
         motor.move(speed = 0.2,turn =1,t=time)
     elif movement_type == 'lw':
-        motor.move(speed = 0.5, turn =0.5, t=time)
+        motor.move(speed = 0.5, turn = 0.8, t=time)
     elif movement_type == 'rw':
-        motor.move(speed = 0.5, turn = -0.5,t=time)
+        motor.move(speed = 0.5, turn = 0.1,t=time)
     elif movement_type == 'stop':
         motor.stop(t= 0.1)
     else:
@@ -103,12 +103,12 @@ def Autonomous_Control(motor):
         movement(motor, 'bw', 5)
         
 
-        movement(motor, 'lw', 5)
+        movement(motor, 'lw', 10)
 
         movement(motor, 'fw', 5)
         
 
-        movement(motor, 'rw', 5)
+        movement(motor, 'rw', 10)
 
         movement(motor, 'fw', 5)
         
