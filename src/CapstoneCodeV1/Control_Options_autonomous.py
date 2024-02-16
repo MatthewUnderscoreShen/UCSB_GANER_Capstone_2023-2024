@@ -77,7 +77,7 @@ def movement(motor, movement_type, time):
     elif movement_type == 'rw':
         motor.move(speed =0.5, turn = 0.5,t=time)
     elif movement_type == 'stop':
-        motor.stop(0.1)
+        motor.stop(t= 0.1)
     else:
         print("Unknown movement type")
 
