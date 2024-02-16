@@ -68,11 +68,11 @@ sleep(1)
 def movement(motor, movement_type, time):
     ## motor.move(power, turn, time)
     ## Negative value is okay, goes backwards
-    if movement_type == 'fw':
+    if movement_type == 'foward':
         motor.move(speed = 0.2,turn= -1, t=time)
-    elif movement_type == 'bw':
+    elif movement_type == 'bacward':
         motor.move(speed = 0.2,turn =1,t=time)
-    elif movement_type == 'lw':
+    elif movement_type == 'right':
         motor.move(1, 0.5, time)
     elif movement_type == 'rw':
         motor.move(1, -0.5, t=time)
@@ -97,17 +97,17 @@ def KeyBoard_Control(motor):
 def Autonomous_Control(motor):
     while True:
 
-        #movement(motor, 'fw', 5)
+        movement(motor, 'foward', 5)
         
 
-        #movement(motor, 'bw', 5)
+        movement(motor, 'right', 3)
         
 
-        movement(motor, 'lw', 10)
+        movement(motor, 'foward', 5)
 
         
 
-        movement(motor, 'rw', 10)
+        movement(motor, 'backward', 5)
         
 
         movement(motor, 'stop',5)
