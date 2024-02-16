@@ -66,9 +66,13 @@ sleep(1)
 
 
 def movement(motor, movement_type, t):
+    ## motor.move(power, turn, time)
+    ## Negative value is okay, goes backwards
    
     if movement_type == 'foward':
         motor.move(0.5, 0, t)
+    elif movement_type == 'backward':
+        motor.move(-0.5,0,t)
     elif movement_type == 'left':
         motor.move(0.5, -0.3, t)
     elif movement_type == 'right':
@@ -95,6 +99,8 @@ def Autonomous_Control(motor):
     while True:
 
         movement(motor, 'foward', 5)
+
+        movement(motor, 'backward', 5)
 
         movement(motor, 'right', 5)
 
