@@ -69,9 +69,9 @@ def movement(motor, movement_type, time):
     ## motor.move(power, turn, time)
     ## Negative value is okay, goes backwards
     if movement_type == 'fw':
-        motor.move(speed = 0.2,turn= 1, t=time)
+        motor.move(speed = 0.2,turn= -1, t=time)
     elif movement_type == 'bw':
-        motor.move(speed = -0.2,turn =1,t=time)
+        motor.move(speed = 0.2,turn =1,t=time)
     elif movement_type == 'lw':
         motor.move(speed = 0.5, turn =0.5, t=time)
     elif movement_type == 'rw':
