@@ -60,7 +60,7 @@ waitTime = 1
 sleep(1)
 # angle1 = arm.getPosition(1,True);angle2 = arm.getPosition(2,True);angle3 = arm.getPosition(3,True);angle4 = arm.getPosition(4,True);angle5 = arm.getPosition(5,True);angle6 = arm.getPosition(6,True);
 angle1 = 0.0; angle2 = 0.0; angle3 = -21.0; angle4 = 118.0; angle5 = -62.0; angle6 = 0.0
-arm.setPosition(1,angle1,100,wait=True); arm.setPosition(2,angle2,100,wait=True); arm.setPosition(3,angle3,100,wait=True); arm.setPosition(4,angle4,100,wait=True); arm.setPosition(5,angle5,100,wait=True); arm.setPosition(6,angle6,100,wait=True);
+#arm.setPosition(1,angle1,100,wait=True); arm.setPosition(2,angle2,100,wait=True); arm.setPosition(3,angle3,100,wait=True); arm.setPosition(4,angle4,100,wait=True); arm.setPosition(5,angle5,100,wait=True); arm.setPosition(6,angle6,100,wait=True);
 kinematics = False; shutdown_started = False
 oldtheta3 = -20.0; oldtheta2 = 100.0; oldtheta1 = -45.0
 
