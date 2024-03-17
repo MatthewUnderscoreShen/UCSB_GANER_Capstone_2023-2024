@@ -18,5 +18,6 @@ def turn_signal(trig, echo)
     if(distance < 10)
         turn = True
 
+    GPIO.cleanup()
     return turn
 
