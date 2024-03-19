@@ -1,4 +1,5 @@
-def turn_signal(trig, echo) 
+
+def turn_signal(trig, echo):
     turn = False
 
     GPIO.output(trig, True)
@@ -15,7 +16,7 @@ def turn_signal(trig, echo)
 
     distance = round(duration * 17150, 2)
 
-    if(distance < 10)
+    if(distance < 10):
         turn = True
 
     GPIO.cleanup()

@@ -11,6 +11,8 @@ import new_controller as js
 from Pixy2_Camera import Pixy2_Camera
 # from Distance_sensor import distance_sensor
 # from dist_sensor import dist_sensor
+import turn_signal
+import HC_SR04_setup
 
 from time import sleep
 from os import environ
@@ -20,6 +22,21 @@ import pigpio
 #import xarm
 import math
 import time
+import RPi.GPIO as GPIO
+import time
+GPIO.setmode(GPIO.BCM)
+
+trig = 23
+echo = 24
+
+GPIO.setup(trig, GPIO.OUT)
+GPIO.setup(echo, GPIO.IN)
+
+GPIO.output(trig, False)
+time.sleep(2)
+
+
+
 
 xmax = 315 # Max x value of camera
 xcenter = xmax/2 # Center of camera x axis
@@ -97,28 +114,20 @@ def KeyBoard_Control(motor):
 def Autonomous_Control(motor):
     while True:
 
-        movement(motor, 'foward', 5)
+        turn = turn_signal(23,24)
         
 
-        movement(motor, 'right', 0.7)
+        if (turn = false):
+            movement(motor, 'foward',1)
+        else:
+            movement(motor,'right', 1)
+        
         
 
-        movement(motor, 'foward', 5)
-
-        movement(motor, 'right', 0.7)
-
-        movement(motor, 'foward', 5)
-
-        movement(motor, 'right', 0.7)
-
-        movement(motor, 'foward', 5)
 
         
 
-        movement(motor, 'backward', 5)
-        
 
-        movement(motor, 'stop',5)
         
 
 
