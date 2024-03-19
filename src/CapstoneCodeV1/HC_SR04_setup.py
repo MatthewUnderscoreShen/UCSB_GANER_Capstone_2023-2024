@@ -44,7 +44,7 @@ try:
         distance = measure_distance()
         print(f"Distance: {distance} cm")
         # Short delay between measurements
-        time.sleep(1)
+        time.sleep(0.01)
 
 except KeyboardInterrupt:
     print("Measurement stopped by User")
