@@ -1,52 +1,51 @@
 import RPi.GPIO as GPIO
 import time
 
-# Define GPIO pins
-trigPin = 5
-echoPin = 6
+# Set GPIO mode
+GPIO.setmode(GPIO.BCM)
 
-# Setup GPIO
-GPIO.setmode(GPIO.BCM)  # Use Broadcom pin numbering
-GPIO.setup(trigPin, GPIO.OUT)
-GPIO.setup(echoPin, GPIO.IN)
+# Define the GPIO pins for the trigger and echo
+TRIG = 5
+ECHO = 6
+
+# Initialize the GPIO pins
+GPIO.setup(TRIG, GPIO.OUT)
+GPIO.setup(ECHO, GPIO.IN)
 
 # Function to measure distance
 def measure_distance():
-    # Ensure the trigger pin is low initially
-    GPIO.output(trigPin, False)
-    time.sleep(0.2)  # Wait 200ms to settle
+    # Ensure the trigger pin is low for a clean start
+    GPIO.output(TRIG, False)
+    time.sleep(0.5)  # Short delay to let sensor settle
 
-    # Trigger the sensor by sending a 10us pulse
-    GPIO.output(trigPin, True)
-    time.sleep(0.00001)  # 10us pulse
-    GPIO.output(trigPin, False)
+    # Trigger the ultrasonic pulse
+    GPIO.output(TRIG, True)
+    time.sleep(0.00001)
+    GPIO.output(TRIG, False)
 
-    start_time = time.time()
+    # Measure the duration of echo pulse
+    while GPIO.input(ECHO) == 0:
+        pulse_start = time.time()
+    while GPIO.input(ECHO) == 1:
+        pulse_end = time.time()
 
-    # Wait for echo to start
-    while GPIO.input(echoPin) == 0:
-        start_time = time.time()
+    pulse_duration = pulse_end - pulse_start
 
-    # Wait for echo to end
-    while GPIO.input(echoPin) == 1:
-        end_time = time.time()
+    # Calculate distance
+    distance = pulse_duration * 17150
+    distance = round(distance, 2)
 
-    # Calculate pulse duration
-    pulse_duration = end_time - start_time
+    return distance
 
-    # Calculate distance in centimeters and inches
-    distance_cm = pulse_duration * 17000  # uS / 58 = centimeters
-    distance_in = pulse_duration * 6665.4  # uS / 148 = inches
+print("Distance Measurement In Progress")
 
-    return round(distance_cm, 2), round(distance_in, 2)
-
-# Main loop to print distance
 try:
     while True:
-        distance_cm, distance_in = measure_distance()
-        print(f"Distance: {distance_cm} cm / {distance_in} inches")
-        time.sleep(0.06)  # 60ms measurement cycle
+        distance = measure_distance()
+        print(f"Distance: {distance} cm")
+        # Short delay between measurements
+        time.sleep(1)
+
 except KeyboardInterrupt:
     print("Measurement stopped by User")
-finally:
-    GPIO.cleanup()  # Clean up GPIO
+    GPIO.cleanup()
