@@ -12,7 +12,7 @@ from Pixy2_Camera import Pixy2_Camera
 # from Distance_sensor import distance_sensor
 # from dist_sensor import dist_sensor
 import turn_signal
-import HC_SR04_setup
+from HC_SR04_setup import distance
 
 from time import sleep
 from os import environ
@@ -24,6 +24,7 @@ import math
 import time
 import RPi.GPIO as GPIO
 import time
+
 GPIO.setmode(GPIO.BCM)
 
 trig = 23
@@ -114,13 +115,12 @@ def KeyBoard_Control(motor):
 def Autonomous_Control(motor):
     while True:
 
-        turn = turn_signal(23,24)
-        
+        dist = distance()
+        if dist > 15 :
+            movement(motor,'foward',0.1)
+        else :
+            movement(motor, 'right', 0,1)
 
-        if (turn = false):
-            movement(motor, 'foward',1)
-        else:
-            movement(motor,'right', 1)
         
         
 
