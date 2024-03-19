@@ -116,7 +116,7 @@ def Autonomous_Control(motor):
     while True:
 
         dist = distance()
-        if dist > 15 :
+        if dist > 40 :
             movement(motor,'foward',0.1)
         else :
             movement(motor, 'right', 0,1)
