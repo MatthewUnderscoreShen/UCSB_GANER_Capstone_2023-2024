@@ -114,7 +114,7 @@ def KeyBoard_Control(motor):
 
 def Autonomous_Control(motor):
     while True:
-        
+        movement(motor,'foward',1)
         dist = distance()
         print(dist)
         if dist > 40 :
