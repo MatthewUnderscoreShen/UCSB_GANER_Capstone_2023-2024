@@ -10,11 +10,12 @@ GPIO.setup(GPIO_PIN, GPIO.IN)
 
 try:
     while True:
-        if GPIO.input(GPIO_PIN):
+        input_value = GPIO.input(6)
+        if input_value == 0:
             print("No obstacle detected")
         else:
             print("Obstacle detected")
-        time.sleep(0.1)
+        time.sleep(1)
 
 except KeyboardInterrupt:
     GPIO.cleanup()
