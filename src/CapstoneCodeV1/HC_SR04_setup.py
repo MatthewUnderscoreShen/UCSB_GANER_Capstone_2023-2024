@@ -21,13 +21,17 @@ def measure_distance():
     time.sleep(0.00001) # 10 microseconds delay
     GPIO.output(trigPin, False)
 
+    # Initialize variables to record the start and end times
+    pulse_start = 0
+    pulse_end = 0
+
     # Measure the duration of the pulse coming back to the echo pin
     while GPIO.input(echoPin) == 0:
         pulse_start = time.time()
     while GPIO.input(echoPin) == 1:
         pulse_end = time.time()
 
-    # Calculate the duration and distanceÅÅÅ
+    # Calculate the duration and distance
     pulse_duration = pulse_end - pulse_start
     distance = pulse_duration * 17150 # Speed of sound at sea level is ~34300 cm/s, so 34300 / 2 = 17150
     distance = round(distance, 2)
