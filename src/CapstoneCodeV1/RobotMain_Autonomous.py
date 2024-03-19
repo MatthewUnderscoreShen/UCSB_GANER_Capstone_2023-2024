@@ -31,7 +31,7 @@ def main():
 if __name__ == '__main__':
     try:
         while True:
-            main().
+            main()
 
     except KeyboardInterrupt:
         print('Execution Aborted By User')
