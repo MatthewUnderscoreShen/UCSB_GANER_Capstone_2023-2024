@@ -8,10 +8,10 @@ from Arm_Class_js import Arm_Class_js
 from Blue_Arm_Class import Arm_Class_blue
 import KeyPressModule as kp
 #import new_controller as js
-from Pixy2_Camera import Pixy2_Camera
+# from Pixy2_Camera import Pixy2_Camera
 # from Distance_sensor import distance_sensor
 # from dist_sensor import dist_sensor
-import turn_signal
+# import turn_signal
 from HC_SR04_setup import distance
 
 from time import sleep
