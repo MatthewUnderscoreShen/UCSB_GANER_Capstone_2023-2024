@@ -12,7 +12,7 @@ model = YOLO('best.pt')  # pretrained YOLOv8n model
 while 1:
 	print("enter something to continue")
 	input()
-	os.system('raspistill -o image.jpg -h 640 -w 640 -t 10 -rot 180')
+	os.system('raspistill -o image.jpg -h 640 -w 640 -t 10 -rot 0')
 	results = model(['image.jpg'])  # return a list of Results objects
 	xyxy = results[0].boxes.xyxy.numpy()
 	print(xyxy)
