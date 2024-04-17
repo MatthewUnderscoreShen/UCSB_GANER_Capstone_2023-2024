@@ -477,3 +477,17 @@ make[1]: Leaving directory '/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMa
 
 
 
+Determining if files linux/joystick.h exist passed with the following output:
+Change Dir: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_3b4e2/fast && /usr/bin/make -f CMakeFiles/cmTC_3b4e2.dir/build.make CMakeFiles/cmTC_3b4e2.dir/build
+make[1]: Entering directory '/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_3b4e2.dir/HAVE_LINUX_JOYSTICK_H.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_3b4e2.dir/HAVE_LINUX_JOYSTICK_H.c.o   -c /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles/CheckIncludeFiles/HAVE_LINUX_JOYSTICK_H.c
+Linking C executable cmTC_3b4e2
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3b4e2.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_3b4e2.dir/HAVE_LINUX_JOYSTICK_H.c.o  -o cmTC_3b4e2 
+make[1]: Leaving directory '/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles/CMakeTmp'
+
+
+
