@@ -1,0 +1,2 @@
+gpio_control:read_i2c:robot_control:robot_launch
+-DCATKIN_DEVEL_PREFIX=/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel -DCMAKE_INSTALL_PREFIX=/home/ubuntu/UCSB_GANER_Capstone_2023-2024/install -G Unix Makefiles
