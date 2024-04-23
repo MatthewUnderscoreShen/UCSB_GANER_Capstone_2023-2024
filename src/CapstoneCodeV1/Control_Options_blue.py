@@ -4,7 +4,7 @@ from Motor_DTLever import Motor_DTLever
 #from Servo_Module_v1 import Servo_Motor
 from Arm_Class import Arm_Class
 import KeyPressModule as kp
-import new_controller as js
+import Controller as js
 from ultrasonic_sensor_setup import distance
 
 from time import sleep
