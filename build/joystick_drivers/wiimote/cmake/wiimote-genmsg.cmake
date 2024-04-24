@@ -24,7 +24,7 @@ add_custom_target(_wiimote_generate_messages_check_deps_${_filename}
 
 get_filename_component(_filename "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/joystick_drivers/wiimote/msg/State.msg" NAME_WE)
 add_custom_target(_wiimote_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "wiimote" "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/joystick_drivers/wiimote/msg/State.msg" "std_msgs/Header:wiimote/IrSourceInfo:geometry_msgs/Vector3"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "wiimote" "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/joystick_drivers/wiimote/msg/State.msg" "wiimote/IrSourceInfo:geometry_msgs/Vector3:std_msgs/Header"
 )
 
 get_filename_component(_filename "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/joystick_drivers/wiimote/msg/TimedSwitch.msg" NAME_WE)
@@ -47,7 +47,7 @@ _generate_msg_cpp(wiimote
 _generate_msg_cpp(wiimote
   "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/joystick_drivers/wiimote/msg/State.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/joystick_drivers/wiimote/msg/IrSourceInfo.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
+  "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/joystick_drivers/wiimote/msg/IrSourceInfo.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/wiimote
 )
 _generate_msg_cpp(wiimote
@@ -96,7 +96,7 @@ _generate_msg_eus(wiimote
 _generate_msg_eus(wiimote
   "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/joystick_drivers/wiimote/msg/State.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/joystick_drivers/wiimote/msg/IrSourceInfo.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
+  "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/joystick_drivers/wiimote/msg/IrSourceInfo.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/wiimote
 )
 _generate_msg_eus(wiimote
@@ -145,7 +145,7 @@ _generate_msg_lisp(wiimote
 _generate_msg_lisp(wiimote
   "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/joystick_drivers/wiimote/msg/State.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/joystick_drivers/wiimote/msg/IrSourceInfo.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
+  "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/joystick_drivers/wiimote/msg/IrSourceInfo.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/wiimote
 )
 _generate_msg_lisp(wiimote
@@ -194,7 +194,7 @@ _generate_msg_nodejs(wiimote
 _generate_msg_nodejs(wiimote
   "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/joystick_drivers/wiimote/msg/State.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/joystick_drivers/wiimote/msg/IrSourceInfo.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
+  "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/joystick_drivers/wiimote/msg/IrSourceInfo.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/wiimote
 )
 _generate_msg_nodejs(wiimote
@@ -243,7 +243,7 @@ _generate_msg_py(wiimote
 _generate_msg_py(wiimote
   "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/joystick_drivers/wiimote/msg/State.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/joystick_drivers/wiimote/msg/IrSourceInfo.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
+  "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/joystick_drivers/wiimote/msg/IrSourceInfo.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/wiimote
 )
 _generate_msg_py(wiimote
