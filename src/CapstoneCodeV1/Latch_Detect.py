@@ -56,11 +56,16 @@ if __name__ == '__main__':
         while True:
             if xyxy.size == 0:
                 print("warning, the box is not detected")
-                movement(motor, 'right', 0.5)
+                movement(motor, 'right', 0.3)
                 movement(motor,'stop',0.1)
                 xyxy = Detect_Object()
             else:
                 print(xyxy)
+                if((xyxy[0][0]+xyxy[0][2])/2 > 340):
+                    movement(motor, 'left', 0.1)
+                if((xyxy[0][0]+xyxy[0][2])/2 < 300):
+                    movement(motor, 'right', 0.1)
+                
                 sleep(0.5)
                 xyxy = Detect_Object()
 
