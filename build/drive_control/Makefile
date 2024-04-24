@@ -56,6 +56,18 @@ CMAKE_BINARY_DIR = /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
@@ -68,17 +80,6 @@ install/local/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -90,15 +91,16 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
 
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
+# Special rule for the target test
+test/fast: test
 
-.PHONY : list_install_components/fast
+.PHONY : test/fast
 
 # Special rule for the target install
 install: preinstall
@@ -112,28 +114,26 @@ install/fast: preinstall/fast
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
 
-# Special rule for the target test
-test/fast: test
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
 
-.PHONY : test/fast
+.PHONY : list_install_components/fast
 
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
 
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -168,64 +168,19 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-drive_control/CMakeFiles/drive_control_genpy.dir/rule:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/drive_control_genpy.dir/rule
-.PHONY : drive_control/CMakeFiles/drive_control_genpy.dir/rule
+drive_control/CMakeFiles/std_msgs_generate_messages_py.dir/rule:
+	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/std_msgs_generate_messages_py.dir/rule
+.PHONY : drive_control/CMakeFiles/std_msgs_generate_messages_py.dir/rule
 
 # Convenience name for target.
-drive_control_genpy: drive_control/CMakeFiles/drive_control_genpy.dir/rule
+std_msgs_generate_messages_py: drive_control/CMakeFiles/std_msgs_generate_messages_py.dir/rule
 
-.PHONY : drive_control_genpy
+.PHONY : std_msgs_generate_messages_py
 
 # fast build rule for target.
-drive_control_genpy/fast:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f drive_control/CMakeFiles/drive_control_genpy.dir/build.make drive_control/CMakeFiles/drive_control_genpy.dir/build
-.PHONY : drive_control_genpy/fast
-
-# Convenience name for target.
-drive_control/CMakeFiles/drive_control_generate_messages_py.dir/rule:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/drive_control_generate_messages_py.dir/rule
-.PHONY : drive_control/CMakeFiles/drive_control_generate_messages_py.dir/rule
-
-# Convenience name for target.
-drive_control_generate_messages_py: drive_control/CMakeFiles/drive_control_generate_messages_py.dir/rule
-
-.PHONY : drive_control_generate_messages_py
-
-# fast build rule for target.
-drive_control_generate_messages_py/fast:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f drive_control/CMakeFiles/drive_control_generate_messages_py.dir/build.make drive_control/CMakeFiles/drive_control_generate_messages_py.dir/build
-.PHONY : drive_control_generate_messages_py/fast
-
-# Convenience name for target.
-drive_control/CMakeFiles/drive_control_genlisp.dir/rule:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/drive_control_genlisp.dir/rule
-.PHONY : drive_control/CMakeFiles/drive_control_genlisp.dir/rule
-
-# Convenience name for target.
-drive_control_genlisp: drive_control/CMakeFiles/drive_control_genlisp.dir/rule
-
-.PHONY : drive_control_genlisp
-
-# fast build rule for target.
-drive_control_genlisp/fast:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f drive_control/CMakeFiles/drive_control_genlisp.dir/build.make drive_control/CMakeFiles/drive_control_genlisp.dir/build
-.PHONY : drive_control_genlisp/fast
-
-# Convenience name for target.
-drive_control/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
-.PHONY : drive_control/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-std_msgs_generate_messages_lisp: drive_control/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : std_msgs_generate_messages_lisp
-
-# fast build rule for target.
-std_msgs_generate_messages_lisp/fast:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f drive_control/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make drive_control/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
-.PHONY : std_msgs_generate_messages_lisp/fast
+std_msgs_generate_messages_py/fast:
+	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f drive_control/CMakeFiles/std_msgs_generate_messages_py.dir/build.make drive_control/CMakeFiles/std_msgs_generate_messages_py.dir/build
+.PHONY : std_msgs_generate_messages_py/fast
 
 # Convenience name for target.
 drive_control/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule:
@@ -243,64 +198,19 @@ std_msgs_generate_messages_nodejs/fast:
 .PHONY : std_msgs_generate_messages_nodejs/fast
 
 # Convenience name for target.
-drive_control/CMakeFiles/drive_control_generate_messages_nodejs.dir/rule:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/drive_control_generate_messages_nodejs.dir/rule
-.PHONY : drive_control/CMakeFiles/drive_control_generate_messages_nodejs.dir/rule
+drive_control/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule:
+	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
+.PHONY : drive_control/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
-drive_control_generate_messages_nodejs: drive_control/CMakeFiles/drive_control_generate_messages_nodejs.dir/rule
+std_msgs_generate_messages_lisp: drive_control/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
 
-.PHONY : drive_control_generate_messages_nodejs
+.PHONY : std_msgs_generate_messages_lisp
 
 # fast build rule for target.
-drive_control_generate_messages_nodejs/fast:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f drive_control/CMakeFiles/drive_control_generate_messages_nodejs.dir/build.make drive_control/CMakeFiles/drive_control_generate_messages_nodejs.dir/build
-.PHONY : drive_control_generate_messages_nodejs/fast
-
-# Convenience name for target.
-drive_control/CMakeFiles/drive_control_generate_messages_eus.dir/rule:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/drive_control_generate_messages_eus.dir/rule
-.PHONY : drive_control/CMakeFiles/drive_control_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-drive_control_generate_messages_eus: drive_control/CMakeFiles/drive_control_generate_messages_eus.dir/rule
-
-.PHONY : drive_control_generate_messages_eus
-
-# fast build rule for target.
-drive_control_generate_messages_eus/fast:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f drive_control/CMakeFiles/drive_control_generate_messages_eus.dir/build.make drive_control/CMakeFiles/drive_control_generate_messages_eus.dir/build
-.PHONY : drive_control_generate_messages_eus/fast
-
-# Convenience name for target.
-drive_control/CMakeFiles/std_msgs_generate_messages_py.dir/rule:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/std_msgs_generate_messages_py.dir/rule
-.PHONY : drive_control/CMakeFiles/std_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-std_msgs_generate_messages_py: drive_control/CMakeFiles/std_msgs_generate_messages_py.dir/rule
-
-.PHONY : std_msgs_generate_messages_py
-
-# fast build rule for target.
-std_msgs_generate_messages_py/fast:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f drive_control/CMakeFiles/std_msgs_generate_messages_py.dir/build.make drive_control/CMakeFiles/std_msgs_generate_messages_py.dir/build
-.PHONY : std_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-drive_control/CMakeFiles/drive_control_gennodejs.dir/rule:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/drive_control_gennodejs.dir/rule
-.PHONY : drive_control/CMakeFiles/drive_control_gennodejs.dir/rule
-
-# Convenience name for target.
-drive_control_gennodejs: drive_control/CMakeFiles/drive_control_gennodejs.dir/rule
-
-.PHONY : drive_control_gennodejs
-
-# fast build rule for target.
-drive_control_gennodejs/fast:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f drive_control/CMakeFiles/drive_control_gennodejs.dir/build.make drive_control/CMakeFiles/drive_control_gennodejs.dir/build
-.PHONY : drive_control_gennodejs/fast
+std_msgs_generate_messages_lisp/fast:
+	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f drive_control/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make drive_control/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
+.PHONY : std_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
 drive_control/CMakeFiles/std_msgs_generate_messages_eus.dir/rule:
@@ -318,81 +228,6 @@ std_msgs_generate_messages_eus/fast:
 .PHONY : std_msgs_generate_messages_eus/fast
 
 # Convenience name for target.
-drive_control/CMakeFiles/_drive_control_generate_messages_check_deps_InputState.dir/rule:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/_drive_control_generate_messages_check_deps_InputState.dir/rule
-.PHONY : drive_control/CMakeFiles/_drive_control_generate_messages_check_deps_InputState.dir/rule
-
-# Convenience name for target.
-_drive_control_generate_messages_check_deps_InputState: drive_control/CMakeFiles/_drive_control_generate_messages_check_deps_InputState.dir/rule
-
-.PHONY : _drive_control_generate_messages_check_deps_InputState
-
-# fast build rule for target.
-_drive_control_generate_messages_check_deps_InputState/fast:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f drive_control/CMakeFiles/_drive_control_generate_messages_check_deps_InputState.dir/build.make drive_control/CMakeFiles/_drive_control_generate_messages_check_deps_InputState.dir/build
-.PHONY : _drive_control_generate_messages_check_deps_InputState/fast
-
-# Convenience name for target.
-drive_control/CMakeFiles/drive_control_generate_messages.dir/rule:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/drive_control_generate_messages.dir/rule
-.PHONY : drive_control/CMakeFiles/drive_control_generate_messages.dir/rule
-
-# Convenience name for target.
-drive_control_generate_messages: drive_control/CMakeFiles/drive_control_generate_messages.dir/rule
-
-.PHONY : drive_control_generate_messages
-
-# fast build rule for target.
-drive_control_generate_messages/fast:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f drive_control/CMakeFiles/drive_control_generate_messages.dir/build.make drive_control/CMakeFiles/drive_control_generate_messages.dir/build
-.PHONY : drive_control_generate_messages/fast
-
-# Convenience name for target.
-drive_control/CMakeFiles/_drive_control_generate_messages_check_deps_OutputState.dir/rule:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/_drive_control_generate_messages_check_deps_OutputState.dir/rule
-.PHONY : drive_control/CMakeFiles/_drive_control_generate_messages_check_deps_OutputState.dir/rule
-
-# Convenience name for target.
-_drive_control_generate_messages_check_deps_OutputState: drive_control/CMakeFiles/_drive_control_generate_messages_check_deps_OutputState.dir/rule
-
-.PHONY : _drive_control_generate_messages_check_deps_OutputState
-
-# fast build rule for target.
-_drive_control_generate_messages_check_deps_OutputState/fast:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f drive_control/CMakeFiles/_drive_control_generate_messages_check_deps_OutputState.dir/build.make drive_control/CMakeFiles/_drive_control_generate_messages_check_deps_OutputState.dir/build
-.PHONY : _drive_control_generate_messages_check_deps_OutputState/fast
-
-# Convenience name for target.
-drive_control/CMakeFiles/drive_control_generate_messages_cpp.dir/rule:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/drive_control_generate_messages_cpp.dir/rule
-.PHONY : drive_control/CMakeFiles/drive_control_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-drive_control_generate_messages_cpp: drive_control/CMakeFiles/drive_control_generate_messages_cpp.dir/rule
-
-.PHONY : drive_control_generate_messages_cpp
-
-# fast build rule for target.
-drive_control_generate_messages_cpp/fast:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f drive_control/CMakeFiles/drive_control_generate_messages_cpp.dir/build.make drive_control/CMakeFiles/drive_control_generate_messages_cpp.dir/build
-.PHONY : drive_control_generate_messages_cpp/fast
-
-# Convenience name for target.
-drive_control/CMakeFiles/drive_control_gencpp.dir/rule:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/drive_control_gencpp.dir/rule
-.PHONY : drive_control/CMakeFiles/drive_control_gencpp.dir/rule
-
-# Convenience name for target.
-drive_control_gencpp: drive_control/CMakeFiles/drive_control_gencpp.dir/rule
-
-.PHONY : drive_control_gencpp
-
-# fast build rule for target.
-drive_control_gencpp/fast:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f drive_control/CMakeFiles/drive_control_gencpp.dir/build.make drive_control/CMakeFiles/drive_control_gencpp.dir/build
-.PHONY : drive_control_gencpp/fast
-
-# Convenience name for target.
 drive_control/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule:
 	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
 .PHONY : drive_control/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
@@ -407,67 +242,24 @@ std_msgs_generate_messages_cpp/fast:
 	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f drive_control/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make drive_control/CMakeFiles/std_msgs_generate_messages_cpp.dir/build
 .PHONY : std_msgs_generate_messages_cpp/fast
 
-# Convenience name for target.
-drive_control/CMakeFiles/drive_control_geneus.dir/rule:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/drive_control_geneus.dir/rule
-.PHONY : drive_control/CMakeFiles/drive_control_geneus.dir/rule
-
-# Convenience name for target.
-drive_control_geneus: drive_control/CMakeFiles/drive_control_geneus.dir/rule
-
-.PHONY : drive_control_geneus
-
-# fast build rule for target.
-drive_control_geneus/fast:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f drive_control/CMakeFiles/drive_control_geneus.dir/build.make drive_control/CMakeFiles/drive_control_geneus.dir/build
-.PHONY : drive_control_geneus/fast
-
-# Convenience name for target.
-drive_control/CMakeFiles/drive_control_generate_messages_lisp.dir/rule:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/drive_control_generate_messages_lisp.dir/rule
-.PHONY : drive_control/CMakeFiles/drive_control_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-drive_control_generate_messages_lisp: drive_control/CMakeFiles/drive_control_generate_messages_lisp.dir/rule
-
-.PHONY : drive_control_generate_messages_lisp
-
-# fast build rule for target.
-drive_control_generate_messages_lisp/fast:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f drive_control/CMakeFiles/drive_control_generate_messages_lisp.dir/build.make drive_control/CMakeFiles/drive_control_generate_messages_lisp.dir/build
-.PHONY : drive_control_generate_messages_lisp/fast
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/local"
-	@echo "... rebuild_cache"
-	@echo "... edit_cache"
-	@echo "... drive_control_genpy"
-	@echo "... drive_control_generate_messages_py"
-	@echo "... drive_control_genlisp"
-	@echo "... list_install_components"
-	@echo "... std_msgs_generate_messages_lisp"
-	@echo "... std_msgs_generate_messages_nodejs"
-	@echo "... drive_control_generate_messages_nodejs"
-	@echo "... drive_control_generate_messages_eus"
-	@echo "... std_msgs_generate_messages_py"
-	@echo "... install"
-	@echo "... drive_control_gennodejs"
-	@echo "... std_msgs_generate_messages_eus"
-	@echo "... _drive_control_generate_messages_check_deps_InputState"
-	@echo "... drive_control_generate_messages"
-	@echo "... _drive_control_generate_messages_check_deps_OutputState"
-	@echo "... test"
-	@echo "... drive_control_generate_messages_cpp"
-	@echo "... drive_control_gencpp"
 	@echo "... install/strip"
+	@echo "... install/local"
+	@echo "... edit_cache"
+	@echo "... test"
+	@echo "... std_msgs_generate_messages_py"
+	@echo "... std_msgs_generate_messages_nodejs"
+	@echo "... std_msgs_generate_messages_lisp"
+	@echo "... std_msgs_generate_messages_eus"
+	@echo "... install"
+	@echo "... list_install_components"
+	@echo "... rebuild_cache"
 	@echo "... std_msgs_generate_messages_cpp"
-	@echo "... drive_control_geneus"
-	@echo "... drive_control_generate_messages_lisp"
 .PHONY : help
 
 

@@ -53,31 +53,14 @@ CMAKE_BINARY_DIR = /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build
 # Include the progress variables for this target.
 include drive_control/CMakeFiles/drive_control_generate_messages_py.dir/progress.make
 
-drive_control/CMakeFiles/drive_control_generate_messages_py: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/lib/python3/dist-packages/drive_control/msg/_InputState.py
-drive_control/CMakeFiles/drive_control_generate_messages_py: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/lib/python3/dist-packages/drive_control/msg/_OutputState.py
 drive_control/CMakeFiles/drive_control_generate_messages_py: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/lib/python3/dist-packages/drive_control/msg/__init__.py
 
 
-/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/lib/python3/dist-packages/drive_control/msg/_InputState.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
-/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/lib/python3/dist-packages/drive_control/msg/_InputState.py: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/InputState.msg
-/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/lib/python3/dist-packages/drive_control/msg/_InputState.py: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG drive_control/InputState"
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/drive_control && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/InputState.msg -Idrive_control:/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p drive_control -o /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/lib/python3/dist-packages/drive_control/msg
-
-/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/lib/python3/dist-packages/drive_control/msg/_OutputState.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
-/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/lib/python3/dist-packages/drive_control/msg/_OutputState.py: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/OutputState.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python from MSG drive_control/OutputState"
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/drive_control && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/OutputState.msg -Idrive_control:/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p drive_control -o /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/lib/python3/dist-packages/drive_control/msg
-
 /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/lib/python3/dist-packages/drive_control/msg/__init__.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
-/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/lib/python3/dist-packages/drive_control/msg/__init__.py: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/lib/python3/dist-packages/drive_control/msg/_InputState.py
-/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/lib/python3/dist-packages/drive_control/msg/__init__.py: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/lib/python3/dist-packages/drive_control/msg/_OutputState.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Python msg __init__.py for drive_control"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python msg __init__.py for drive_control"
 	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/drive_control && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/lib/python3/dist-packages/drive_control/msg --initpy
 
 drive_control_generate_messages_py: drive_control/CMakeFiles/drive_control_generate_messages_py
-drive_control_generate_messages_py: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/lib/python3/dist-packages/drive_control/msg/_InputState.py
-drive_control_generate_messages_py: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/lib/python3/dist-packages/drive_control/msg/_OutputState.py
 drive_control_generate_messages_py: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/lib/python3/dist-packages/drive_control/msg/__init__.py
 drive_control_generate_messages_py: drive_control/CMakeFiles/drive_control_generate_messages_py.dir/build.make
 

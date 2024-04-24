@@ -139,6 +139,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/gpio_control/cmake_install.cmake")
   include("/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/joystick_drivers/joy/cmake_install.cmake")
   include("/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/joystick_drivers/spacenav_node/cmake_install.cmake")
+  include("/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/tasks/cmake_install.cmake")
   include("/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/joystick_drivers/wiimote/cmake_install.cmake")
 
 endif()

@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(drive_control_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/include " STREQUAL " ")
+if(NOT " " STREQUAL " ")
   set(drive_control_INCLUDE_DIRS "")
-  set(_include_dirs "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/include")
+  set(_include_dirs "")
   if(NOT " " STREQUAL " ")
     set(_report "Check the issue tracker '' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT " " STREQUAL " ")
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/lib;/opt/ros/noetic/lib)
+    foreach(path /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/lib;/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
@@ -177,7 +177,7 @@ foreach(library ${libraries})
   endif()
 endforeach()
 
-set(drive_control_EXPORTED_TARGETS "drive_control_generate_messages_cpp;drive_control_generate_messages_eus;drive_control_generate_messages_lisp;drive_control_generate_messages_nodejs;drive_control_generate_messages_py")
+set(drive_control_EXPORTED_TARGETS "")
 # create dummy targets for exported code generation targets to make life of users easier
 foreach(t ${drive_control_EXPORTED_TARGETS})
   if(NOT TARGET ${t})
@@ -185,7 +185,7 @@ foreach(t ${drive_control_EXPORTED_TARGETS})
   endif()
 endforeach()
 
-set(depends "message_runtime")
+set(depends "")
 foreach(depend ${depends})
   string(REPLACE " " ";" depend_list ${depend})
   # the package name of the dependency must be kept in a unique variable so that it is not overwritten in recursive calls
@@ -214,7 +214,7 @@ foreach(depend ${depends})
   _list_append_deduplicate(drive_control_EXPORTED_TARGETS ${${drive_control_dep}_EXPORTED_TARGETS})
 endforeach()
 
-set(pkg_cfg_extras "drive_control-msg-extras.cmake")
+set(pkg_cfg_extras "")
 foreach(extra ${pkg_cfg_extras})
   if(NOT IS_ABSOLUTE ${extra})
     set(extra ${drive_control_DIR}/${extra})

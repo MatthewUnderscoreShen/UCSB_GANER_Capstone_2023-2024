@@ -53,29 +53,14 @@ CMAKE_BINARY_DIR = /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build
 # Include the progress variables for this target.
 include drive_control/CMakeFiles/drive_control_generate_messages_eus.dir/progress.make
 
-drive_control/CMakeFiles/drive_control_generate_messages_eus: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/share/roseus/ros/drive_control/msg/InputState.l
-drive_control/CMakeFiles/drive_control_generate_messages_eus: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/share/roseus/ros/drive_control/msg/OutputState.l
 drive_control/CMakeFiles/drive_control_generate_messages_eus: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/share/roseus/ros/drive_control/manifest.l
 
 
-/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/share/roseus/ros/drive_control/msg/InputState.l: /opt/ros/noetic/lib/geneus/gen_eus.py
-/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/share/roseus/ros/drive_control/msg/InputState.l: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/InputState.msg
-/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/share/roseus/ros/drive_control/msg/InputState.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp code from drive_control/InputState.msg"
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/drive_control && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/InputState.msg -Idrive_control:/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p drive_control -o /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/share/roseus/ros/drive_control/msg
-
-/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/share/roseus/ros/drive_control/msg/OutputState.l: /opt/ros/noetic/lib/geneus/gen_eus.py
-/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/share/roseus/ros/drive_control/msg/OutputState.l: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/OutputState.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp code from drive_control/OutputState.msg"
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/drive_control && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/OutputState.msg -Idrive_control:/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p drive_control -o /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/share/roseus/ros/drive_control/msg
-
 /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/share/roseus/ros/drive_control/manifest.l: /opt/ros/noetic/lib/geneus/gen_eus.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating EusLisp manifest code for drive_control"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp manifest code for drive_control"
 	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/drive_control && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py -m -o /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/share/roseus/ros/drive_control drive_control std_msgs
 
 drive_control_generate_messages_eus: drive_control/CMakeFiles/drive_control_generate_messages_eus
-drive_control_generate_messages_eus: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/share/roseus/ros/drive_control/msg/InputState.l
-drive_control_generate_messages_eus: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/share/roseus/ros/drive_control/msg/OutputState.l
 drive_control_generate_messages_eus: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/share/roseus/ros/drive_control/manifest.l
 drive_control_generate_messages_eus: drive_control/CMakeFiles/drive_control_generate_messages_eus.dir/build.make
 

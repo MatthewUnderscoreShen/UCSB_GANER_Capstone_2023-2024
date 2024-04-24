@@ -576,6 +576,12 @@ std_msgs_DIR:PATH=/opt/ros/noetic/share/std_msgs/cmake
 std_srvs_DIR:PATH=/opt/ros/noetic/share/std_srvs/cmake
 
 //Value Computed by CMake
+tasks_BINARY_DIR:STATIC=/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/tasks
+
+//Value Computed by CMake
+tasks_SOURCE_DIR:STATIC=/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/tasks
+
+//Value Computed by CMake
 wiimote_BINARY_DIR:STATIC=/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/joystick_drivers/wiimote
 
 //Value Computed by CMake
@@ -732,7 +738,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=13
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=14
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

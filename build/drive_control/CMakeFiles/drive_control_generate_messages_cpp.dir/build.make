@@ -53,26 +53,6 @@ CMAKE_BINARY_DIR = /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build
 # Include the progress variables for this target.
 include drive_control/CMakeFiles/drive_control_generate_messages_cpp.dir/progress.make
 
-drive_control/CMakeFiles/drive_control_generate_messages_cpp: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/include/drive_control/InputState.h
-drive_control/CMakeFiles/drive_control_generate_messages_cpp: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/include/drive_control/OutputState.h
-
-
-/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/include/drive_control/InputState.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/include/drive_control/InputState.h: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/InputState.msg
-/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/include/drive_control/InputState.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/include/drive_control/InputState.h: /opt/ros/noetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code from drive_control/InputState.msg"
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control && /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/InputState.msg -Idrive_control:/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p drive_control -o /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/include/drive_control -e /opt/ros/noetic/share/gencpp/cmake/..
-
-/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/include/drive_control/OutputState.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/include/drive_control/OutputState.h: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/OutputState.msg
-/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/include/drive_control/OutputState.h: /opt/ros/noetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating C++ code from drive_control/OutputState.msg"
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control && /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/OutputState.msg -Idrive_control:/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p drive_control -o /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/include/drive_control -e /opt/ros/noetic/share/gencpp/cmake/..
-
-drive_control_generate_messages_cpp: drive_control/CMakeFiles/drive_control_generate_messages_cpp
-drive_control_generate_messages_cpp: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/include/drive_control/InputState.h
-drive_control_generate_messages_cpp: /home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/include/drive_control/OutputState.h
 drive_control_generate_messages_cpp: drive_control/CMakeFiles/drive_control_generate_messages_cpp.dir/build.make
 
 .PHONY : drive_control_generate_messages_cpp

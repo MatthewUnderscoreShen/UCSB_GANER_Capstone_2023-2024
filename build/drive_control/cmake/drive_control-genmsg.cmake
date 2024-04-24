@@ -1,8 +1,10 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "drive_control: 2 messages, 0 services")
+message(WARNING "Invoking generate_messages() without having added any message or service file before.
+You should either add add_message_files() and/or add_service_files() calls or remove the invocation of generate_messages().")
+message(STATUS "drive_control: 0 messages, 0 services")
 
-set(MSG_I_FLAGS "-Idrive_control:/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg;-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg")
+set(MSG_I_FLAGS "-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg")
 
 # Find all generators
 find_package(gencpp REQUIRED)
@@ -17,34 +19,12 @@ add_custom_target(drive_control_generate_messages ALL)
 
 
 
-get_filename_component(_filename "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/InputState.msg" NAME_WE)
-add_custom_target(_drive_control_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "drive_control" "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/InputState.msg" "std_msgs/Header"
-)
-
-get_filename_component(_filename "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/OutputState.msg" NAME_WE)
-add_custom_target(_drive_control_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "drive_control" "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/OutputState.msg" ""
-)
-
 #
 #  langs = gencpp;geneus;genlisp;gennodejs;genpy
 #
 
 ### Section generating for lang: gencpp
 ### Generating Messages
-_generate_msg_cpp(drive_control
-  "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/InputState.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/drive_control
-)
-_generate_msg_cpp(drive_control
-  "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/OutputState.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/drive_control
-)
 
 ### Generating Services
 
@@ -60,10 +40,6 @@ add_custom_target(drive_control_generate_messages_cpp
 add_dependencies(drive_control_generate_messages drive_control_generate_messages_cpp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/InputState.msg" NAME_WE)
-add_dependencies(drive_control_generate_messages_cpp _drive_control_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/OutputState.msg" NAME_WE)
-add_dependencies(drive_control_generate_messages_cpp _drive_control_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(drive_control_gencpp)
@@ -74,18 +50,6 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS drive_control_generate_messages_cpp
 
 ### Section generating for lang: geneus
 ### Generating Messages
-_generate_msg_eus(drive_control
-  "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/InputState.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/drive_control
-)
-_generate_msg_eus(drive_control
-  "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/OutputState.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/drive_control
-)
 
 ### Generating Services
 
@@ -101,10 +65,6 @@ add_custom_target(drive_control_generate_messages_eus
 add_dependencies(drive_control_generate_messages drive_control_generate_messages_eus)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/InputState.msg" NAME_WE)
-add_dependencies(drive_control_generate_messages_eus _drive_control_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/OutputState.msg" NAME_WE)
-add_dependencies(drive_control_generate_messages_eus _drive_control_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(drive_control_geneus)
@@ -115,18 +75,6 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS drive_control_generate_messages_eus
 
 ### Section generating for lang: genlisp
 ### Generating Messages
-_generate_msg_lisp(drive_control
-  "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/InputState.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/drive_control
-)
-_generate_msg_lisp(drive_control
-  "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/OutputState.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/drive_control
-)
 
 ### Generating Services
 
@@ -142,10 +90,6 @@ add_custom_target(drive_control_generate_messages_lisp
 add_dependencies(drive_control_generate_messages drive_control_generate_messages_lisp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/InputState.msg" NAME_WE)
-add_dependencies(drive_control_generate_messages_lisp _drive_control_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/OutputState.msg" NAME_WE)
-add_dependencies(drive_control_generate_messages_lisp _drive_control_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(drive_control_genlisp)
@@ -156,18 +100,6 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS drive_control_generate_messages_lis
 
 ### Section generating for lang: gennodejs
 ### Generating Messages
-_generate_msg_nodejs(drive_control
-  "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/InputState.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/drive_control
-)
-_generate_msg_nodejs(drive_control
-  "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/OutputState.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/drive_control
-)
 
 ### Generating Services
 
@@ -183,10 +115,6 @@ add_custom_target(drive_control_generate_messages_nodejs
 add_dependencies(drive_control_generate_messages drive_control_generate_messages_nodejs)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/InputState.msg" NAME_WE)
-add_dependencies(drive_control_generate_messages_nodejs _drive_control_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/OutputState.msg" NAME_WE)
-add_dependencies(drive_control_generate_messages_nodejs _drive_control_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(drive_control_gennodejs)
@@ -197,18 +125,6 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS drive_control_generate_messages_nod
 
 ### Section generating for lang: genpy
 ### Generating Messages
-_generate_msg_py(drive_control
-  "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/InputState.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/drive_control
-)
-_generate_msg_py(drive_control
-  "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/OutputState.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/drive_control
-)
 
 ### Generating Services
 
@@ -224,10 +140,6 @@ add_custom_target(drive_control_generate_messages_py
 add_dependencies(drive_control_generate_messages drive_control_generate_messages_py)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/InputState.msg" NAME_WE)
-add_dependencies(drive_control_generate_messages_py _drive_control_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/msg/OutputState.msg" NAME_WE)
-add_dependencies(drive_control_generate_messages_py _drive_control_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(drive_control_genpy)
