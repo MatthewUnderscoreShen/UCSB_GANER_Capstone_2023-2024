@@ -61,7 +61,8 @@ if __name__ == '__main__':
                 xyxy = Detect_Object()
             else:
                 print(xyxy)
-                sleep(1)
+                sleep(0.5)
+                xyxy = Detect_Object()
 
                 
             
