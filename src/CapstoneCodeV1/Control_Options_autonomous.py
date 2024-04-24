@@ -1,6 +1,7 @@
 from Motor import Motor
 from Motor_DTLever import Motor_DTLever
-from Arm_Class import Arm_Class
+#from Arm_Class import Arm_Class
+import Arm_Class
 import Controller as js
 from ultrasonic_sensor_setup import distance
 
