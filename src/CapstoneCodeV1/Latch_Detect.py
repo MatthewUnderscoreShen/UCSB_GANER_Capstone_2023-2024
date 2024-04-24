@@ -65,8 +65,7 @@ if __name__ == '__main__':
                     movement(motor, 'left', 0.1)
                 if((xyxy[0][0]+xyxy[0][2])/2 < 300):
                     movement(motor, 'right', 0.1)
-                
-                sleep(0.5)
+                movement(motor,'stop',0.1)
                 xyxy = Detect_Object()
 
                 
