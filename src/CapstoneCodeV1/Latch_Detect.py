@@ -11,7 +11,6 @@ import RPi.GPIO as GPIO
 # Define Method of Control
 #movement = 'JoyStick'
 # movement = 'KeyBoard'
-movement = 'Autonomous'
 def Initialize_Objects(movement):
 #     global angle1,angle2,angle3,angle4,angle5,angle6
     # arm = xarm.Controller('USB')
@@ -20,8 +19,22 @@ def Initialize_Objects(movement):
     motor_DTLever = Motor_DTLever(9,11)
     return motor, motor_DTLever
 # motor, motor_DTLever, servo_motor, pixy2, dist1,dist2, servo1_2, servo3 = ctl.Initialize_Objects(movement)
-motor, motor_DTLever = Initialize_Objects(movement)
-
+motor, motor_DTLever = Initialize_Objects('Autonomous')
+def movement(motor, movement_type, time):
+    ## motor.move(power, turn, time)
+    ## Negative value is okay, goes backwards
+    if movement_type == 'foward':
+        motor.move(speed = 0.5,turn= -1, t=time)
+    elif movement_type == 'backward':
+        motor.move(speed = 0.5,turn = 1,t=time)
+    elif movement_type == 'right':
+        motor.move(1, 0.5, time)
+    elif movement_type == 'left':
+        motor.move(1, -0.5, t=time)
+    elif movement_type == 'stop':
+        motor.stop(t =time)
+    else:
+        print("Unknown movement type")
 # some prequisit from control option
 
 
@@ -41,7 +54,7 @@ if __name__ == '__main__':
         xy = Detect_Object()
         
         while True:
-            movement(motor,'right',0.1)
+            movement(motor, 'right', 0.4)
             
 
     except KeyboardInterrupt:
@@ -54,21 +67,7 @@ if __name__ == '__main__':
 
 
 
-def movement(motor, movement_type, time):
-    ## motor.move(power, turn, time)
-    ## Negative value is okay, goes backwards
-    if movement_type == 'foward':
-        motor.move(speed = 0.5,turn= -1, t=time)
-    elif movement_type == 'backward':
-        motor.move(speed = 0.5,turn = 1,t=time)
-    elif movement_type == 'right':
-        motor.move(1, 0.5, time)
-    elif movement_type == 'left':
-        motor.move(1, -0.5, t=time)
-    elif movement_type == 'stop':
-        motor.stop(t =time)
-    else:
-        print("Unknown movement type")
+
 
 
 
