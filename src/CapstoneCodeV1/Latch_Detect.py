@@ -3,11 +3,24 @@ from skimage import io
 import numpy as np
 import os
 
-import Control_Options_autonomous as ctl
+from Control_Options_autonomous import Initialize_Objects
+from Control_Options_autonomous import movement
 #import test_arm as ctl
-import xarm
 import math
 import RPi.GPIO as GPIO
+# Define Method of Control
+#movement = 'JoyStick'
+# movement = 'KeyBoard'
+movement = 'Autonomous'
+
+# motor, motor_DTLever, servo_motor, pixy2, dist1,dist2, servo1_2, servo3 = ctl.Initialize_Objects(movement)
+motor, motor_DTLever = Initialize_Objects(movement)
+
+# some prequisit from control option
+
+
+
+
 
 def Detect_Object():
     model = YOLO('best.pt') 
@@ -20,8 +33,9 @@ def Detect_Object():
 if __name__ == '__main__':
     try:
         xy = Detect_Object()
+        
         while True:
-            xy = Detect_Object()
+            movement(motor,'right',0.1)
             
 
     except KeyboardInterrupt:
