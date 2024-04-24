@@ -51,10 +51,17 @@ def Detect_Object():
 
 if __name__ == '__main__':
     try:
-        xy = Detect_Object()
+        xyxy = Detect_Object()
         
         while True:
-            movement(motor, 'right', 0.4)
+            if xyxy.size == 0:
+                print("warning, the box is not detected")
+                movement(motor, 'right', 0.4)
+                xyxy = Detect_Object()
+            else:
+                print(xyxy)
+
+                
             
 
     except KeyboardInterrupt:
