@@ -3,8 +3,8 @@ from skimage import io
 import numpy as np
 import os
 
-from Control_Options_autonomous import Initialize_Objects
-from Control_Options_autonomous import movement
+from Motor import Motor
+from Motor_DTLever import Motor_DTLever
 #import test_arm as ctl
 import math
 import RPi.GPIO as GPIO
@@ -12,7 +12,13 @@ import RPi.GPIO as GPIO
 #movement = 'JoyStick'
 # movement = 'KeyBoard'
 movement = 'Autonomous'
+def Initialize_Objects(movement):
+#     global angle1,angle2,angle3,angle4,angle5,angle6
+    # arm = xarm.Controller('USB')
 
+    motor = Motor(17,27,22,10)
+    motor_DTLever = Motor_DTLever(9,11)
+    return motor, motor_DTLever
 # motor, motor_DTLever, servo_motor, pixy2, dist1,dist2, servo1_2, servo3 = ctl.Initialize_Objects(movement)
 motor, motor_DTLever = Initialize_Objects(movement)
 
@@ -42,3 +48,27 @@ if __name__ == '__main__':
         print('Execution Aborted By User')
         GPIO.cleanup()
     
+
+
+
+
+
+
+def movement(motor, movement_type, time):
+    ## motor.move(power, turn, time)
+    ## Negative value is okay, goes backwards
+    if movement_type == 'foward':
+        motor.move(speed = 0.5,turn= -1, t=time)
+    elif movement_type == 'backward':
+        motor.move(speed = 0.5,turn = 1,t=time)
+    elif movement_type == 'right':
+        motor.move(1, 0.5, time)
+    elif movement_type == 'left':
+        motor.move(1, -0.5, t=time)
+    elif movement_type == 'stop':
+        motor.stop(t =time)
+    else:
+        print("Unknown movement type")
+
+
+
