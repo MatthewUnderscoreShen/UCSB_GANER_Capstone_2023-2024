@@ -5,6 +5,7 @@ import os
 
 from Motor import Motor
 from Motor_DTLever import Motor_DTLever
+from time import sleep
 #import test_arm as ctl
 import math
 import RPi.GPIO as GPIO
@@ -46,7 +47,6 @@ def Detect_Object():
     os.system('raspistill -o image.jpg -h 640 -w 640 -t 10 -rot 0')
     results = model(['image.jpg'])  # return a list of Results objects
     xyxy = results[0].boxes.xyxy.numpy()
-    print(xyxy)
     return xyxy
 
 if __name__ == '__main__':
@@ -56,7 +56,9 @@ if __name__ == '__main__':
         while True:
             if xyxy.size == 0:
                 print("warning, the box is not detected")
-                movement(motor, 'right', 0.4)
+                movement(motor, 'right', 0.1)
+                sleep(1)
+                movement(motor,'stop',0.1)
                 xyxy = Detect_Object()
             else:
                 print(xyxy)
