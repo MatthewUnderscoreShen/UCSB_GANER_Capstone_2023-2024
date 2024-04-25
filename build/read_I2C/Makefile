@@ -137,14 +137,14 @@ test/fast: test
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/read_I2C/CMakeFiles/progress.marks
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 read_I2C/all
+	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/read_i2c/CMakeFiles/progress.marks
+	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 read_i2c/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 read_I2C/clean
+	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 read_i2c/clean
 .PHONY : clean
 
 # The main clean target
@@ -154,33 +154,18 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 read_I2C/preinstall
+	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 read_i2c/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 read_I2C/preinstall
+	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 read_i2c/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
 	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
-
-# Convenience name for target.
-read_I2C/CMakeFiles/_catkin_empty_exported_target.dir/rule:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 read_I2C/CMakeFiles/_catkin_empty_exported_target.dir/rule
-.PHONY : read_I2C/CMakeFiles/_catkin_empty_exported_target.dir/rule
-
-# Convenience name for target.
-_catkin_empty_exported_target: read_I2C/CMakeFiles/_catkin_empty_exported_target.dir/rule
-
-.PHONY : _catkin_empty_exported_target
-
-# fast build rule for target.
-_catkin_empty_exported_target/fast:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f read_I2C/CMakeFiles/_catkin_empty_exported_target.dir/build.make read_I2C/CMakeFiles/_catkin_empty_exported_target.dir/build
-.PHONY : _catkin_empty_exported_target/fast
 
 # Help Target
 help:
@@ -195,7 +180,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... test"
-	@echo "... _catkin_empty_exported_target"
 .PHONY : help
 
 
