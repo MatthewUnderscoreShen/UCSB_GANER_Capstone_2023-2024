@@ -367,6 +367,9 @@ Project_BINARY_DIR:STATIC=/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build
 //Value Computed by CMake
 Project_SOURCE_DIR:STATIC=/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src
 
+//The directory containing a CMake configuration file for RPi.GPIO.
+RPi.GPIO_DIR:PATH=RPi.GPIO_DIR-NOTFOUND
+
 //Path to a library.
 RT_LIBRARY:FILEPATH=/usr/lib/aarch64-linux-gnu/librt.so
 

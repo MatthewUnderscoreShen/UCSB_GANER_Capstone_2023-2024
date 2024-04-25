@@ -38,6 +38,10 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  include("/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/tasks/catkin_generated/safe_execute_install.cmake")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/tasks/catkin_generated/installspace/tasks.pc")
 endif()
 
@@ -50,5 +54,9 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/tasks" TYPE FILE FILES "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/tasks/package.xml")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/tasks" TYPE PROGRAM FILES "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/tasks/catkin_generated/installspace/test_task.py")
 endif()
 

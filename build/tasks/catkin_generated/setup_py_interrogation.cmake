@@ -1,0 +1,7 @@
+set(tasks_SETUP_PY_SETUP_MODULE "distutils.core")
+set(tasks_SETUP_PY_VERSION "0.0.0")
+set(tasks_SETUP_PY_SCRIPTS "")
+set(tasks_SETUP_PY_PACKAGES "tasks")
+set(tasks_SETUP_PY_PACKAGE_DIRS "include/tasks")
+set(tasks_SETUP_PY_MODULES "")
+set(tasks_SETUP_PY_MODULE_DIRS "")

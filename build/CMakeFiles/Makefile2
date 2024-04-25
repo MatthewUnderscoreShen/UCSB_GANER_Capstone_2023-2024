@@ -56,10 +56,10 @@ CMAKE_BINARY_DIR = /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build
 all: gtest/all
 all: joystick_drivers/joystick_drivers/all
 all: read_i2c/all
-all: robot_control/all
 all: robot_launch/all
 all: drive_control/all
 all: gpio_control/all
+all: robot_control/all
 all: joystick_drivers/joy/all
 all: joystick_drivers/spacenav_node/all
 all: tasks/all
@@ -71,10 +71,10 @@ all: joystick_drivers/wiimote/all
 preinstall: gtest/preinstall
 preinstall: joystick_drivers/joystick_drivers/preinstall
 preinstall: read_i2c/preinstall
-preinstall: robot_control/preinstall
 preinstall: robot_launch/preinstall
 preinstall: drive_control/preinstall
 preinstall: gpio_control/preinstall
+preinstall: robot_control/preinstall
 preinstall: joystick_drivers/joy/preinstall
 preinstall: joystick_drivers/spacenav_node/preinstall
 preinstall: tasks/preinstall
@@ -91,10 +91,10 @@ clean: CMakeFiles/download_extra_data.dir/clean
 clean: gtest/clean
 clean: joystick_drivers/joystick_drivers/clean
 clean: read_i2c/clean
-clean: robot_control/clean
 clean: robot_launch/clean
 clean: drive_control/clean
 clean: gpio_control/clean
+clean: robot_control/clean
 clean: joystick_drivers/joy/clean
 clean: joystick_drivers/spacenav_node/clean
 clean: tasks/clean

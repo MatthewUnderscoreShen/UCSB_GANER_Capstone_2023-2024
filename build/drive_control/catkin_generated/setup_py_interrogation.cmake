@@ -1,0 +1,7 @@
+set(drive_control_SETUP_PY_SETUP_MODULE "distutils.core")
+set(drive_control_SETUP_PY_VERSION "0.0.0")
+set(drive_control_SETUP_PY_SCRIPTS "")
+set(drive_control_SETUP_PY_PACKAGES "drive_control")
+set(drive_control_SETUP_PY_PACKAGE_DIRS "include/drive_control")
+set(drive_control_SETUP_PY_MODULES "")
+set(drive_control_SETUP_PY_MODULE_DIRS "")
