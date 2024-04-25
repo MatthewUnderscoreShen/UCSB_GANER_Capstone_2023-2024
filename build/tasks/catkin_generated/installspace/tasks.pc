@@ -5,4 +5,4 @@ Description: Description of tasks
 Version: 0.0.0
 Cflags: 
 Libs: -L${prefix}/lib 
-Requires: message_runtime std_msgs sensor_msgs rospy
+Requires: 

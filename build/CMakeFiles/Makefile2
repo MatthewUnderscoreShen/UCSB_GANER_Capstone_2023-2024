@@ -56,10 +56,10 @@ CMAKE_BINARY_DIR = /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build
 all: gtest/all
 all: joystick_drivers/joystick_drivers/all
 all: read_i2c/all
-all: robot_control/all
 all: robot_launch/all
 all: drive_control/all
 all: gpio_control/all
+all: robot_control/all
 all: joystick_drivers/joy/all
 all: joystick_drivers/spacenav_node/all
 all: tasks/all
@@ -71,10 +71,10 @@ all: joystick_drivers/wiimote/all
 preinstall: gtest/preinstall
 preinstall: joystick_drivers/joystick_drivers/preinstall
 preinstall: read_i2c/preinstall
-preinstall: robot_control/preinstall
 preinstall: robot_launch/preinstall
 preinstall: drive_control/preinstall
 preinstall: gpio_control/preinstall
+preinstall: robot_control/preinstall
 preinstall: joystick_drivers/joy/preinstall
 preinstall: joystick_drivers/spacenav_node/preinstall
 preinstall: tasks/preinstall
@@ -91,10 +91,10 @@ clean: CMakeFiles/download_extra_data.dir/clean
 clean: gtest/clean
 clean: joystick_drivers/joystick_drivers/clean
 clean: read_i2c/clean
-clean: robot_control/clean
 clean: robot_launch/clean
 clean: drive_control/clean
 clean: gpio_control/clean
+clean: robot_control/clean
 clean: joystick_drivers/joy/clean
 clean: joystick_drivers/spacenav_node/clean
 clean: tasks/clean
@@ -106,7 +106,7 @@ clean: joystick_drivers/wiimote/clean
 # Directory level rules for directory drive_control
 
 # Recursive "all" directory target.
-drive_control/all:
+drive_control/all: drive_control/CMakeFiles/motor_control_test.dir/all
 
 .PHONY : drive_control/all
 
@@ -116,6 +116,7 @@ drive_control/preinstall:
 .PHONY : drive_control/preinstall
 
 # Recursive "clean" directory target.
+drive_control/clean: drive_control/CMakeFiles/motor_control_test.dir/clean
 drive_control/clean: drive_control/CMakeFiles/std_msgs_generate_messages_py.dir/clean
 drive_control/clean: drive_control/CMakeFiles/std_msgs_generate_messages_nodejs.dir/clean
 drive_control/clean: drive_control/CMakeFiles/std_msgs_generate_messages_lisp.dir/clean
@@ -377,7 +378,7 @@ read_i2c/clean:
 # Directory level rules for directory robot_control
 
 # Recursive "all" directory target.
-robot_control/all:
+robot_control/all: robot_control/CMakeFiles/test_commands.dir/all
 
 .PHONY : robot_control/all
 
@@ -387,7 +388,7 @@ robot_control/preinstall:
 .PHONY : robot_control/preinstall
 
 # Recursive "clean" directory target.
-robot_control/clean:
+robot_control/clean: robot_control/CMakeFiles/test_commands.dir/clean
 
 .PHONY : robot_control/clean
 
@@ -413,7 +414,7 @@ robot_launch/clean:
 # Directory level rules for directory tasks
 
 # Recursive "all" directory target.
-tasks/all:
+tasks/all: tasks/CMakeFiles/test_task.dir/all
 
 .PHONY : tasks/all
 
@@ -423,7 +424,7 @@ tasks/preinstall:
 .PHONY : tasks/preinstall
 
 # Recursive "clean" directory target.
-tasks/clean:
+tasks/clean: tasks/CMakeFiles/test_task.dir/clean
 
 .PHONY : tasks/clean
 
@@ -699,6 +700,33 @@ _catkin_empty_exported_target: joystick_drivers/joystick_drivers/CMakeFiles/_cat
 joystick_drivers/joystick_drivers/CMakeFiles/_catkin_empty_exported_target.dir/clean:
 	$(MAKE) -f joystick_drivers/joystick_drivers/CMakeFiles/_catkin_empty_exported_target.dir/build.make joystick_drivers/joystick_drivers/CMakeFiles/_catkin_empty_exported_target.dir/clean
 .PHONY : joystick_drivers/joystick_drivers/CMakeFiles/_catkin_empty_exported_target.dir/clean
+
+#=============================================================================
+# Target rules for target drive_control/CMakeFiles/motor_control_test.dir
+
+# All Build rule for target.
+drive_control/CMakeFiles/motor_control_test.dir/all:
+	$(MAKE) -f drive_control/CMakeFiles/motor_control_test.dir/build.make drive_control/CMakeFiles/motor_control_test.dir/depend
+	$(MAKE) -f drive_control/CMakeFiles/motor_control_test.dir/build.make drive_control/CMakeFiles/motor_control_test.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles --progress-num= "Built target motor_control_test"
+.PHONY : drive_control/CMakeFiles/motor_control_test.dir/all
+
+# Build rule for subdir invocation for target.
+drive_control/CMakeFiles/motor_control_test.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/motor_control_test.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+.PHONY : drive_control/CMakeFiles/motor_control_test.dir/rule
+
+# Convenience name for target.
+motor_control_test: drive_control/CMakeFiles/motor_control_test.dir/rule
+
+.PHONY : motor_control_test
+
+# clean rule for target.
+drive_control/CMakeFiles/motor_control_test.dir/clean:
+	$(MAKE) -f drive_control/CMakeFiles/motor_control_test.dir/build.make drive_control/CMakeFiles/motor_control_test.dir/clean
+.PHONY : drive_control/CMakeFiles/motor_control_test.dir/clean
 
 #=============================================================================
 # Target rules for target drive_control/CMakeFiles/std_msgs_generate_messages_py.dir
@@ -1469,6 +1497,33 @@ rosgraph_msgs_generate_messages_eus: gpio_control/CMakeFiles/rosgraph_msgs_gener
 gpio_control/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/clean:
 	$(MAKE) -f gpio_control/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make gpio_control/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/clean
 .PHONY : gpio_control/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/clean
+
+#=============================================================================
+# Target rules for target robot_control/CMakeFiles/test_commands.dir
+
+# All Build rule for target.
+robot_control/CMakeFiles/test_commands.dir/all:
+	$(MAKE) -f robot_control/CMakeFiles/test_commands.dir/build.make robot_control/CMakeFiles/test_commands.dir/depend
+	$(MAKE) -f robot_control/CMakeFiles/test_commands.dir/build.make robot_control/CMakeFiles/test_commands.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles --progress-num= "Built target test_commands"
+.PHONY : robot_control/CMakeFiles/test_commands.dir/all
+
+# Build rule for subdir invocation for target.
+robot_control/CMakeFiles/test_commands.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 robot_control/CMakeFiles/test_commands.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+.PHONY : robot_control/CMakeFiles/test_commands.dir/rule
+
+# Convenience name for target.
+test_commands: robot_control/CMakeFiles/test_commands.dir/rule
+
+.PHONY : test_commands
+
+# clean rule for target.
+robot_control/CMakeFiles/test_commands.dir/clean:
+	$(MAKE) -f robot_control/CMakeFiles/test_commands.dir/build.make robot_control/CMakeFiles/test_commands.dir/clean
+.PHONY : robot_control/CMakeFiles/test_commands.dir/clean
 
 #=============================================================================
 # Target rules for target joystick_drivers/joy/CMakeFiles/geometry_msgs_generate_messages_cpp.dir
@@ -2391,6 +2446,33 @@ _run_tests_spacenav_node: joystick_drivers/spacenav_node/CMakeFiles/_run_tests_s
 joystick_drivers/spacenav_node/CMakeFiles/_run_tests_spacenav_node.dir/clean:
 	$(MAKE) -f joystick_drivers/spacenav_node/CMakeFiles/_run_tests_spacenav_node.dir/build.make joystick_drivers/spacenav_node/CMakeFiles/_run_tests_spacenav_node.dir/clean
 .PHONY : joystick_drivers/spacenav_node/CMakeFiles/_run_tests_spacenav_node.dir/clean
+
+#=============================================================================
+# Target rules for target tasks/CMakeFiles/test_task.dir
+
+# All Build rule for target.
+tasks/CMakeFiles/test_task.dir/all:
+	$(MAKE) -f tasks/CMakeFiles/test_task.dir/build.make tasks/CMakeFiles/test_task.dir/depend
+	$(MAKE) -f tasks/CMakeFiles/test_task.dir/build.make tasks/CMakeFiles/test_task.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles --progress-num= "Built target test_task"
+.PHONY : tasks/CMakeFiles/test_task.dir/all
+
+# Build rule for subdir invocation for target.
+tasks/CMakeFiles/test_task.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 tasks/CMakeFiles/test_task.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+.PHONY : tasks/CMakeFiles/test_task.dir/rule
+
+# Convenience name for target.
+test_task: tasks/CMakeFiles/test_task.dir/rule
+
+.PHONY : test_task
+
+# clean rule for target.
+tasks/CMakeFiles/test_task.dir/clean:
+	$(MAKE) -f tasks/CMakeFiles/test_task.dir/build.make tasks/CMakeFiles/test_task.dir/clean
+.PHONY : tasks/CMakeFiles/test_task.dir/clean
 
 #=============================================================================
 # Target rules for target joystick_drivers/wiimote/CMakeFiles/wiimote_generate_messages_eus.dir

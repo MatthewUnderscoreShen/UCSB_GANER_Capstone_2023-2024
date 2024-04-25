@@ -167,6 +167,21 @@ depend:
 	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
+# Convenience name for target.
+tasks/CMakeFiles/test_task.dir/rule:
+	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 tasks/CMakeFiles/test_task.dir/rule
+.PHONY : tasks/CMakeFiles/test_task.dir/rule
+
+# Convenience name for target.
+test_task: tasks/CMakeFiles/test_task.dir/rule
+
+.PHONY : test_task
+
+# fast build rule for target.
+test_task/fast:
+	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f tasks/CMakeFiles/test_task.dir/build.make tasks/CMakeFiles/test_task.dir/build
+.PHONY : test_task/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -180,6 +195,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... test"
+	@echo "... test_task"
 .PHONY : help
 
 

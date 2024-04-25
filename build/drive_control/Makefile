@@ -168,6 +168,21 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+drive_control/CMakeFiles/motor_control_test.dir/rule:
+	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/motor_control_test.dir/rule
+.PHONY : drive_control/CMakeFiles/motor_control_test.dir/rule
+
+# Convenience name for target.
+motor_control_test: drive_control/CMakeFiles/motor_control_test.dir/rule
+
+.PHONY : motor_control_test
+
+# fast build rule for target.
+motor_control_test/fast:
+	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f drive_control/CMakeFiles/motor_control_test.dir/build.make drive_control/CMakeFiles/motor_control_test.dir/build
+.PHONY : motor_control_test/fast
+
+# Convenience name for target.
 drive_control/CMakeFiles/std_msgs_generate_messages_py.dir/rule:
 	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/std_msgs_generate_messages_py.dir/rule
 .PHONY : drive_control/CMakeFiles/std_msgs_generate_messages_py.dir/rule
@@ -250,6 +265,7 @@ help:
 	@echo "... depend"
 	@echo "... install/strip"
 	@echo "... install/local"
+	@echo "... motor_control_test"
 	@echo "... edit_cache"
 	@echo "... test"
 	@echo "... std_msgs_generate_messages_py"
