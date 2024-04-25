@@ -80,28 +80,6 @@ install/local/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
-
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
@@ -135,6 +113,28 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+
+.PHONY : test/fast
+
 # The main all target
 all: cmake_check_build_system
 	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/robot_control/CMakeFiles/progress.marks
@@ -167,21 +167,6 @@ depend:
 	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-# Convenience name for target.
-robot_control/CMakeFiles/test_commands.dir/rule:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f CMakeFiles/Makefile2 robot_control/CMakeFiles/test_commands.dir/rule
-.PHONY : robot_control/CMakeFiles/test_commands.dir/rule
-
-# Convenience name for target.
-test_commands: robot_control/CMakeFiles/test_commands.dir/rule
-
-.PHONY : test_commands
-
-# fast build rule for target.
-test_commands/fast:
-	cd /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build && $(MAKE) -f robot_control/CMakeFiles/test_commands.dir/build.make robot_control/CMakeFiles/test_commands.dir/build
-.PHONY : test_commands/fast
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -190,12 +175,11 @@ help:
 	@echo "... depend"
 	@echo "... install/strip"
 	@echo "... install/local"
-	@echo "... edit_cache"
-	@echo "... test"
 	@echo "... install"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... test_commands"
+	@echo "... edit_cache"
+	@echo "... test"
 .PHONY : help
 
 

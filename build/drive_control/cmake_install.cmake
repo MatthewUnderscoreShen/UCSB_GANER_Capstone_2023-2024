@@ -38,6 +38,10 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  include("/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/drive_control/catkin_generated/safe_execute_install.cmake")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/drive_control/catkin_generated/installspace/drive_control.pc")
 endif()
 
@@ -50,5 +54,9 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/drive_control" TYPE FILE FILES "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/src/drive_control/package.xml")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/drive_control" TYPE PROGRAM FILES "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/drive_control/catkin_generated/installspace/motor_control_test.py")
 endif()
 

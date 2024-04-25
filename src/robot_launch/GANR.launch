@@ -1,6 +1,6 @@
 <launch>
     <include file="$(find joy)/launch/joy.launch"/>
-    <!--<include file="$(find gpio_control)/launch/gpio.launch"/>-->
+    <include file="$(find gpio_control)/launch/gpio.launch"/>
     <include file="$(find drive_control)/launch/test_drive_control.launch"/>
     <include file="$(find robot_control)/launch/test_robot_control.launch"/>
     <include file="$(find tasks)/launch/test_tasks.launch"/>

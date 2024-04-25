@@ -298,19 +298,6 @@ _catkin_empty_exported_target/fast:
 .PHONY : _catkin_empty_exported_target/fast
 
 #=============================================================================
-# Target rules for targets named motor_control_test
-
-# Build rule for target.
-motor_control_test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 motor_control_test
-.PHONY : motor_control_test
-
-# fast build rule for target.
-motor_control_test/fast:
-	$(MAKE) -f drive_control/CMakeFiles/motor_control_test.dir/build.make drive_control/CMakeFiles/motor_control_test.dir/build
-.PHONY : motor_control_test/fast
-
-#=============================================================================
 # Target rules for targets named std_msgs_generate_messages_py
 
 # Build rule for target.
@@ -673,19 +660,6 @@ rosgraph_msgs_generate_messages_eus: cmake_check_build_system
 rosgraph_msgs_generate_messages_eus/fast:
 	$(MAKE) -f gpio_control/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make gpio_control/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
 .PHONY : rosgraph_msgs_generate_messages_eus/fast
-
-#=============================================================================
-# Target rules for targets named test_commands
-
-# Build rule for target.
-test_commands: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 test_commands
-.PHONY : test_commands
-
-# fast build rule for target.
-test_commands/fast:
-	$(MAKE) -f robot_control/CMakeFiles/test_commands.dir/build.make robot_control/CMakeFiles/test_commands.dir/build
-.PHONY : test_commands/fast
 
 #=============================================================================
 # Target rules for targets named geometry_msgs_generate_messages_cpp
@@ -1130,19 +1104,6 @@ _run_tests_spacenav_node/fast:
 .PHONY : _run_tests_spacenav_node/fast
 
 #=============================================================================
-# Target rules for targets named test_task
-
-# Build rule for target.
-test_task: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 test_task
-.PHONY : test_task
-
-# fast build rule for target.
-test_task/fast:
-	$(MAKE) -f tasks/CMakeFiles/test_task.dir/build.make tasks/CMakeFiles/test_task.dir/build
-.PHONY : test_task/fast
-
-#=============================================================================
 # Target rules for targets named wiimote_generate_messages_eus
 
 # Build rule for target.
@@ -1542,7 +1503,6 @@ help:
 	@echo "... gtest_main"
 	@echo "... gtest"
 	@echo "... _catkin_empty_exported_target"
-	@echo "... motor_control_test"
 	@echo "... std_msgs_generate_messages_py"
 	@echo "... std_msgs_generate_messages_nodejs"
 	@echo "... std_msgs_generate_messages_lisp"
@@ -1571,7 +1531,6 @@ help:
 	@echo "... gpio_control_generate_messages_py"
 	@echo "... rosgraph_msgs_generate_messages_cpp"
 	@echo "... rosgraph_msgs_generate_messages_eus"
-	@echo "... test_commands"
 	@echo "... geometry_msgs_generate_messages_cpp"
 	@echo "... geometry_msgs_generate_messages_nodejs"
 	@echo "... geometry_msgs_generate_messages_lisp"
@@ -1606,7 +1565,6 @@ help:
 	@echo "... _run_tests_spacenav_node_roslint"
 	@echo "... _run_tests_spacenav_node_roslint_package"
 	@echo "... _run_tests_spacenav_node"
-	@echo "... test_task"
 	@echo "... wiimote_generate_messages_eus"
 	@echo "... _run_tests_wiimote"
 	@echo "... _run_tests_wiimote_roslint"

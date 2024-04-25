@@ -59,7 +59,6 @@
 /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/robot_launch/CMakeFiles/test.dir
 /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/drive_control/CMakeFiles/install/strip.dir
 /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/drive_control/CMakeFiles/install/local.dir
-/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/drive_control/CMakeFiles/motor_control_test.dir
 /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/drive_control/CMakeFiles/edit_cache.dir
 /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/drive_control/CMakeFiles/test.dir
 /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/drive_control/CMakeFiles/std_msgs_generate_messages_py.dir
@@ -102,12 +101,11 @@
 /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/gpio_control/CMakeFiles/install/local.dir
 /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/robot_control/CMakeFiles/install/strip.dir
 /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/robot_control/CMakeFiles/install/local.dir
-/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/robot_control/CMakeFiles/edit_cache.dir
-/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/robot_control/CMakeFiles/test.dir
 /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/robot_control/CMakeFiles/install.dir
 /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/robot_control/CMakeFiles/list_install_components.dir
 /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/robot_control/CMakeFiles/rebuild_cache.dir
-/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/robot_control/CMakeFiles/test_commands.dir
+/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/robot_control/CMakeFiles/edit_cache.dir
+/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/robot_control/CMakeFiles/test.dir
 /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/joystick_drivers/joy/CMakeFiles/install/strip.dir
 /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/joystick_drivers/joy/CMakeFiles/install/local.dir
 /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/joystick_drivers/joy/CMakeFiles/install.dir
@@ -163,7 +161,6 @@
 /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/tasks/CMakeFiles/rebuild_cache.dir
 /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/tasks/CMakeFiles/edit_cache.dir
 /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/tasks/CMakeFiles/test.dir
-/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/tasks/CMakeFiles/test_task.dir
 /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/joystick_drivers/wiimote/CMakeFiles/install/strip.dir
 /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/joystick_drivers/wiimote/CMakeFiles/install/local.dir
 /home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/joystick_drivers/wiimote/CMakeFiles/list_install_components.dir
