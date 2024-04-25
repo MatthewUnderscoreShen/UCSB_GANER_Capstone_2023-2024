@@ -1,0 +1,8 @@
+prefix=/home/ubuntu/UCSB_GANER_Capstone_2023-2024/install
+
+Name: drive_control
+Description: Description of drive_control
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

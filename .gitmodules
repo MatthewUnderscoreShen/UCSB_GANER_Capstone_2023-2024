@@ -1,0 +1,3 @@
+[submodule "src/gpio_control"]
+	path = src/gpio_control
+	url = https://github.com/cst0/gpio_control.git

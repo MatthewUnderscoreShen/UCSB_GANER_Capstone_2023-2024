@@ -1,0 +1,8 @@
+prefix=/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel
+
+Name: gpio_control
+Description: Description of gpio_control
+Version: 1.0.0
+Cflags: -I/home/ubuntu/UCSB_GANER_Capstone_2023-2024/devel/include
+Libs: -L${prefix}/lib 
+Requires: message_runtime
