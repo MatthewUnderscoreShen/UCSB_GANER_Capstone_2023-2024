@@ -13,11 +13,11 @@ class GUI():
 
 		#Labels
 		self.label_gripper = tk.Label(self.mw, text = "Gripper")
-		self.label_link2 = tk.Label(self.mw, text = "Link 2")
-		self.label_link3 = tk.Label(self.mw, text = "Link 3")
-		self.label_link4 = tk.Label(self.mw, text = "Link 4")
-		self.label_link5 = tk.Label(self.mw, text = "Link 5")
-		self.label_link6 = tk.Label(self.mw, text = "Link 6")
+		self.label_link2 = tk.Label(self.mw, text = "Gripper Rotation")
+		self.label_link3 = tk.Label(self.mw, text = "Wrist")
+		self.label_link4 = tk.Label(self.mw, text = "Elbow")
+		self.label_link5 = tk.Label(self.mw, text = "Arm extend")
+		self.label_link6 = tk.Label(self.mw, text = "Unknown")
 
 		#Slidebar = Scales
 		self.scale_gripper = tk.Scale(self.mw, from_ = 0, to = 1000,
