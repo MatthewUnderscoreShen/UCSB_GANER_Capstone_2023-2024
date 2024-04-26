@@ -22,22 +22,28 @@ class GUI():
 		#Slidebar = Scales
 		self.scale_gripper = tk.Scale(self.mw, from_ = 0, to = 1000,
 										orient = tk.HORIZONTAL, 
-										command = self.send_val)
+										command = self.send_val,
+										length=500)
 		self.scale_link2 = tk.Scale(self.mw, from_ = 0, to = 1000,
 										orient = tk.HORIZONTAL, 
-										command = self.send_val)
+										command = self.send_val,
+										length=500)
 		self.scale_link3 = tk.Scale(self.mw, from_ = 0, to = 1000,
 										orient = tk.HORIZONTAL, 
-										command = self.send_val)
+										command = self.send_val,
+										length=500)
 		self.scale_link4 = tk.Scale(self.mw, from_ = 0, to = 1000,
 										orient = tk.HORIZONTAL, 
-										command = self.send_val)
+										command = self.send_val,
+										length=500)
 		self.scale_link5 = tk.Scale(self.mw, from_ = 0, to = 1000,
 										orient = tk.HORIZONTAL, 
-										command = self.send_val)
+										command = self.send_val,
+										length=500)
 		self.scale_link6 = tk.Scale(self.mw, from_ = 0, to = 1000,
 										orient = tk.HORIZONTAL, 
-										command = self.send_val)
+										command = self.send_val,
+										length=500)
 		self.scale_gripper.set(500)
 		self.scale_link2.set(500)
 		self.scale_link3.set(500)
