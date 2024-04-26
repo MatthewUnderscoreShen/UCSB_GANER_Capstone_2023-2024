@@ -35,13 +35,27 @@ time.sleep(2)
 arm = xarm.Controller('USB')
 
 
+def arm_trasition_mode():
 
-arm.setPosition(1, 500, wait=False)
-arm.setPosition(2, 430, wait=False)
-arm.setPosition(3, 500, wait=False)
-arm.setPosition(4, 756, wait=False)
-arm.setPosition(5, 500, wait=False)
-arm.setPosition(6, 500, wait=False)
+    arm.setPosition(1, 500, wait=False)
+    arm.setPosition(2, 430, wait=False)
+    arm.setPosition(3, 500, wait=False)
+    arm.setPosition(4, 756, wait=False)
+    arm.setPosition(5, 500, wait=False)
+    arm.setPosition(6, 500, wait=False)
+
+
+def arm_stair_mode():
+
+    arm.setPosition(1, 500, wait=False)
+    arm.setPosition(2, 500, wait=False)
+    arm.setPosition(3, 500, wait=False)
+    arm.setPosition(4, 500, wait=False)
+    arm.setPosition(5, 1000, wait=False)
+    arm.setPosition(6, 500, wait=False)
+
+
+arm_trasition_mode()
 
 
 def movement(motor, movement_type, time):
@@ -70,6 +84,10 @@ def KeyBoard_Control(motor):
         motor.move(0.5,0.3,0.1); ###print('Key LEFT was presssed')
     elif kp.getKey('RIGHT'):
         motor.move(0.5,-0.3,0.1); ###print('Key RIGHT was pressed')
+    elif kp.getKey('q'):
+        arm_trasition_mode
+    elif kp.getKey('e'):
+        arm_stair_mode
     else:
         motor.stop(0.1)
 
