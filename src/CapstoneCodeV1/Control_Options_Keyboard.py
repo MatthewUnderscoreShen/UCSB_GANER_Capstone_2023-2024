@@ -29,16 +29,16 @@ time.sleep(2)
 
 
 
+arm = xarm.Controller('USB')
 
-arm = xarm.robot('USB')
 
 
-arm.robot.setPosition(1, 500, wait=False)
-arm.robot.setPosition(2, 430, wait=False)
-arm.robot.setPosition(3, 500, wait=False)
-arm.robot.setPosition(4, 756, wait=False)
-arm.robot.setPosition(5, 500, wait=False)
-arm.robot.setPosition(6, 500, wait=False)
+arm.setPosition(1, 500, wait=False)
+arm.setPosition(2, 430, wait=False)
+arm.setPosition(3, 500, wait=False)
+arm.setPosition(4, 756, wait=False)
+arm.setPosition(5, 500, wait=False)
+arm.setPosition(6, 500, wait=False)
 
 
 def movement(motor, movement_type, time):
