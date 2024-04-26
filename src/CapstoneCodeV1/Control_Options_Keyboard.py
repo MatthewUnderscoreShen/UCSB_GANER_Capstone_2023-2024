@@ -17,7 +17,7 @@ import RPi.GPIO as GPIO
 import time
 import KeyPressModule as kp
 
-
+kp.init()
 GPIO.setmode(GPIO.BCM)
 
 trig = 23

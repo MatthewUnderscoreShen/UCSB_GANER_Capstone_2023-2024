@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
-import os
 # Load a model
 model = YOLO('best.pt')  # pretrained YOLOv8n model
 
