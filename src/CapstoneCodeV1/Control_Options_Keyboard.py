@@ -83,7 +83,7 @@ def KeyBoard_Control(motor):
     elif kp.getKey('LEFT'):
         motor.move(0.5,0.3,0.1); ###print('Key LEFT was presssed')
     elif kp.getKey('RIGHT'):
-        movement(motor, 'right', 0.4))
+        movement(motor, 'right', 0.4)
     elif kp.getKey('q'):
         arm_trasition_mode()
     elif kp.getKey('e'):
