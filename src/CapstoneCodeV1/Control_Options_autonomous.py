@@ -1,18 +1,9 @@
-from MotorModule_High_Current import Motor
-from MotorModule_DTLever_High_Current import Motor_DTLever
-# from Motor_Module_DTLever import Motor_DTLever
-
-# from Servo_Module_v1 import Servo_Motor
-# from Blue_Arm_Class import Arm_Class_reg
-from Arm_Class_js import Arm_Class_js
-from Blue_Arm_Class import Arm_Class_blue
-import KeyPressModule as kp
-#import new_controller as js
-# from Pixy2_Camera import Pixy2_Camera
-# from Distance_sensor import distance_sensor
-# from dist_sensor import dist_sensor
-# import turn_signal
-from HC_SR04_setup import distance
+from Motor import Motor
+from Motor_DTLever import Motor_DTLever
+#from Arm_Class import Arm_Class
+import Arm_Class
+#import Controller as js
+from ultrasonic_sensor_setup import distance
 
 from time import sleep
 from os import environ
