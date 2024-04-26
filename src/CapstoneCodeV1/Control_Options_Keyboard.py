@@ -30,7 +30,7 @@ time.sleep(2)
 
 
 
-arm = xarm.Controller('USB')
+arm = xarm.robot('USB')
 
 
 arm.robot.setPosition(1, 500, wait=False)
