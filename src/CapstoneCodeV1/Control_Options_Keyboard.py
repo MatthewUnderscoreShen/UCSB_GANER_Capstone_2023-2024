@@ -77,13 +77,13 @@ def movement(motor, movement_type, time):
 def KeyBoard_Control(motor):
 
     if kp.getKey('UP'):
-        motor.move(0.6,0,0.1); ###print('Key UP was pressed')
+        movement(motor,'foward',0.1)
     elif kp.getKey('DOWN'):
         motor.move(-0.6,0,0.1); ###print('Key DOWN was pressed')
     elif kp.getKey('LEFT'):
         motor.move(0.5,0.3,0.1); ###print('Key LEFT was presssed')
     elif kp.getKey('RIGHT'):
-        motor.move(0.5,-0.3,0.1); ###print('Key RIGHT was pressed')
+        movement(motor, 'right', 0.4))
     elif kp.getKey('q'):
         arm_trasition_mode()
     elif kp.getKey('e'):
