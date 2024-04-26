@@ -34,6 +34,14 @@ time.sleep(2)
 
 arm = xarm.Controller('USB')
 
+def arm_start_mode():
+
+    arm.setPosition(1, 500, wait=False)
+    arm.setPosition(2, 500, wait=False)
+    arm.setPosition(3, 500, wait=False)
+    arm.setPosition(4, 500, wait=False)
+    arm.setPosition(5, 500, wait=False)
+    arm.setPosition(6, 500, wait=False)
 
 def arm_trasition_mode():
 
@@ -55,7 +63,7 @@ def arm_stair_mode():
     arm.setPosition(6, 500, wait=False)
 
 
-arm_trasition_mode()
+arm_start_mode()
 
 
 def movement(motor, movement_type, time):
@@ -88,6 +96,8 @@ def KeyBoard_Control(motor):
         arm_trasition_mode()
     elif kp.getKey('e'):
         arm_stair_mode()
+    elif kp.getKey('r'):
+        arm_start_mode()
     else:
         motor.stop(0.1)
 
