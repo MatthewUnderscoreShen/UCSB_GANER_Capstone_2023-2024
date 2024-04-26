@@ -1,8 +1,8 @@
 from Motor import Motor
 from Motor_DTLever import Motor_DTLever
-
-from Arm_Class import Arm_Class
-import Controller as js
+#from Arm_Class import Arm_Class
+import Arm_Class
+#import Controller as js
 from ultrasonic_sensor_setup import distance
 
 from time import sleep
@@ -12,50 +12,25 @@ import pygame
 import pigpio
 import xarm
 import math
+import time
+import RPi.GPIO as GPIO
+import time
+
+GPIO.setmode(GPIO.BCM)
+
+trig = 23
+echo = 24
+
+GPIO.setup(trig, GPIO.OUT)
+GPIO.setup(echo, GPIO.IN)
+
+GPIO.output(trig, False)
+time.sleep(2)
 
 
-xmax = 315 # Max x value of camera
-xcenter = xmax/2 # Center of camera x axis
-pixy_err = 5 # camera input error - dependent on testing
-dt_speed = 1 # Standard forward driving speed for drivetrain 0-1
-# global angle1 #, angle2, angle3, angle4, angle5
-
-# Initialization Angles for the Arm
-# angle1 = 0.0
-# angle2 = 0.0
-# angle3 = 90.0
-# angle4 = 90.0
-# angle5 = 90.0
-# angle6 = 90.0
-
-# global y, z
-theta1 = 0.0; theta2 = 0.0; theta3 = 0.0
-y = 3
-z = 15
-
-direction1 = 'L1'; direction2 = 'R1'; but1 = 'options'; but2 = 'share'; but3 = 's'; but4 = 't'; but5 = 'o'; but6 = 'x'
-butYpos = 'Dpad up'; butYneg = 'Dpad down'; butZpos = 'Dpad left'; butZneg = 'Dpad right'
-inc1 = 1.0; inc2 = 3.0; inc3 = 1.0; inc4 = 1.0; inc5 = 1.0; inc6 = 1.0; xarmmin = -125.0; xarmmax = 125.0
-minang1 = -11; maxang1 = 32;minang2 = xarmmin; maxang2 = xarmmax; minang3 = xarmmin; maxang3 = xarmmax;minang4 = xarmmin; maxang4 = xarmmax; minang5 = -78.0; maxang5 = 91.0; minang6 = xarmmin; maxang6 = xarmmax;
-outofrange = 0; change_kin_ang_but_1 = 'share'; change_kin_ang_but_2 = 'options'
-change_to_ang_but_1 = 'x'; change_to_ang_but_2 = 'o'; change_to_ang_but_3 = 't'; change_to_ang_but_4 = 's';
-l1 = 11; l2 = 15.2;
-waitTime = 1
 
 
 arm = xarm.Controller('USB')
-servo1 = xarm.Servo(1,0.0)
-servo2 = xarm.Servo(2,0.0)
-servo3 = xarm.Servo(3,0.0)
-servo4 = xarm.Servo(4,0.0)
-servo5 = xarm.Servo(5,0.0)
-servo6 = xarm.Servo(6,0.0)
-sleep(1)
-# angle1 = arm.getPosition(1,True);angle2 = arm.getPosition(2,True);angle3 = arm.getPosition(3,True);angle4 = arm.getPosition(4,True);angle5 = arm.getPosition(5,True);angle6 = arm.getPosition(6,True);
-angle1 = 0.0; angle2 = 0.0; angle3 = -21.0; angle4 = 118.0; angle5 = -62.0; angle6 = 0.0
-arm.setPosition(1,angle1,100,wait=True); arm.setPosition(2,angle2,100,wait=True); arm.setPosition(3,angle3,100,wait=True); arm.setPosition(4,angle4,100,wait=True); arm.setPosition(5,angle5,100,wait=True); arm.setPosition(6,angle6,100,wait=True);
-kinematics = False; shutdown_started = False
-oldtheta3 = -20.0; oldtheta2 = 100.0; oldtheta1 = -45.0
 
 
 arm.robot.setPosition(1, 500, wait=False)
@@ -66,6 +41,22 @@ arm.robot.setPosition(5, 500, wait=False)
 arm.robot.setPosition(6, 500, wait=False)
 
 
+def movement(motor, movement_type, time):
+    ## motor.move(power, turn, time)
+    ## Negative value is okay, goes backwards
+    if movement_type == 'foward':
+        motor.move(speed = 0.5,turn= -1, t=time)
+    elif movement_type == 'backward':
+        motor.move(speed = 0.5,turn = 1,t=time)
+    elif movement_type == 'right':
+        motor.move(1, 0.5, time)
+    elif movement_type == 'left':
+        motor.move(1, -0.5, t=time)
+    elif movement_type == 'stop':
+        motor.stop(t =time)
+    else:
+        print("Unknown movement type")
+
 def KeyBoard_Control(motor):
 
     if kp.getKey('UP'):
@@ -73,19 +64,50 @@ def KeyBoard_Control(motor):
     elif kp.getKey('DOWN'):
         motor.move(-0.6,0,0.1); ###print('Key DOWN was pressed')
     elif kp.getKey('LEFT'):
-        motor.move(0.5,0.3,0.1); ###print('Key LEFT was pressed')
+        motor.move(0.5,0.3,0.1); ###print('Key LEFT was presssed')
     elif kp.getKey('RIGHT'):
         motor.move(0.5,-0.3,0.1); ###print('Key RIGHT was pressed')
     else:
         motor.stop(0.1)
 
-def Autonomous_Control(motor, pixy2, dist1,dist2,servo1_2,servo3):
-    pass
-#     if pixy2.x_coord() != -1: # if pixy detects an object
-#         motor.move(dt_speed, ((xcenter - pixy2.x_coord()) / xcenter) , 0.1) # DC motors move to center object
-#     else:
-#         motor.stop(0.1) # if pixy does not detect an object --> stop
-    ###print(pixy2.x_coord())
+
+def Autonomous_Control(motor):
+    while True:
+
+        dist = distance()
+        print(dist)
+
+        if dist > 30 :
+            movement(motor,'foward',0.1)
+            dist = distance()
+        else :
+            movement(motor, 'right', 0.4)
+            dist = distance()
+
+        
+        
+
+
+        
+
+
+        
+
+
+
+    
+    
+
+    
+
+   
+
+       
+   
+
+
+
+    
 
 def JoyStick_Control(motor, motor_DTLever): #servo1_2, servo3
     global oldtheta1, oldtheta2, oldtheta3,y, z, outofrange,angle1,angle2,angle3,angle4,angle5,angle6, arm, kinematics, shutdown_started
