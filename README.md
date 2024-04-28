@@ -11,6 +11,12 @@ All Packages that are imported:
 - **For Arm Control:**
   - `import xarm`
 - **For Camera Integration:**
+  - `sudo apt install libraspberrypi-bin libraspberrypi-dev`
+  - `Raspistill -o test.jpg`
+    - Note: steps above is using for setup camera
+    - if camera still does not work on current robot, add following code in the end of the file `/boot/firmware/config.txt`
+      - ​​`start_x=1`
+      - `gpu_mem=128`
   - `from ultralytics import YOLO`
   - `from skimage import io`
 - **For General Purpose:**
