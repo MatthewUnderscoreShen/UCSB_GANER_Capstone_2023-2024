@@ -85,7 +85,7 @@ def movement(motor, movement_type, time):
 def KeyBoard_Control(motor):
 
     if kp.getKey('UP'):
-        movement(motor,'foward',0.1)
+        motor.move(-0.6,0,0.1);
     elif kp.getKey('DOWN'):
         motor.move(-0.6,0,0.1); ###print('Key DOWN was pressed')
     elif kp.getKey('LEFT'):
