@@ -117,7 +117,7 @@ def Autonomous_Control(motor):
         print(dist)
 
         if dist > 30 :
-            movement(motor,'foward',0.1)
+            motor.move(0.6,0,0.1); ###print('Key UP was pressed')
             dist = distance()
         else :
             movement(motor, 'right', 0.4)
