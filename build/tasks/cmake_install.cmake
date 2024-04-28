@@ -60,3 +60,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/tasks" TYPE PROGRAM FILES "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/tasks/catkin_generated/installspace/test_task.py")
 endif()
 
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/tasks" TYPE PROGRAM FILES "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/tasks/catkin_generated/installspace/task_node.py")
+endif()
+

@@ -1,3 +1,0 @@
-<launch>
-    <node pkg="robot_control" name="test_drive_command" type="test_commands.py"/>
-</launch> 

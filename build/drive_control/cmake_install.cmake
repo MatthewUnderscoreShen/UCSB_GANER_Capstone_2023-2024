@@ -60,3 +60,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/drive_control" TYPE PROGRAM FILES "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/drive_control/catkin_generated/installspace/motor_control_test.py")
 endif()
 
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/drive_control" TYPE PROGRAM FILES "/home/ubuntu/UCSB_GANER_Capstone_2023-2024/build/drive_control/catkin_generated/installspace/motor_control.py")
+endif()
+

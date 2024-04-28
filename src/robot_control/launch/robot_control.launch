@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="robot_control" name="mux" type="mux.py"/>
+</launch> 

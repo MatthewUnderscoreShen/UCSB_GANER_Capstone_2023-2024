@@ -1,3 +1,0 @@
-<launch>
-    <node pkg="drive_control" type="motor_control_test.py" name="name"/>
-</launch> 
