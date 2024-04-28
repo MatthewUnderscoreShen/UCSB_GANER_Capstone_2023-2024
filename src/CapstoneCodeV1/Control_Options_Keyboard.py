@@ -87,7 +87,7 @@ def KeyBoard_Control(motor):
     if kp.getKey('UP'):
         motor.move(-0.6,0,0.1);
     elif kp.getKey('DOWN'):
-        motor.move(-0.6,0,0.1); ###print('Key DOWN was pressed')
+        motor.move(0.6,0.1,0.1); ###print('Key DOWN was pressed')
     elif kp.getKey('LEFT'):
         motor.move(0.5,-0.3,0.1); ###print('Key LEFT was presssed')
     elif kp.getKey('RIGHT'):
