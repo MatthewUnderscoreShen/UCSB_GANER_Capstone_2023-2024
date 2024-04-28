@@ -57,7 +57,7 @@ def arm_stair_mode():
 
     arm.setPosition(1, 500, wait=False)
     arm.setPosition(2, 500, wait=False)
-    arm.setPosition(3, 500, wait=False)
+    arm.setPosition(3, 600, wait=False)
     arm.setPosition(4, 500, wait=False)
     arm.setPosition(5, 1000, wait=False)
     arm.setPosition(6, 500, wait=False)
