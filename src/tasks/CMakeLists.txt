@@ -120,5 +120,5 @@ include_directories(
     ${catkin_INCLUDE_DIRS}
 )
 
-catkin_install_python(PROGRAMS src/test_task.py
+catkin_install_python(PROGRAMS src/test_task.py src/task_node.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

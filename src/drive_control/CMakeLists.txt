@@ -4,6 +4,7 @@ project(drive_control)
 find_package(catkin REQUIRED COMPONENTS
     rospy
     std_msgs
+    sensor_msgs
     #message_generation
 )
 
@@ -30,5 +31,5 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-catkin_install_python(PROGRAMS src/motor_control_test.py
+catkin_install_python(PROGRAMS src/motor_control_test.py src/motor_control.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
