@@ -1,0 +1,8 @@
+prefix=/home/capstone/UCSB_GANER_Capstone_2023-2024/devel
+
+Name: read_i2c
+Description: Description of read_i2c
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

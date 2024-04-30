@@ -1,0 +1,8 @@
+prefix=/home/capstone/UCSB_GANER_Capstone_2023-2024/install
+
+Name: wiimote
+Description: Description of wiimote
+Version: 1.15.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: geometry_msgs sensor_msgs std_msgs std_srvs

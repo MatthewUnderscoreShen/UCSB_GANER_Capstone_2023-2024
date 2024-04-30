@@ -1,0 +1,8 @@
+prefix=/home/capstone/UCSB_GANER_Capstone_2023-2024/devel
+
+Name: camera
+Description: Description of camera
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
