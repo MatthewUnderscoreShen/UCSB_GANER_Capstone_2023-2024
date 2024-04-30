@@ -5,14 +5,15 @@ from std_msgs.msg import String
 from sensor_msgs.msg import Joy
 
 # Intialize publisher
-rospy.init_node("motor_control_test")
+rospy.init_node("motor_control")
 drive_pub = rospy.Publisher("/drive_output", String, queue_size=10)
 
 # GPIO constants and setup
-pin_pwm_left = 17
-pin_dir_left = 27
-pin_pwm_right = 22
-pin_dir_right = 10
+pin_pwm_left = 22      # 22
+pin_dir_left = 10       # 10
+pin_pwm_right = 17      # 17
+pin_dir_right = 27      # 27
+pwm_hz = 100
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -20,8 +21,10 @@ GPIO.setup(pin_pwm_left,GPIO.OUT)
 GPIO.setup(pin_dir_left,GPIO.OUT)
 GPIO.setup(pin_pwm_right,GPIO.OUT)
 GPIO.setup(pin_dir_right,GPIO.OUT)
-pwm_left = GPIO.PWM(pin_pwm_left,100)   # pin, Hz
-pwm_right = GPIO.PWM(pin_pwm_right,100)
+pwm_left = GPIO.PWM(pin_pwm_left,pwm_hz)   # pin, Hz
+pwm_right = GPIO.PWM(pin_pwm_right,pwm_hz)
+pwm_left.start(0)
+pwm_right.start(0)
 
 # Other constants
 is_teleop = False
@@ -58,19 +61,19 @@ def joy_callback(data):
     right_spd = data.axes[4]
 
     # Set motor direction
-    if left_spd/np.abs(left_spd) >= 0:  # pos or neg
+    if left_spd/np.abs(left_spd) > 0:  # pos or neg
         GPIO.output(pin_dir_left, GPIO.HIGH)    # forward
     else:
         GPIO.output(pin_dir_left, GPIO.LOW)     # backwards
-    if right_spd/np.abs(right_spd) >= 0:
+    if right_spd/np.abs(right_spd) > 0:
         GPIO.output(pin_dir_right, GPIO.LOW)    # forward
     else:
         GPIO.output(pin_dir_right, GPIO.HIGH)   # backwards
 
     # Set motor power
     # Changes the input -> output profile to have less power at lower inputs
-    pwm_left.ChangeDutyCycle(np.abs(np.power(left_spd,3)))
-    pwm_right.ChangeDutyCycle(np.abs(np.power(right_spd,3)))
+    pwm_left.ChangeDutyCycle(pwm_hz*np.abs(np.power(left_spd,3)))
+    pwm_right.ChangeDutyCycle(pwm_hz*np.abs(np.power(right_spd,3)))
 
     drive_pub.publish(String("Left: " + str(left_spd) + "   Right: " + str(right_spd)))
 

@@ -1,4 +1,5 @@
 <launch>
+    <include file="$(find robot_launch)/params.launch"/>
     <include file="$(find joy)/launch/joy.launch"/>
     <include file="$(find gpio_control)/launch/gpio.launch"/>
     <include file="$(find drive_control)/launch/drive_control.launch"/>

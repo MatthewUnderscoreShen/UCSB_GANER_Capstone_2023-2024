@@ -1,0 +1,5 @@
+<launch>
+    <node pkg="distance_sensor" type="distance_node.py" name="distance_node">
+        <param name="topic_name" value="/distance_front" type="str"/>
+    </node>
+</launch>

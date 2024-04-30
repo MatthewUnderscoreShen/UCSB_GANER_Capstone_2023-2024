@@ -1,2 +1,2 @@
-camera:drive_control:gpio_control:joystick_drivers/joy:joystick_drivers/joystick_drivers:joystick_drivers/spacenav_node:joystick_drivers/wiimote:read_i2c:robot_control:robot_launch:tasks
+camera:distance_sensor:drive_control:gpio_control:joystick_drivers/joy:joystick_drivers/joystick_drivers:joystick_drivers/spacenav_node:joystick_drivers/wiimote:read_i2c:robot_control:robot_launch:tasks
 -DCATKIN_DEVEL_PREFIX=/home/capstone/UCSB_GANER_Capstone_2023-2024/devel -DCMAKE_INSTALL_PREFIX=/home/capstone/UCSB_GANER_Capstone_2023-2024/install -G Unix Makefiles

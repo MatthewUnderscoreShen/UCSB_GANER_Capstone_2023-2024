@@ -413,6 +413,12 @@ diagnostic_msgs_DIR:PATH=/opt/ros/noetic/share/diagnostic_msgs/cmake
 diagnostic_updater_DIR:PATH=/opt/ros/noetic/share/diagnostic_updater/cmake
 
 //Value Computed by CMake
+distance_sensor_BINARY_DIR:STATIC=/home/capstone/UCSB_GANER_Capstone_2023-2024/build/distance_sensor
+
+//Value Computed by CMake
+distance_sensor_SOURCE_DIR:STATIC=/home/capstone/UCSB_GANER_Capstone_2023-2024/src/distance_sensor
+
+//Value Computed by CMake
 drive_control_BINARY_DIR:STATIC=/home/capstone/UCSB_GANER_Capstone_2023-2024/build/drive_control
 
 //Value Computed by CMake
@@ -738,7 +744,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=15
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=16
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
