@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="tasks" name="task_node" type="task_node.py"/>
+</launch> 

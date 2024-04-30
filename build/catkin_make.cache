@@ -1,0 +1,2 @@
+
+-DCATKIN_DEVEL_PREFIX=/home/capstone/UCSB_GANER_Capstone_2023-2024/devel -DCMAKE_INSTALL_PREFIX=/home/capstone/UCSB_GANER_Capstone_2023-2024/install -G Unix Makefiles
