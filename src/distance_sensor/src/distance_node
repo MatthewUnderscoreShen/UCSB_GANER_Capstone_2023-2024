@@ -1,7 +1,8 @@
+#!/usr/bin/env python3
 import rospy
 from sensor_msgs.msg import Range
 # import custom message type for Relative Velocity
-import HCSR04 # import our driver module
+from distance_sensor.hc_sr04 import HCSR04 # import our driver module
 
 class HCSR04Wrapper(object):
 
@@ -10,15 +11,20 @@ class HCSR04Wrapper(object):
         self.max_range = 400
         self.fov = 0.26179938779915 # 15 degrees
 
-        topic_name = rospy.get_param("")
+        # topic_name = rospy.get_param("topic_name")
         # self.ultrasonicPub = rospy.Publisher(topic_name, Range, queue_size=10)    # topic name defined by param in launch file
+        self.ultrasonicPub = rospy.Publisher('/ultrasonic/distance', Range, queue_size=10)
         # self.ultrasonicVelocityPub = rospy.Publisher('/ultrasonic/relative_velocity', Range, queue_size=10)
 
         # loading the driver
-        self.ultrasonic_sensor = HCSR04(trig_pin, echo_pin)   # trigger, echo
+        # self.ultrasonic_sensor = HCSR04(trig_pin, echo_pin)   # trigger, echo
+
+        self.ultrasonic_sensor = HCSR04(6, 5)
 
         self.rate = rospy.Rate(10) # 10hz
-        rospy.Timer(self.rate, self.publish_current_distance)
+        while not rospy.is_shutdown():
+            self.publish_current_distance()
+            self.rate.sleep()
         # rospy.Timer(self.rate, self.publish_current_velocity)
 
     def publish_current_distance(self):
@@ -62,7 +68,7 @@ class HCSR04Wrapper(object):
 
     def stop(self):
         self.ultrasonicPub.unregister()
-        self.ultrasonicVelocityPub.unregister()
+        # self.ultrasonicVelocityPub.unregister()
 
 # Main function.
 if __name__ == '__main__':
