@@ -28,11 +28,11 @@ def joy_callback(data):
     right_spd = data.axes[4]
 
     # Set motor direction
-    if left_spd/np.abs(left_spd) > 0 and left_spd != 0:  # pos or neg
+    if left_spd != 0 and left_spd/np.abs(left_spd) > 0:  # pos or neg
         GPIO.output(pin_dir_left, GPIO.HIGH)    # forward
     else:
         GPIO.output(pin_dir_left, GPIO.LOW)     # backwards
-    if right_spd/np.abs(right_spd) > 0 and right_spd != 0:
+    if right_spd != 0 and right_spd/np.abs(right_spd) > 0:
         GPIO.output(pin_dir_right, GPIO.LOW)    # forward
     else:
         GPIO.output(pin_dir_right, GPIO.HIGH)   # backwards

@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+import rospy
+from std_msgs.msg import Float32MultiArray
+from sensor_msgs.msg import Joy
+from drive_control.arm import Arm
+
+class ArmController(object):
+    
+    def __init__(self):
+        self.arm = Arm()
+
+        rospy.Subscriber("/arm_command", Float32MultiArray, self.arm_callback, (self.arm))
+        rospy.Subscriber("/joy", Joy, self.joy_callback, (self))
+        self.arm_pub = rospy.Publisher("/arm_positions", Float32MultiArray, queue_size=10)
+    
+    def arm_callback(data, args):
+        # float32 array with angle values
+        args[0].set_pos(data.data)
+    
+    def joy_callback(data, args):
+        # Go to setpoint
+        if data.buttons[0] == 1:    # X
+            print("placeholder")
+
+    def pub_arm_pos(self):
+        self.arm_pub.publish(Float32MultiArray(self.arm.get_pos()))
+
+if __name__ == "__main__":
+    rospy.init_node("arm_control")
+
+    arm_controller = ArmController()
+
+    rospy.loginfo("Arm node started")
+    rospy.spin()

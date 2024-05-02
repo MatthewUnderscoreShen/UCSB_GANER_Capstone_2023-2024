@@ -56,7 +56,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/home/capstone/UCSB_GANER_Capstone_2023-2024/src/distance_sensor/CMakeLists.txt"
   "/home/capstone/UCSB_GANER_Capstone_2023-2024/src/distance_sensor/package.xml"
   "/home/capstone/UCSB_GANER_Capstone_2023-2024/src/distance_sensor/setup.py"
-  "/home/capstone/UCSB_GANER_Capstone_2023-2024/src/distance_sensor/src/distance_node.py"
+  "/home/capstone/UCSB_GANER_Capstone_2023-2024/src/distance_sensor/src/distance_node"
   "/home/capstone/UCSB_GANER_Capstone_2023-2024/src/drive_control/CMakeLists.txt"
   "/home/capstone/UCSB_GANER_Capstone_2023-2024/src/drive_control/package.xml"
   "/home/capstone/UCSB_GANER_Capstone_2023-2024/src/drive_control/setup.py"

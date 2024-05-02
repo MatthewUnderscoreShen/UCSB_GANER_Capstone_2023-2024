@@ -1,91 +1,41 @@
+#!/usr/bin/env python3
 import rospy
-import RPi.GPIO as GPIO
 import numpy as np
+from drive_control.motor import Motor
 from std_msgs.msg import String
 from sensor_msgs.msg import Joy
 
-# Intialize publisher
-rospy.init_node("motor_control")
-drive_pub = rospy.Publisher("/drive_output", String, queue_size=10)
+class MotorController(object):
 
-# GPIO constants and setup
-pin_pwm_left = 22      # 22
-pin_dir_left = 10       # 10
-pin_pwm_right = 17      # 17
-pin_dir_right = 27      # 27
-pwm_hz = 100
+    def __init__(self):
+        self.left_motor = Motor(22, 10, 100, True)
+        self.right_motor = Motor(17, 27, 100, False)
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
-GPIO.setup(pin_pwm_left,GPIO.OUT)
-GPIO.setup(pin_dir_left,GPIO.OUT)
-GPIO.setup(pin_pwm_right,GPIO.OUT)
-GPIO.setup(pin_dir_right,GPIO.OUT)
-pwm_left = GPIO.PWM(pin_pwm_left,pwm_hz)   # pin, Hz
-pwm_right = GPIO.PWM(pin_pwm_right,pwm_hz)
-pwm_left.start(0)
-pwm_right.start(0)
+        self.drive_pub = rospy.Publisher("/drive_output", String)
+        self.drive_sub = rospy.Subscriber("/drive_command", String, self.drive_callback, (self))
+        self.joy_sub = rospy.Subscriber("/joy", Joy, self.joy_callback, (self))
 
-# Other constants
-is_teleop = False
+        self.is_teleop = False
+    
+    def drive_callback(data, args):
+        if data.data == "teleop_on":
+            args[0].is_teleop = True
+        elif data.data == "autonomous_on":
+            args[0].is_teleop = False
+    
+    def joy_callback(data, args):
+        if not is_teleop:
+            return
+        
+        args[0].left_motor.set_vel(data.axes[1])
+        args[0].right_motor.set_vel(data.axes[4])
 
-def command_callback(data):
-    global is_teleop
-    # Takes a command and sends signals to the motors
-    rospy.loginfo(rospy.get_caller_id() + ": %s", data.data)
-    #drive_pub.publish(String("Driving"))
-
-    if data.data == "teleop_on":
-        is_teleop = True
-    elif data.data == "autonomous_on":
-        is_teleop = False
-
-    return
-    if data.data == "test_start":       # Test move forward command
-        pwm_left.ChangeDutyCycle(50)    # half speed
-        pwm_right.ChangeDutyCycle(50)
-        GPIO.output(pin_dir_left,GPIO.HIGH)     # forward for left
-        GPIO.output(pin_dir_right,GPIO.LOW)     # forward for right
-    elif data.data == "test_stop":      # Stop command
-        pwm_left.ChangeDutyCycle(0)
-        pwm_right.ChangeDutyCycle(0)
-
-# 
-# Drive method is currently tank drive (left joy -> left tread, etc)
-def joy_callback(data):
-    # This method only needs to be run in teleop
-    if not is_teleop:
-        return
-
-    left_spd = data.axes[1]
-    right_spd = data.axes[4]
-
-    # Set motor direction
-    if left_spd/np.abs(left_spd) > 0:  # pos or neg
-        GPIO.output(pin_dir_left, GPIO.HIGH)    # forward
-    else:
-        GPIO.output(pin_dir_left, GPIO.LOW)     # backwards
-    if right_spd/np.abs(right_spd) > 0:
-        GPIO.output(pin_dir_right, GPIO.LOW)    # forward
-    else:
-        GPIO.output(pin_dir_right, GPIO.HIGH)   # backwards
-
-    # Set motor power
-    # Changes the input -> output profile to have less power at lower inputs
-    pwm_left.ChangeDutyCycle(pwm_hz*np.abs(np.power(left_spd,3)))
-    pwm_right.ChangeDutyCycle(pwm_hz*np.abs(np.power(right_spd,3)))
-
-    drive_pub.publish(String("Left: " + str(left_spd) + "   Right: " + str(right_spd)))
-
-def main():
-    rospy.loginfo(rospy.get_caller_id() + " now running")
-    rospy.Subscriber("/drive_command", String, command_callback)
-    rospy.Subscriber("/joy", Joy, joy_callback)
-
-    rospy.spin()
+        args[0].drive_pub.publish(String("Left: " + str(data.axes[1]) + "   Right: " + str(data.axes[4])))
 
 if __name__ == "__main__":
-    try:
-        main()
-    except rospy.ROSInterruptException:
-        print("Execution Aborted By User")
+    rospy.init_node("motor_control")
+
+    motor_controller = MotorController()
+
+    rospy.loginfo("Motor controller node started")
+    rospy.spin()

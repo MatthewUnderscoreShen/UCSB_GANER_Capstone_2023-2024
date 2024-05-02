@@ -120,5 +120,5 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-catkin_install_python(PROGRAMS src/distance_node.py src/HCSR04.py
+catkin_install_python(PROGRAMS src/distance_node
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
