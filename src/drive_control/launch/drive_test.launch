@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="drive_control" type="encoder_read" name="encoder_read"/>
+</launch> 

@@ -31,5 +31,5 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-catkin_install_python(PROGRAMS src/motor_control_test.py src/motor_control.py
+catkin_install_python(PROGRAMS src/motor_control src/arm_control src/encoder_read
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

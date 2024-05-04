@@ -28,4 +28,7 @@ class Motor(object):
             GPIO.output(self.dir_pin, GPIO.LOW if self.is_left else GPIO.HIGH)
         
         # Changes the control profile to be less sensitive at low inputs
-        self.pwm.ChangeDutyCycle(self.hz*np.abs(np.power(vel, 5)))
+        self.pwm.ChangeDutyCycle(self.hz*np.abs(np.power(vel, 3)))
+
+    def stop(self):
+        self.pwm.ChangeDutyCycle(0)

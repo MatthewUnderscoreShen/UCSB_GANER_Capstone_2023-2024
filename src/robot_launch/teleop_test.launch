@@ -1,5 +1,0 @@
-<launch>
-    <include file="$(find robot_launch)/params.launch"/>
-    <include file="$(find joy)/launch/joy.launch"/>
-    <include file="$(find drive_control)/launch/teleop_drive_test.launch"/>
-</launch> 

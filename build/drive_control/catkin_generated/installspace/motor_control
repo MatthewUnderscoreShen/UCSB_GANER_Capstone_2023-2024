@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+import rospy
+import numpy as np
+from drive_control.motor import Motor
+from std_msgs.msg import String
+from sensor_msgs.msg import Joy
+
+class MotorController(object):
+
+    def __init__(self):
+        self.pins = rospy.get_param("/pins")
+        self.topics = rospy.get_param("/topics")
+        self.left_motor = Motor(self.pins["pwm/left"], self.pins["dir/left"], 100, False)
+        self.right_motor = Motor(self.pins["pwm/right"], self.pins["dir/right"], 100, False)
+
+        self.drive_pub = rospy.Publisher(self.topics["drive_output"], String, queue_size=10)
+        self.drive_sub = rospy.Subscriber(self.topics["drive_command"], String, self.drive_callback)
+        self.joy_sub = rospy.Subscriber(self.topics["joy"], Joy, self.joy_callback)
+
+        self.is_teleop = False
+    
+    def drive_callback(self, data):
+        if data.data == "teleop_on":
+            self.is_teleop = True
+        elif data.data == "autonomous_on":
+            self.is_teleop = False
+    
+    def joy_callback(self, data):
+        if not self.is_teleop:
+            return
+        
+        self.left_motor.set_vel(data.axes[1])
+        self.right_motor.set_vel(data.axes[4])
+
+        self.drive_pub.publish(String("Left: " + str(data.axes[1]) + "   Right: " + str(data.axes[4])))
+
+    def stop(self):
+        self.left_motor.stop()
+        self.right_motor.stop()
+
+if __name__ == "__main__":
+    rospy.init_node("motor_control")
+
+    motor_controller = MotorController()
+
+    rospy.on_shutdown(motor_controller.stop)
+    rospy.loginfo("Motor controller node started")
+    rospy.spin()

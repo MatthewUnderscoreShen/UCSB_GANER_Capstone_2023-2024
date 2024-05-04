@@ -57,10 +57,14 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/drive_control" TYPE PROGRAM FILES "/home/capstone/UCSB_GANER_Capstone_2023-2024/build/drive_control/catkin_generated/installspace/motor_control_test.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/drive_control" TYPE PROGRAM FILES "/home/capstone/UCSB_GANER_Capstone_2023-2024/build/drive_control/catkin_generated/installspace/motor_control")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/drive_control" TYPE PROGRAM FILES "/home/capstone/UCSB_GANER_Capstone_2023-2024/build/drive_control/catkin_generated/installspace/motor_control.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/drive_control" TYPE PROGRAM FILES "/home/capstone/UCSB_GANER_Capstone_2023-2024/build/drive_control/catkin_generated/installspace/arm_control")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/drive_control" TYPE PROGRAM FILES "/home/capstone/UCSB_GANER_Capstone_2023-2024/build/drive_control/catkin_generated/installspace/encoder_read")
 endif()
 

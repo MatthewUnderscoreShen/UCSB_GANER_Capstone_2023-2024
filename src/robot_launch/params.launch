@@ -1,10 +1,25 @@
 <launch>
     <group ns="pins">
-        <param name="pwm_left" value="22" type="int"/>
-        <param name="dir_left" value="10" type="int"/>
-        <param name="pwm_right" value="17" type="int"/>
-        <param name="dir_right" value="27" type="int"/>
-        <param name="dist_front_trig" value="6" type="int"/>
-        <param name="dist_front_echo" value="5" type="int"/>
+        <param name="pwm/left" value="22" type="int"/>
+        <param name="dir/left" value="10" type="int"/>
+        <param name="pwm/right" value="17" type="int"/>
+        <param name="dir/right" value="27" type="int"/>
+        <param name="encoder/left/A" value="20" type="int"/>
+        <param name="encoder/left/B" value="21" type="int"/>
+        <param name="encoder/right/A" value="16" type="int"/>
+        <param name="encoder/right/B" value="26" type="int"/>
+        <param name="dist/front/trig" value="6" type="int"/>
+        <param name="dist/front/echo" value="5" type="int"/>
+    </group>
+
+    <group ns="topics">
+        <param name="/joy" value="joy"/>
+        <param name="/task" value="current_task"/>
+        <param name="/drive_command" value="drive_command"/>
+        <param name="/drive_output" value="drive_output"/>
+        <param name="/arm_command" value="arm_command"/>
+        <param name="/arm_output" value="arm_output"/>
+        <param name="encoder_left" value="encoder_output_left"/>
+        <param name="encoder_right" value="encoder_output_right"/>
     </group>
 </launch>
