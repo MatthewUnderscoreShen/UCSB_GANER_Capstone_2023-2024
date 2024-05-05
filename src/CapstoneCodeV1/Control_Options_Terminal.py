@@ -123,6 +123,7 @@ def Terminal_Control(motor):
         print("theta_base,theta1,theta2,theta3:",Base,' ',Arm_Extend,' ',Elbow,' ',Wrist)
     except ValueError:
         print("input is not valid number")
+        print(user_input)
     except IndexError:
         print("Input not enough, or the distance is not possible")
 
