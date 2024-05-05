@@ -118,7 +118,7 @@ def Terminal_Control(motor):
         
         if(Arm_Extend > np.pi/2):
             print("too close")
-            return
+            Arm_Extend = np.pi/2
         checkpoint = 1
         arm.setPosition(3, round(500 - 700 * (Wrist/np.pi)), wait=False)
         arm.setPosition(4, round(450 - 600 * (Elbow/np.pi)), wait=False)
