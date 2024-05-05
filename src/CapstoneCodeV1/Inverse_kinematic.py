@@ -18,7 +18,7 @@ def IK(x ,y ,z=0,L1=4.5,L2=6.3,L3=7,Base=4.5,gribber_angle = 0, Base_Height = 5)
     D = math.sqrt(x_3**2 + y_3**2)
     if D > L1 + L2:
         print("too far")
-        x_3 = math.sqrt((L1+L2)**2 - y_3**2)
+        x_3 = math.sqrt((L1+L2)**2 - y_3**2) - 0.01
     if D < np.abs(L1-L2):
         print("too close")
         return None
