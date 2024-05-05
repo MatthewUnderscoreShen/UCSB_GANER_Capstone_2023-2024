@@ -129,6 +129,8 @@ def Terminal_Control(motor):
         print(checkpoint)
     except IndexError:
         print("Input not enough, or the distance is not possible")
+    except TypeError:
+        print("try appropritate value")
 
 
 def Autonomous_Control(motor):
