@@ -120,9 +120,9 @@ def Terminal_Control(motor):
             print("too close")
             return
         checkpoint = 1
-        arm.setPosition(3, 500 - 700 * (Wrist/np.pi), wait=False)
-        arm.setPosition(4, 450 - 600 * (Elbow/np.pi), wait=False)
-        arm.setPosition(5, 800 - 600 * Arm_Extend/np.pi, wait=False)
+        arm.setPosition(3, round(500 - 700 * (Wrist/np.pi)), wait=False)
+        arm.setPosition(4, round(450 - 600 * (Elbow/np.pi)), wait=False)
+        arm.setPosition(5, round(800 - 600 * Arm_Extend/np.pi), wait=False)
         print("theta_base,theta1,theta2,theta3:",Base,' ',Arm_Extend,' ',Elbow,' ',Wrist)
     except ValueError:
         print("input is not valid number")
