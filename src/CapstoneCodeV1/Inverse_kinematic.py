@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import math
 
 def IK(x ,y ,z=0,L1=5,L2=6.3,L3=6,Base=4.5,gribber_angle = 0):
-    #L1-elbow L2-wrist L3-gripper Base is distance from elbow joint to robot rotation center
+    #L1-Arm L2-elbow L3-wrist Base is distance from elbow joint to robot rotation center
 	#usage: get relative x y z cordinate with origin of robot,return required arm angle
     #note1: x point to front, y point to up, z point to right(turning position)
     #note2: theta base is the angle that body need to rotate for z position
