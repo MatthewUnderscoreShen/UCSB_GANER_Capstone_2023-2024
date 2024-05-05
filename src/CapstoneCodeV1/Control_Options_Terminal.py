@@ -107,23 +107,29 @@ def KeyBoard_Control(motor):
 def Terminal_Control(motor):
     try:
         checkpoint = 0
-        user_input = input("get input, separate by space\n")
+        user_input = input("get input, separate by space, first element is control mode\n mode = arm,move")
 
         elements = user_input.split(' ')
-        L1 = 4.5
-        L2 = 6.3
-        L3 = 7
-        parsed_elements = [float(element.strip()) for element in elements]
-        [Base,Arm_Extend,Elbow,Wrist] = IK(parsed_elements[0],parsed_elements[1],z = parsed_elements[2],L1=L1,L2=L2,L3=L3,gribber_angle=parsed_elements[3])
-        
-        if(Arm_Extend > np.pi/2):
-            print("too close")
-            Arm_Extend = np.pi/2
-        checkpoint = 1
-        arm.setPosition(3, round(500 - 700 * (Wrist/np.pi)), wait=False)
-        arm.setPosition(4, round(450 - 600 * (Elbow/np.pi)), wait=False)
-        arm.setPosition(5, round(800 - 600 * Arm_Extend/np.pi), wait=False)
-        print("theta_base,theta1,theta2,theta3:",Base,' ',Arm_Extend,' ',Elbow,' ',Wrist)
+        mode = elements[0]
+        if mode == 'arm':
+            L1 = 4.5
+            L2 = 6.3
+            L3 = 7
+            parsed_elements = [float(element.strip()) for element in elements[1:]]
+            [Base,Arm_Extend,Elbow,Wrist] = IK(parsed_elements[0],parsed_elements[1],z = parsed_elements[2],L1=L1,L2=L2,L3=L3,gribber_angle=parsed_elements[3])
+            
+            if(Arm_Extend > np.pi/2):
+                print("too close")
+                Arm_Extend = np.pi/2
+            checkpoint = 1
+            arm.setPosition(3, round(500 - 700 * (Wrist/np.pi)), wait=False)
+            arm.setPosition(4, round(450 - 600 * (Elbow/np.pi)), wait=False)
+            arm.setPosition(5, round(800 - 600 * Arm_Extend/np.pi), wait=False)
+            print("theta_base,theta1,theta2,theta3:",Base,' ',Arm_Extend,' ',Elbow,' ',Wrist)
+        elif mode == 'move':
+            [speed,turn,t] = [float(element.strip()) for element in elements[1:]]
+            motor.move(speed,turn,t)
+    
     except ValueError:
         print("input is not valid number")
         print(checkpoint)
