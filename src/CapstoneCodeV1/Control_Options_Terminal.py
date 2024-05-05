@@ -128,7 +128,7 @@ def Terminal_Control(motor):
             print("theta_base,theta1,theta2,theta3:",Base,' ',Arm_Extend,' ',Elbow,' ',Wrist)
         elif mode == 'move':
             [speed,turn,t] = [float(element.strip()) for element in elements[1:]]
-            motor.move(speed,turn,t)
+            motor.move(speed=speed,turn = turn,t = t)
             motor.move(0,0,0.1)
     
     except ValueError:
