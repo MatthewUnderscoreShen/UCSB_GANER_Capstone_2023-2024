@@ -106,6 +106,7 @@ def KeyBoard_Control(motor):
 
 def Terminal_Control(motor):
     try:
+        checkpoint = 0
         user_input = input("get input, separate by space\n")
 
         elements = user_input.split(' ')
@@ -114,6 +115,7 @@ def Terminal_Control(motor):
         L3 = 7
         parsed_elements = [float(element.strip()) for element in elements]
         [Base,Arm_Extend,Elbow,Wrist] = IK(parsed_elements[0],parsed_elements[1],z = parsed_elements[2],L1=L1,L2=L2,L3=L3,gribber_angle=parsed_elements[3])
+        checkpoint = 1
         if(Arm_Extend > np.pi/2):
             print("too close")
             return
@@ -123,7 +125,7 @@ def Terminal_Control(motor):
         print("theta_base,theta1,theta2,theta3:",Base,' ',Arm_Extend,' ',Elbow,' ',Wrist)
     except ValueError:
         print("input is not valid number")
-        print(user_input)
+        print(checkpoint)
     except IndexError:
         print("Input not enough, or the distance is not possible")
 
