@@ -18,8 +18,8 @@ import time
 import KeyPressModule as kp
 
 from Inverse_kinematic import IK
+import numpy as np
 
-kp.init()
 GPIO.setmode(GPIO.BCM)
 
 trig = 23
@@ -109,17 +109,22 @@ def Terminal_Control(motor):
         user_input = input("get input, separate by space\n")
 
         elements = user_input.split(' ')
-        L1 = 5
+        L1 = 4.5
         L2 = 6.3
-        L3 = 6
+        L3 = 7
         parsed_elements = [float(element.strip()) for element in elements]
         [Base,Arm_Extend,Elbow,Wrist] = IK(parsed_elements[0],parsed_elements[1],z = parsed_elements[2],L1=L1,L2=L2,L3=L3,gribber_angle=parsed_elements[3])
-        
+        if(Arm_Extend > np.pi/2):
+            print("too close")
+            return
+        arm.setPosition(3, 500 - 700 * (Wrist/np.pi), wait=False)
+        arm.setPosition(4, 450 - 600 * (Elbow/np.pi), wait=False)
+        arm.setPosition(5, 800 - 600 * Arm_Extend/np.pi, wait=False)
         print("theta_base,theta1,theta2,theta3:",Base,' ',Arm_Extend,' ',Elbow,' ',Wrist)
     except ValueError:
         print("input is not valid number")
     except IndexError:
-        print("input at least 4, as x, y, z, wrist absolute angle")
+        print("Input not enough, or the distance is not possible")
 
 
 def Autonomous_Control(motor):
