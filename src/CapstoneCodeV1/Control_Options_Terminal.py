@@ -115,10 +115,11 @@ def Terminal_Control(motor):
         L3 = 7
         parsed_elements = [float(element.strip()) for element in elements]
         [Base,Arm_Extend,Elbow,Wrist] = IK(parsed_elements[0],parsed_elements[1],z = parsed_elements[2],L1=L1,L2=L2,L3=L3,gribber_angle=parsed_elements[3])
-        checkpoint = 1
+        
         if(Arm_Extend > np.pi/2):
             print("too close")
             return
+        checkpoint = 1
         arm.setPosition(3, 500 - 700 * (Wrist/np.pi), wait=False)
         arm.setPosition(4, 450 - 600 * (Elbow/np.pi), wait=False)
         arm.setPosition(5, 800 - 600 * Arm_Extend/np.pi, wait=False)
