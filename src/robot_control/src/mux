@@ -4,24 +4,29 @@ import numpy as np
 import time
 from std_msgs.msg import String
 from std_msgs.msg import Int16MultiArray
+from std_msgs.msg import Float32MultiArray
 
 class Mux(object):
 
     def __init__(self):
         topics = rospy.get_param("/topics")
         self.drive_pub = rospy.Publisher(topics["drive_in"], String, queue_size=10)
-        self.arm_pub = rospy.Publisher(topics["arm_in"], String, queue_size=10)
+        self.arm_pub = rospy.Publisher(topics["arm_in"], Float32MultiArray, queue_size=10)
         self.is_pub = rospy.Publisher(topics["is_on"], Int16MultiArray, queue_size=10)
         rospy.Subscriber("/current_task", String, self.task_callback)
         # is_this_on : [is_teleop, is_camera_looking, ]
 
     def task_callback(self, data):
         if data.data == "Teleop":
-            self.is_pub.publish([1,0])
+            msg = Int16MultiArray()
+            msg.data = [1,0]
+            self.is_pub.publish(msg)
         elif data.data == "Auto":
-            self.is_pub.publish([0,0])
+            msg = Int16MultiArray()
+            msg.data = [0,0]
+            self.is_pub.publish(msg)
         elif data.data == "0":
-            self.drive_pub.publish("help me")
+            self.drive_pub.publish(String("help me"))
 
 if __name__ == '__main__':
     rospy.init_node("mux")

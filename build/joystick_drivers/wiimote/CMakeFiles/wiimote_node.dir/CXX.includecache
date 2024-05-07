@@ -80,20 +80,6 @@ bluetooth/bluetooth.h
 cwiid.h
 -
 
-/home/capstone/UCSB_GANER_Capstone_2023-2024/src/joystick_drivers/wiimote/src/stat_vector_3d.cpp
-wiimote/stat_vector_3d.h
-/home/capstone/UCSB_GANER_Capstone_2023-2024/src/joystick_drivers/wiimote/src/wiimote/stat_vector_3d.h
-ros/ros.h
-/home/capstone/UCSB_GANER_Capstone_2023-2024/src/joystick_drivers/wiimote/src/ros/ros.h
-numeric
--
-functional
--
-algorithm
--
-math.h
--
-
 /home/capstone/UCSB_GANER_Capstone_2023-2024/src/joystick_drivers/wiimote/src/wiimote_controller.cpp
 wiimote/wiimote_controller.h
 /home/capstone/UCSB_GANER_Capstone_2023-2024/src/joystick_drivers/wiimote/src/wiimote/wiimote_controller.h

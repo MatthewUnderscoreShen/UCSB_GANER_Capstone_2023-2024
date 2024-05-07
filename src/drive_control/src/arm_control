@@ -25,10 +25,12 @@ class ArmController(object):
     def is_on_callback(self, data):
         self.is_teleop = data.data[0]
     
-    def joy_callback(self, data):   # for testing
+    def joy_callback(self, data):
+        if not self.is_teleop:
+            return
         # Go to setpoint
         if data.buttons[0] == 1:    # X
-            # diagonal up (like a nazi salute)
+            # up
             self.arm.set_pos((400, 415, 500, 480, 500, 500))
         elif data.buttons[1]:       # O
             # link 1 up, link 2 bent (pointing forward)
