@@ -124,10 +124,10 @@ def Terminal_Control(motor):
             L2 = 6.3
             L3 = 7
             parsed_elements = [float(element.strip()) for element in elements[1:]]
-            
-            result = IK(parsed_elements[0],parsed_elements[1],z = parsed_elements[2],L1=L1,L2=L2,L3=L3,gribber_angle=parsed_elements[3],currentBase = parsed_elements[4])
+            print(parsed_elements)
+            [Base,Arm_Extend,Elbow,Wrist] = IK(parsed_elements[0],parsed_elements[1],z = parsed_elements[2],L1=L1,L2=L2,L3=L3,gribber_angle=parsed_elements[3],currentBase = parsed_elements[4])
             checkpoint = 1
-            [Base,Arm_Extend,Elbow,Wrist] = result
+            
             if(Arm_Extend > np.pi/2):
                 print("too close")
                 Arm_Extend = np.pi/2
