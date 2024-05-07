@@ -9,6 +9,7 @@ def IK(x ,y ,z=0,L1=4.5,L2=6.3,L3=7,Base=4.5,gribber_angle = 0, Base_Height = 5,
     #note2: theta base is the angle that body need to rotate for z position
     #note3: for now, ignore moving the body, but can add if necessary
     #note4: gripper is special arm, we need to fix the absolute angle, default is horizontal
+    move = 0
     currentBase = np.deg2rad(currentBase)
     y = y - Base_Height
     gribber_angle = np.deg2rad(gribber_angle)
@@ -17,18 +18,19 @@ def IK(x ,y ,z=0,L1=4.5,L2=6.3,L3=7,Base=4.5,gribber_angle = 0, Base_Height = 5,
     x_3= x_actual-np.cos(gribber_angle)*L3
     y_3= y-np.sin(gribber_angle)*L3
     D = math.sqrt(x_3**2 + y_3**2)
+    
     if D > L1 + L2:
         print("too far")
-        x_3 = math.sqrt((L1+L2)**2 - y_3**2) - 0.01
-    if D < np.abs(L1-L2):
-        print("too close")
-        return None
+        move = x_3 - math.sqrt((L1+L2)**2 - y_3**2) + 0.5
+        x_3 = x_3 - move
+
+        
 
     theta2 = -np.arccos((x_3**2 + y_3**2 - L1**2 - L2**2) / (2 * L1 * L2))
     theta1 = np.arctan2(y_3, x_3) - np.arctan2(L2 * np.sin(theta2), L1 + L2 * np.cos(theta2))
     theta3 = gribber_angle-theta2-theta1
     
-    return theta_base-currentBase,theta1,theta2,theta3
+    return theta_base-currentBase,theta1,theta2,theta3,move
 
 def plot_arm(theta1, theta2, theta3, L1, L2, L3):
     # for testing, don't use this in controlling code(will stuck)
