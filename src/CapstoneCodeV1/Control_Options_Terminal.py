@@ -104,11 +104,17 @@ def KeyBoard_Control(motor):
     else:
         motor.stop(0.1)
 
+def rotate(motor,ang):
+    if(ang > 0):
+        motor.move(0.8, 0, ang/45)
+    else:
+        motor.move(0.8, 0, ang/40)
+    motor(0,0,0.1)
 
 def Terminal_Control(motor):
     try:
         checkpoint = 0
-        user_input = input("get input, separate by space, first element is control mode\n mode = arm,move\n")
+        user_input = input("get input, separate by space, first element is control mode\n mode = arm,move,rotate\n")
 
         elements = user_input.split(' ')
         mode = elements[0]
@@ -138,10 +144,13 @@ def Terminal_Control(motor):
                  movement(motor,'left',t)
             else:
                 if(speed > 0.1):
-                    movement(motor,'forward',t)
+                    movement(motor,'foward',t)
                 elif(speed < 0.1):
                     movement(motor,'backward',t)
             motor.move(0,0,0.1)
+        elif mode == 'rotate':
+            ang = float(elements[1])
+            rotate(motor,ang)
     
     except ValueError:
         print("input is not valid number")
