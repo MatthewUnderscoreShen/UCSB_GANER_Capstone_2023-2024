@@ -2,13 +2,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
-def IK(x ,y ,z=0,L1=4.5,L2=6.3,L3=7,Base=4.5,gribber_angle = 0, Base_Height = 5):
+def IK(x ,y ,z=0,L1=4.5,L2=6.3,L3=7,Base=4.5,gribber_angle = 0, Base_Height = 5,currentBase = 0):
     #L1-Arm L2-elbow L3-wrist Base is distance from elbow joint to robot rotation center
 	#usage: get relative x y z cordinate with origin of robot,return required arm angle
     #note1: x point to front, y point to up, z point to right(turning position)
     #note2: theta base is the angle that body need to rotate for z position
     #note3: for now, ignore moving the body, but can add if necessary
     #note4: gripper is special arm, we need to fix the absolute angle, default is horizontal
+    currentBase = np.deg2rad(currentBase)
     y = y - Base_Height
     gribber_angle = np.deg2rad(gribber_angle)
     theta_base = np.arctan2(z,x+Base)
@@ -27,7 +28,7 @@ def IK(x ,y ,z=0,L1=4.5,L2=6.3,L3=7,Base=4.5,gribber_angle = 0, Base_Height = 5)
     theta1 = np.arctan2(y_3, x_3) - np.arctan2(L2 * np.sin(theta2), L1 + L2 * np.cos(theta2))
     theta3 = gribber_angle-theta2-theta1
     
-    return theta_base,theta1,theta2,theta3
+    return theta_base-currentBase,theta1,theta2,theta3
 
 def plot_arm(theta1, theta2, theta3, L1, L2, L3):
     # for testing, don't use this in controlling code(will stuck)
@@ -65,14 +66,14 @@ def main():
         L2 = 6.3
         L3 = 7
         parsed_elements = [float(element.strip()) for element in elements]
-        result = IK(parsed_elements[0],parsed_elements[1],z = parsed_elements[2],L1=L1,L2=L2,L3=L3,gribber_angle=parsed_elements[3])
+        result = IK(parsed_elements[0],parsed_elements[1],z = parsed_elements[2],L1=L1,L2=L2,L3=L3,gribber_angle=parsed_elements[3],currentBase = parsed_elements[4])
         result = np.array(result)
         plot_arm(result[1], result[2], result[3], L1, L2, L3)
         print("theta_base,theta1,theta2,theta3:", result*180/np.pi)
     except ValueError:
         print("input is not valid number")
     except IndexError:
-        print("input at least 3")
+        print("input at least 5")
 
 if __name__ == '__main__':
     try:
