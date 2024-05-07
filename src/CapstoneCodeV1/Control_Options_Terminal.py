@@ -108,7 +108,8 @@ def rotate(motor,ang):
     if(ang > 0):
         motor.move(0.8, 0, ang/45)
     else:
-        motor.move(0.8, 0, ang/40)
+        motor.move(-0.8, 0, -ang/40)
+    
     motor.move(0,0,0.1)
 
 def Terminal_Control(motor):
