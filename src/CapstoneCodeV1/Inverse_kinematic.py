@@ -14,7 +14,7 @@ def IK(x ,y ,z=0,L1=4.5,L2=6.3,L3=7,Base=4.5,gribber_angle = 0, Base_Height = 5,
     gribber_angle = np.deg2rad(gribber_angle)
     theta_base = np.arctan2(z,x+Base)
     x_actual = np.sqrt(z**2 + x**2) - Base
-    x_3= x-np.cos(gribber_angle)*L3
+    x_3= x_actual-np.cos(gribber_angle)*L3
     y_3= y-np.sin(gribber_angle)*L3
     D = math.sqrt(x_3**2 + y_3**2)
     if D > L1 + L2:
