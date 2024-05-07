@@ -118,5 +118,5 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-catkin_install_python(PROGRAMS src/camera_node.py
+catkin_install_python(PROGRAMS src/camera_node
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

@@ -57,6 +57,6 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/camera" TYPE PROGRAM FILES "/home/capstone/UCSB_GANER_Capstone_2023-2024/build/camera/catkin_generated/installspace/camera_node.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/camera" TYPE PROGRAM FILES "/home/capstone/UCSB_GANER_Capstone_2023-2024/build/camera/catkin_generated/installspace/camera_node")
 endif()
 

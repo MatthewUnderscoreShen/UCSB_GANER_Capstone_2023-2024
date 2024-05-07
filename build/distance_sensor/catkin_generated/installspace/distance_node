@@ -11,15 +11,13 @@ class HCSR04Wrapper(object):
         self.max_range = 400
         self.fov = 0.26179938779915 # 15 degrees
 
-        # topic_name = rospy.get_param("topic_name")
-        # self.ultrasonicPub = rospy.Publisher(topic_name, Range, queue_size=10)    # topic name defined by param in launch file
-        self.ultrasonicPub = rospy.Publisher('/ultrasonic/distance', Range, queue_size=10)
+        pins = rospy.get_param("/pins/dist")
+        topics = rospy.get_param("/topics")
+        self.ultrasonicPub = rospy.Publisher(topics["dist_f"], Range, queue_size=10)
+        # self.ultrasonicPub = rospy.Publisher('/ultrasonic/distance', Range, queue_size=10)
         # self.ultrasonicVelocityPub = rospy.Publisher('/ultrasonic/relative_velocity', Range, queue_size=10)
-
-        # loading the driver
-        # self.ultrasonic_sensor = HCSR04(trig_pin, echo_pin)   # trigger, echo
-
-        self.ultrasonic_sensor = HCSR04(6, 5)
+        self.ultrasonic_sensor = HCSR04(pins["front"]["trig"], pins["front"]["echo"])
+        # self.ultrasonic_sensor = HCSR04(6, 5)
 
         self.rate = rospy.Rate(10) # 10hz
         while not rospy.is_shutdown():

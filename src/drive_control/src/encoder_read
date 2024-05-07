@@ -6,13 +6,20 @@ from drive_control.encoder import Encoder
 class EncoderReader(object):
 
     def __init__(self):
-        self.pins = rospy.get_param("/pins")
-        self.topics = rospy.get_param("/topics")
-        self.left_enc = Encoder(self.pins["encoder/left/A"], self.pins["encoder/left/B"])
-        self.right_enc = Encoder(self.pins["encoder/right/A"], self.pins["encoder/right/B"])
+        pins = rospy.get_param("/pins/encoder")
+        topics = rospy.get_param("/topics")
 
-        self.left_ticks_pub = rospy.Publisher(self.topics["encoder_left"], Int16, queue_size=10)
-        self.right_ticks_pub = rospy.Publisher(self.topics["encoder_right"], Int16, queue_size=10)
+        self.left_enc = Encoder(pins["left"]["A"], pins["left"]["B"])
+        self.right_enc = Encoder(pins["right"]["A"], pins["right"]["B"])
+
+        self.left_ticks_pub = rospy.Publisher(topics["enc_l"], Int16, queue_size=10)
+        self.right_ticks_pub = rospy.Publisher(topics["enc_r"], Int16, queue_size=10)
+
+        # self.left_enc = Encoder(20, 21)
+        # self.right_enc = Encoder(16, 26)
+
+        # self.left_ticks_pub = rospy.Publisher("/lwheel", Int16, queue_size=10)
+        # self.right_ticks_pub = rospy.Publisher("/rwheel", Int16, queue_size=10)
 
         self.left_ticks = 0
         self.right_ticks = 0

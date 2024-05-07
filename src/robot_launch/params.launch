@@ -1,25 +1,41 @@
 <launch>
     <group ns="pins">
-        <param name="pwm/left" value="22" type="int"/>
-        <param name="dir/left" value="10" type="int"/>
-        <param name="pwm/right" value="17" type="int"/>
-        <param name="dir/right" value="27" type="int"/>
-        <param name="encoder/left/A" value="20" type="int"/>
-        <param name="encoder/left/B" value="21" type="int"/>
-        <param name="encoder/right/A" value="16" type="int"/>
-        <param name="encoder/right/B" value="26" type="int"/>
-        <param name="dist/front/trig" value="6" type="int"/>
-        <param name="dist/front/echo" value="5" type="int"/>
+        <group ns="pwm">
+            <param name="left" value="22" type="int"/>
+            <param name="right" value="17" type="int"/>
+        </group>
+        <group ns="dir">
+            <param name="left" value="10" type="int"/>
+            <param name="right" value="27" type="int"/>
+        </group>
+        <group ns="encoder">
+            <group ns="left">
+                <param name="A" value="20" type="int"/>
+                <param name="B" value="21" type="int"/>
+            </group>
+            <group ns="right">
+                <param name="A" value="16" type="int"/>
+                <param name="B" value="26" type="int"/>
+            </group>
+        </group>
+        <group ns="dist">
+            <group ns="front">
+                <param name="trig" value="6" type="int"/>
+                <param name="echo" value="5" type="int"/>
+            </group>
+        </group>
     </group>
 
     <group ns="topics">
-        <param name="/joy" value="joy"/>
-        <param name="/task" value="current_task"/>
-        <param name="/drive_command" value="drive_command"/>
-        <param name="/drive_output" value="drive_output"/>
-        <param name="/arm_command" value="arm_command"/>
-        <param name="/arm_output" value="arm_output"/>
-        <param name="encoder_left" value="encoder_output_left"/>
-        <param name="encoder_right" value="encoder_output_right"/>
+        <param name="joy" value="/joy"/>
+        <param name="task" value="/current_task"/>
+        <param name="drive_in" value="/command_to_drive"/>
+        <param name="drive_out" value="/output_from_drive"/>
+        <param name="arm_in" value="/command_to_arm"/>
+        <param name="arm_out" value="/output_from_arm"/>
+        <param name="enc_l" value="/lwheel"/>
+        <param name="enc_r" value="/rwheel"/>
+        <param name="dist_f" value="/front_distance_sensor"/>
+        <param name="is_on" value="/is_this_on"/>
     </group>
 </launch>

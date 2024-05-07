@@ -119,5 +119,5 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-catkin_install_python(PROGRAMS src/test_commands.py src/mux.py
+catkin_install_python(PROGRAMS src/test_commands.py src/mux
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

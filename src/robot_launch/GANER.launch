@@ -4,4 +4,5 @@
     <include file="$(find drive_control)/launch/drive_control.launch"/>
     <include file="$(find robot_control)/launch/robot_control.launch"/>
     <include file="$(find tasks)/launch/tasks.launch"/>
+    <include file="$(find distance_sensor)/launch/distance_sensors.launch"/>
 </launch> 

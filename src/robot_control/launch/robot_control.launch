@@ -1,3 +1,4 @@
 <launch>
-    <node pkg="robot_control" name="mux" type="mux.py"/>
+    <!-- <node pkg="robot_control" name="mux" type="mux"/> -->
+    <node pkg="robot_control" name="mux" type="mux"/>
 </launch> 
