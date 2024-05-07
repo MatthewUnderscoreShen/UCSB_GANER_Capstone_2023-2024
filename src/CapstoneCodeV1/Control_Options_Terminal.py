@@ -133,7 +133,7 @@ def Terminal_Control(motor):
             arm.setPosition(3, round(500 - 700 * (Wrist/np.pi)), wait=False)
             arm.setPosition(4, round(450 - 600 * (Elbow/np.pi)), wait=False)
             arm.setPosition(5, round(800 - 600 * Arm_Extend/np.pi), wait=False)
-            rotate(motor,np.rad2deg(Base))
+            #rotate(motor,np.rad2deg(Base))
             print("theta_base,theta1,theta2,theta3:",Base,' ',Arm_Extend,' ',Elbow,' ',Wrist)
         elif mode == 'move':
             [speed,turn,t] = [float(element.strip()) for element in elements[1:]]
@@ -161,6 +161,7 @@ def Terminal_Control(motor):
         print("Input not enough, or the distance is not possible")
     except TypeError:
         print("try appropritate value")
+        print(checkpoint)
 
 
 def Autonomous_Control(motor):
