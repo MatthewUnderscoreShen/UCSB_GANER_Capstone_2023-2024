@@ -106,9 +106,9 @@ def KeyBoard_Control(motor):
 
 def rotate(motor,ang):
     if(ang > 0):
-        motor.move(0.8, 0, ang/45)
+        motor.move(0.8, 0, ang/44)
     else:
-        motor.move(-0.8, 0, -ang/40)
+        motor.move(-0.8, 0, -ang/38)
     
     motor.move(0,0,0.1)
 
@@ -124,7 +124,7 @@ def Terminal_Control(motor):
             L2 = 6.3
             L3 = 7
             parsed_elements = [float(element.strip()) for element in elements[1:]]
-            [Base,Arm_Extend,Elbow,Wrist] = IK(parsed_elements[0],parsed_elements[1],z = parsed_elements[2],L1=L1,L2=L2,L3=L3,gribber_angle=parsed_elements[3])
+            [Base,Arm_Extend,Elbow,Wrist] = IK(parsed_elements[0],parsed_elements[1],z = parsed_elements[2],L1=L1,L2=L2,L3=L3,gribber_angle=parsed_elements[3],currentBase=parsed_elements[4])
             
             if(Arm_Extend > np.pi/2):
                 print("too close")
@@ -133,6 +133,7 @@ def Terminal_Control(motor):
             arm.setPosition(3, round(500 - 700 * (Wrist/np.pi)), wait=False)
             arm.setPosition(4, round(450 - 600 * (Elbow/np.pi)), wait=False)
             arm.setPosition(5, round(800 - 600 * Arm_Extend/np.pi), wait=False)
+            rotate(motor,np.rad2deg(Base))
             print("theta_base,theta1,theta2,theta3:",Base,' ',Arm_Extend,' ',Elbow,' ',Wrist)
         elif mode == 'move':
             [speed,turn,t] = [float(element.strip()) for element in elements[1:]]
