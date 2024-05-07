@@ -16,33 +16,37 @@ class ArmController(object):
         self.arm_pub = rospy.Publisher(self.topics["arm_out"], Float32MultiArray, queue_size=10)
 
         self.is_teleop = False
+
+        rate = rospy.Rate(10)
+        msg = Float32MultiArray()
+        while not rospy.is_shutdown():
+            msg.data = self.arm.get_pos()
+            self.arm_pub.publish(msg)
     
     def arm_callback(self, data):
         # float32 array with angle values
-        return  # disabled for testing
+        return  # disabled for now
         self.arm.set_pos(data.data)
 
     def is_on_callback(self, data):
         self.is_teleop = data.data[0]
     
     def joy_callback(self, data):
+        # Claw, Claw rotate, top link, middle link, bottom link
         if not self.is_teleop:
             return
         # Go to setpoint
         if data.buttons[0] == 1:    # X
             # up
-            self.arm.set_pos((400, 415, 500, 480, 500, 500))
+            self.arm.set_pos((400, 415, 500, 480, 500))
         elif data.buttons[1]:       # O
             # link 1 up, link 2 bent (pointing forward)
-            self.arm.set_pos((400, 415, 500, 480, 800, 500))
+            self.arm.set_pos((400, 415, 500, 750, 500))
         elif data.buttons[2]:       # Triangle
             # arm up
-            self.arm.set_pos((400, 415, 500, 880, 650, 500))
+            self.arm.set_pos((400, 415, 500, 480, 500))
         elif data.buttons[3]:       # Square
-            self.arm.set_pos((400, 415, 500, 150, 650, 500))       
-
-    def pub_arm_pos(self):
-        self.arm_pub.publish(Float32MultiArray(self.arm.get_pos()))
+            self.arm.set_pos((400, 415, 500, 150, 650))       
 
 if __name__ == "__main__":
     rospy.init_node("arm_control")

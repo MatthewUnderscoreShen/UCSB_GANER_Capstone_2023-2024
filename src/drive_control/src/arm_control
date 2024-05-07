@@ -6,6 +6,9 @@ from sensor_msgs.msg import Joy
 from drive_control.arm import Arm
 
 class ArmController(object):
+    setpoints = ([400, 415, 500, 480, 500],     # arm up
+                 [400, 415, 500, 750, 500]     # link 1 up, link 2 bent (pointing forward)
+                )
     
     def __init__(self):
         self.arm = Arm()
@@ -13,36 +16,59 @@ class ArmController(object):
         rospy.Subscriber(self.topics["arm_in"], Float32MultiArray, self.arm_callback)
         rospy.Subscriber(self.topics["is_on"], Int16MultiArray, self.is_on_callback)
         rospy.Subscriber(self.topics["joy"], Joy, self.joy_callback)
-        self.arm_pub = rospy.Publisher(self.topics["arm_out"], Float32MultiArray, queue_size=10)
+        #self.arm_pub = rospy.Publisher(self.topics["arm_out"], Float32MultiArray, queue_size=10)
 
         self.is_teleop = False
+        self.curr_pos = self.setpoints[0]
+        self.last_pos = self.curr_pos
+
+        rate = rospy.Rate(2)
+        while not rospy.is_shutdown():
+            self.last_pos = self.curr_pos
+
+        # Unfortunately the xarm module is trash and has an error when 
+        # reading servo positions so im just gonna leave this here in 
+        # case it gets fixed
+        #rate = rospy.Rate(10)
+        #msg = Float32MultiArray()
+        #while not rospy.is_shutdown():
+            #msg.data = self.arm.get_pos()
+            #self.arm_pub.publish(msg)
     
     def arm_callback(self, data):
         # float32 array with angle values
-        return  # disabled for testing
+        return  # disabled for now
         self.arm.set_pos(data.data)
 
     def is_on_callback(self, data):
         self.is_teleop = data.data[0]
     
     def joy_callback(self, data):
+        # Claw, Claw rotate, top link, middle link, bottom link
         if not self.is_teleop:
             return
         # Go to setpoint
         if data.buttons[0] == 1:    # X
-            # up
-            self.arm.set_pos((400, 415, 500, 480, 500, 500))
+            # ???
+            self.curr_pos = self.setpoints[0]
         elif data.buttons[1]:       # O
             # link 1 up, link 2 bent (pointing forward)
-            self.arm.set_pos((400, 415, 500, 480, 800, 500))
+            self.curr_pos = self.setpoints[1]
         elif data.buttons[2]:       # Triangle
             # arm up
-            self.arm.set_pos((400, 415, 500, 880, 650, 500))
+            self.curr_pos = self.setpoints[0]
         elif data.buttons[3]:       # Square
-            self.arm.set_pos((400, 415, 500, 150, 650, 500))       
-
-    def pub_arm_pos(self):
-        self.arm_pub.publish(Float32MultiArray(self.arm.get_pos()))
+            self.curr_pos = self.setpoints[0]
+        elif data.buttons[4]:
+            self.curr_pos[2] = self.last_pos[2] - 10
+        elif data.buttons[5]:
+            self.curr_pos[2] = self.last_pos[2] + 10
+        elif data.buttons[6]:
+            self.curr_pos[3] = self.last_pos[3] - 10
+        elif data.buttons[7]:
+            self.curr_pos[3] = self.last_pos[3] + 10
+        
+        self.arm.set_pos(self.curr_pos)
 
 if __name__ == "__main__":
     rospy.init_node("arm_control")
