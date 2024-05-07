@@ -72,17 +72,18 @@ def movement(motor, movement_type, time):
     ## motor.move(power, turn, time)
     ## Negative value is okay, goes backwards
     if movement_type == 'foward':
-        motor.move(speed = 0.5,turn= -1, t=time)
+        motor.move(speed = 0,turn= -1, t=time)
     elif movement_type == 'backward':
-        motor.move(speed = 0.5,turn = 1,t=time)
+        motor.move(speed = 0,turn = 1,t=time)
     elif movement_type == 'right':
-        motor.move(1, 0.5, time)
+        motor.move(0.8, 0, time)
     elif movement_type == 'left':
-        motor.move(1, -0.5, t=time)
+        motor.move(-0.8, 0, t=time)
     elif movement_type == 'stop':
         motor.stop(t =time)
     else:
         print("Unknown movement type")
+    motor.move(0,0,0.1)
 
 def KeyBoard_Control(motor):
 
@@ -128,13 +129,18 @@ def Terminal_Control(motor):
             print("theta_base,theta1,theta2,theta3:",Base,' ',Arm_Extend,' ',Elbow,' ',Wrist)
         elif mode == 'move':
             [speed,turn,t] = [float(element.strip()) for element in elements[1:]]
+            #turn right: t = 2 -> 90 degree
+            #turn left: t =2.4 -> 90 degree
+
             if(turn > 0.1):
-                turn = 0.8
+                movement(motor,'right',t)
             elif(turn < -0.1):
-                turn = -0.8
+                 movement(motor,'left',t)
             else:
-                turn = 0
-            motor.move(speed = turn,turn = -speed,t = t)
+                if(speed > 0.1):
+                    movement(motor,'forward',t)
+                elif(speed < 0.1):
+                    movement(motor,'backward',t)
             motor.move(0,0,0.1)
     
     except ValueError:
