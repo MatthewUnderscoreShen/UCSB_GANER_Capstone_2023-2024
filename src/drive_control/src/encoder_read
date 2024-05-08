@@ -15,18 +15,38 @@ class EncoderReader(object):
         self.left_ticks_pub = rospy.Publisher(topics["enc_l"], Int16, queue_size=10)
         self.right_ticks_pub = rospy.Publisher(topics["enc_r"], Int16, queue_size=10)
 
-        # self.left_enc = Encoder(20, 21)
-        # self.right_enc = Encoder(16, 26)
+        left_ticks = Int16()
+        right_ticks = Int16()
 
-        # self.left_ticks_pub = rospy.Publisher("/lwheel", Int16, queue_size=10)
-        # self.right_ticks_pub = rospy.Publisher("/rwheel", Int16, queue_size=10)
+        left_ticks.data = 0
+        right_ticks.data = 0
 
-        self.left_ticks = 0
-        self.right_ticks = 0
+        l_last = 0
+        r_last = 0
+        l_read = (0,0)
+        r_read = (0,0)
+        rate = rospy.Rate(1000)
+        while not rospy.is_shutdown():
+            l_read = self.left_enc.read()
+            r_read = self.right_enc.read()
+
+            if l_read[0] and not l_last:    # if goes from low to high
+                left_ticks.data += 1 if l_read[1] else -1
+            if r_read[0] and not r_last:
+                right_ticks.data += 1 if r_read[1] else -1
+
+            self.left_ticks_pub.publish(left_ticks)
+            self.right_ticks_pub.publish(right_ticks)
+
+            l_last = l_read[0]
+            r_last = r_read[0]
+
+            rate.sleep()
 
 if __name__ == "__main__":
     rospy.init_node("encoder_read")
 
     encoder_reader = EncoderReader()
 
+    rospy.loginfo("Encoder node started")
     rospy.spin()

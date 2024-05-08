@@ -21,13 +21,6 @@ class MotorController(object):
         rospy.Subscriber(topics["is_on"], Int16MultiArray, self.is_on_callback)
         rospy.Subscriber(topics["joy"], Joy, self.joy_callback)
 
-        # self.left_motor = Motor(22, 10, 100, False)
-        # self.right_motor = Motor(17, 27, 100, False)
-
-        # self.drive_pub = rospy.Publisher("/drive_output", String, queue_size=10)
-        # self.drive_sub = rospy.Subscriber("/drive_command", String, self.drive_callback)
-        # self.joy_sub = rospy.Subscriber("/joy", Joy, self.joy_callback)
-
         self.is_teleop = False
     
     def drive_callback(self, data):
