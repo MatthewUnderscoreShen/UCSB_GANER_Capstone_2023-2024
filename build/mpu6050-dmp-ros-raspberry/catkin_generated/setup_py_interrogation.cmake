@@ -1,0 +1,7 @@
+set(mpu6050_dmp_ros_SETUP_PY_SETUP_MODULE "setuptools")
+set(mpu6050_dmp_ros_SETUP_PY_VERSION "0.0.1")
+set(mpu6050_dmp_ros_SETUP_PY_SCRIPTS "scripts/imu_publisher")
+set(mpu6050_dmp_ros_SETUP_PY_PACKAGES "mpu6050_dmp_ros")
+set(mpu6050_dmp_ros_SETUP_PY_PACKAGE_DIRS "src/mpu6050_dmp_ros")
+set(mpu6050_dmp_ros_SETUP_PY_MODULES "")
+set(mpu6050_dmp_ros_SETUP_PY_MODULE_DIRS "")

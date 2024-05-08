@@ -37,5 +37,6 @@
         <param name="enc_r" value="/rwheel"/>
         <param name="dist_f" value="/front_distance_sensor"/>
         <param name="is_on" value="/is_this_on"/>
+        <param name="cam" value="/output_from_camera"/>
     </group>
 </launch>

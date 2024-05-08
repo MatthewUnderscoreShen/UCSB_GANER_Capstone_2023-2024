@@ -1,0 +1,8 @@
+prefix=/home/capstone/UCSB_GANER_Capstone_2023-2024/devel
+
+Name: mpu6050_dmp_ros
+Description: Description of mpu6050_dmp_ros
+Version: 0.0.1
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: rospy sensor_msgs std_msgs

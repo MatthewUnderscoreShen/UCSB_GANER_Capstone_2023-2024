@@ -3,11 +3,16 @@ to navigate through a course consisting of staircases, latches, and narrow paths
 fully adapted to a navy ship environment, so it would be capable of accomplishing difficult/dangerous/time-consuming jobs for the Navies. 
 
 All Packages that are imported:
+- **For ROS**
+  - `Distro: ROS Noetic`
+    - rospy, rospack
 - **For GPIO Control:**
   - `import RPi.GPIO as GPIO`
   - `import pigpio`
 - **For Controller Integration:**
-  - `import pygame`
+  - `sudo apt-get install libspnav-dev`
+  - `sudo apt-get install libbluetooth-dev`
+  - `sudo apt-get install libcwiid1 libcwiid-dev`
 - **For Arm Control:**
   - `import xarm`
 - **For Camera Integration:**

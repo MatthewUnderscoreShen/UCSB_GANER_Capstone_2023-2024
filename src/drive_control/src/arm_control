@@ -7,30 +7,34 @@ from drive_control.arm import Arm
 
 class ArmController(object):
     setpoints = ([400, 415, 500, 480, 500],     # arm up
-                 [400, 415, 500, 750, 500]     # link 1 up, link 2 bent (pointing forward)
+                 [400, 415, 500, 750, 500],     # link 1 up, link 2 bent (pointing forward)
+                 [400, 415, 500, 320, 700],     # start climb start (bottom 45 forward, middle 45 back)
+                 [400, 415, 500, 480, 800]      # flat (for climbing)
                 )
     
     def __init__(self):
         self.arm = Arm()
+        # sub and pub setup
         self.topics = rospy.get_param("/topics")
         rospy.Subscriber(self.topics["arm_in"], Float32MultiArray, self.arm_callback)
         rospy.Subscriber(self.topics["is_on"], Int16MultiArray, self.is_on_callback)
         rospy.Subscriber(self.topics["joy"], Joy, self.joy_callback)
-        #self.arm_pub = rospy.Publisher(self.topics["arm_out"], Float32MultiArray, queue_size=10)
+        self.arm_pub = rospy.Publisher(self.topics["arm_out"], Float32MultiArray, queue_size=10)
 
+        # teleop boolean
         self.is_teleop = False
-        self.curr_pos = self.setpoints[0]
-        self.last_pos = self.curr_pos
-
-        rate = rospy.Rate(2)
-        while not rospy.is_shutdown():
-            self.last_pos = self.curr_pos
+        # variables for ignoring joy_callback for analog joystick inputs
+        self.curr_pos = self.setpoints[0].copy()
+        self.last_pos = self.curr_pos.copy()
+        self.last_btn = (0 for _ in range(13))
+        self.last_axes = (0.0 for _ in range(8))
 
         # Unfortunately the xarm module is trash and has an error when 
         # reading servo positions so im just gonna leave this here in 
         # case it gets fixed
+        # For now I publish the output to arm rather than reading from the arm
         #rate = rospy.Rate(10)
-        #msg = Float32MultiArray()
+        self.msg = Float32MultiArray()
         #while not rospy.is_shutdown():
             #msg.data = self.arm.get_pos()
             #self.arm_pub.publish(msg)
@@ -44,36 +48,59 @@ class ArmController(object):
         self.is_teleop = data.data[0]
     
     def joy_callback(self, data):
+        # It's a bit of a mess
         # Claw, Claw rotate, top link, middle link, bottom link
-        if not self.is_teleop:
+        if not self.is_teleop or (data.buttons == self.last_btn and data.axes[6:] == self.last_axes[6:]):
+            # only run if teleop on and if the buttons have changed
             return
-        # Go to setpoint
+        
+        # Teleop button mappings
         if data.buttons[0] == 1:    # X
-            # ???
-            self.curr_pos = self.setpoints[0]
+            # flat
+            self.curr_pos = self.setpoints[3].copy()
         elif data.buttons[1]:       # O
             # link 1 up, link 2 bent (pointing forward)
-            self.curr_pos = self.setpoints[1]
+            self.curr_pos = self.setpoints[1].copy()
         elif data.buttons[2]:       # Triangle
             # arm up
-            self.curr_pos = self.setpoints[0]
+            self.curr_pos = self.setpoints[0].copy()
         elif data.buttons[3]:       # Square
-            self.curr_pos = self.setpoints[0]
-        elif data.buttons[4]:
-            self.curr_pos[2] = self.last_pos[2] - 10
-        elif data.buttons[5]:
-            self.curr_pos[2] = self.last_pos[2] + 10
-        elif data.buttons[6]:
-            self.curr_pos[3] = self.last_pos[3] - 10
-        elif data.buttons[7]:
-            self.curr_pos[3] = self.last_pos[3] + 10
+            self.curr_pos = self.setpoints[2].copy()
+        elif data.buttons[4]:       # left bumper
+            # 10deg about 40 ticks
+            # middle link up
+            self.curr_pos[3] = self.last_pos[3] - 40
+        elif data.buttons[5]:       # right bumper
+            # top link up
+            self.curr_pos[2] = self.last_pos[2] - 40
+        elif data.buttons[6]:       # left trigger
+            # middle link down
+            self.curr_pos[3] = self.last_pos[3] + 40
+        elif data.buttons[7]:       # right trigger
+            # top link down
+            self.curr_pos[2] = self.last_pos[2] + 40
+        elif data.buttons[10]:
+            # open if closed and visa versa
+            self.curr_pos[0] = 400 if self.last_pos[0] > 550 else 750
+        elif data.axes[6] != 0:
+            # left = 30 deg CCW, right = 30 deg CW
+            self.curr_pos[1] = self.last_pos[1] + (1 if data.axes[6] > 0 else -1)*120
+        elif data.axes[7] != 0:
+            # bottom link up/down
+            self.curr_pos[4] = self.last_pos[4] + (1 if data.axes[7] < 0 else -1)*20
         
         self.arm.set_pos(self.curr_pos)
+        self.msg.data = self.curr_pos.copy()
+        self.arm_pub.publish(self.msg)  # publish the output
+
+        self.last_pos = self.curr_pos.copy()
+        self.last_axes = data.axes
+        self.last_btn = data.buttons
 
 if __name__ == "__main__":
     rospy.init_node("arm_control")
 
     arm_controller = ArmController()
 
-    rospy.loginfo("Arm node started AAAAAAAAAAAAAAAAAAAA")
+    rospy.loginfo("Arm node started")
     rospy.spin()

@@ -34,7 +34,7 @@ class Arm(object):
         # This would be easier with IK
 
         # can change
-        self.robot.setPosition(1, min(400,max(750,angles[0])), wait=False)
+        self.robot.setPosition(1, min(750,max(400,angles[0])), wait=False)
         # can change
         self.robot.setPosition(2, min(800,max(50,angles[1])), wait=False)
         self.robot.setPosition(3, min(850,max(150,angles[2])), wait=False)
@@ -43,6 +43,7 @@ class Arm(object):
         self.robot.setPosition(5, min(800,max(500,angles[4])), wait=False) 
     
     def get_pos(self):      # returns angle array in deg
+        # Doesn't work because xarm sucks
         return [self.robot.getPosition(1, degrees=True),
                 self.robot.getPosition(2, degrees=True),
                 self.robot.getPosition(3, degrees=True),
