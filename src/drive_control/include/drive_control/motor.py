@@ -8,6 +8,7 @@ class Motor(object):
         self.dir_pin = dir_pin      # direction pin
         self.hz = hz                # pwm hertz
         self.is_left = is_left      # is this the left motor?
+        self.min_pow = 0.30*hz      # minimum to not stall
 
         # GPIO setup
         GPIO.setmode(GPIO.BCM)
@@ -20,7 +21,7 @@ class Motor(object):
     def set_teleop(self, is_teleop):
         self.is_teleop = is_teleop
 
-    def set_vel(self, vel):     # Assumes a 0-1 input
+    def set_vel(self, vel):     # Assumes a 0-1 float input
         # Set motor direction. high/low reversed for right motor
         if vel != 0 and vel/np.abs(vel) > 0:  # Forwarwd
             GPIO.output(self.dir_pin, GPIO.HIGH if self.is_left else GPIO.LOW)
@@ -28,7 +29,10 @@ class Motor(object):
             GPIO.output(self.dir_pin, GPIO.LOW if self.is_left else GPIO.HIGH)
         
         # Changes the control profile to be less sensitive at low inputs
-        self.pwm.ChangeDutyCycle(self.hz*np.abs(np.power(vel, 3)))
+        if vel != 0:
+            self.pwm.ChangeDutyCycle(max(self.min_pow,self.hz*np.abs(np.power(vel, 3))))
+        else:
+            self.stop()
 
     def stop(self):
         self.pwm.ChangeDutyCycle(0)

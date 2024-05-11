@@ -16,17 +16,24 @@ class Mux(object):
         rospy.Subscriber("/current_task", String, self.task_callback)
         # is_this_on : [is_teleop, is_camera_looking, ]
 
+        self.commands = {"Teleop": {"func": "msg",
+                                    "content": {"pub": self.is_pub, "type": Int16MultiArray(), "data": [1,0]}},
+                         "Auto": {"func": "msg", 
+                                  "content": {"pub": self.is_pub, "type": Int16MultiArray(), "data": [0,0]}},
+                         "Upstairs": {"func": "sequence", 
+                                      "content": {"pub": self.is_pub, "type": Int16MultiArray(), 
+                                                  "data": [""]}},
+                        }
+
     def task_callback(self, data):
-        if data.data == "Teleop":
-            msg = Int16MultiArray()
-            msg.data = [1,0]
-            self.is_pub.publish(msg)
-        elif data.data == "Auto":
-            msg = Int16MultiArray()
-            msg.data = [0,0]
-            self.is_pub.publish(msg)
-        elif data.data == "0":
-            self.drive_pub.publish(String("help me"))
+        stuff = self.commands[data.data]
+        self.pub_msg(stuff["pub"], stuff["type"], stuff["data"])
+    
+    def pub_msg(self, pub, type, data):
+        msg = type
+        msg.data = data
+        pub.publish(msg)
+
 
 if __name__ == '__main__':
     rospy.init_node("mux")

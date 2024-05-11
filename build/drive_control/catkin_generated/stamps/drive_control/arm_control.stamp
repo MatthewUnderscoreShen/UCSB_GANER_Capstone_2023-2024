@@ -8,7 +8,8 @@ from drive_control.arm import Arm
 class ArmController(object):
     setpoints = ([400, 415, 500, 480, 500],     # arm up
                  [400, 415, 500, 750, 500],     # link 1 up, link 2 bent (pointing forward)
-                 [400, 415, 500, 320, 650]      # start climb start (bottom 45 forward, middle 45 back)
+                 [400, 415, 500, 320, 700],     # start climb start (bottom 45 forward, middle 45 back)
+                 [400, 415, 500, 480, 800]      # flat (for climbing)
                 )
     
     def __init__(self):
@@ -23,10 +24,10 @@ class ArmController(object):
         # teleop boolean
         self.is_teleop = False
         # variables for ignoring joy_callback for analog joystick inputs
-        self.curr_pos = self.setpoints[0]
-        self.last_pos = self.curr_pos
-        self.last_btn = [0 for _ in range(13)]
-        self.last_axes = [0.0 for _ in range(8)]
+        self.curr_pos = self.setpoints[0].copy()
+        self.last_pos = self.curr_pos.copy()
+        self.last_btn = (0 for _ in range(13))
+        self.last_axes = (0.0 for _ in range(8))
 
         # Unfortunately the xarm module is trash and has an error when 
         # reading servo positions so im just gonna leave this here in 
@@ -49,22 +50,22 @@ class ArmController(object):
     def joy_callback(self, data):
         # It's a bit of a mess
         # Claw, Claw rotate, top link, middle link, bottom link
-        if not self.is_teleop and (data.buttons == self.last_btn and data.axes[6:] == self.last_axes[6:]):
+        if not self.is_teleop or (data.buttons == self.last_btn and data.axes[6:] == self.last_axes[6:]):
             # only run if teleop on and if the buttons have changed
             return
         
         # Teleop button mappings
         if data.buttons[0] == 1:    # X
-            # ???
-            self.curr_pos = self.setpoints[0]
+            # flat
+            self.curr_pos = self.setpoints[3].copy()
         elif data.buttons[1]:       # O
             # link 1 up, link 2 bent (pointing forward)
-            self.curr_pos = self.setpoints[1]
+            self.curr_pos = self.setpoints[1].copy()
         elif data.buttons[2]:       # Triangle
             # arm up
-            self.curr_pos = self.setpoints[0]
+            self.curr_pos = self.setpoints[0].copy()
         elif data.buttons[3]:       # Square
-            self.curr_pos = self.setpoints[2]
+            self.curr_pos = self.setpoints[2].copy()
         elif data.buttons[4]:       # left bumper
             # 10deg about 40 ticks
             # middle link up
@@ -80,7 +81,7 @@ class ArmController(object):
             self.curr_pos[2] = self.last_pos[2] + 40
         elif data.buttons[10]:
             # open if closed and visa versa
-            self.curr_pos[0] = 400 if self.last_pos[0] < 550 else 750
+            self.curr_pos[0] = 400 if self.last_pos[0] > 550 else 750
         elif data.axes[6] != 0:
             # left = 30 deg CCW, right = 30 deg CW
             self.curr_pos[1] = self.last_pos[1] + (1 if data.axes[6] > 0 else -1)*120
@@ -89,10 +90,10 @@ class ArmController(object):
             self.curr_pos[4] = self.last_pos[4] + (1 if data.axes[7] < 0 else -1)*20
         
         self.arm.set_pos(self.curr_pos)
-        self.msg.data = self.curr_pos
+        self.msg.data = self.curr_pos.copy()
         self.arm_pub.publish(self.msg)  # publish the output
 
-        self.last_axes = self.curr_pos
+        self.last_pos = self.curr_pos.copy()
         self.last_axes = data.axes
         self.last_btn = data.buttons
 
