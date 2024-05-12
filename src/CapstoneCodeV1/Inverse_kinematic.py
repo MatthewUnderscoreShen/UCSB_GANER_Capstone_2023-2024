@@ -28,7 +28,7 @@ def IK(x ,y ,z=0,L1=4.5,L2=6.3,L3=7,Base=4.5,gribber_angle = 0, Base_Height = 5,
         theta2 = -np.arccos((x_3**2 + y_3**2 - L1**2 - L2**2) / (2 * L1 * L2))
         theta1 = np.arctan2(y_3, x_3) - np.arctan2(L2 * np.sin(theta2), L1 + L2 * np.cos(theta2))
         theta3 = gribber_angle-theta2-theta1
-        if(1):
+        if(theta1 < np.pi/2):
             break
         else:
             move -= 1
