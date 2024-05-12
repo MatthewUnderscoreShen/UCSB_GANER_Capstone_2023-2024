@@ -119,6 +119,14 @@ def Terminal_Control(motor):
 
         elements = user_input.split(' ')
         mode = elements[0]
+        if mode == "manual":
+            parsed_elements = [float(element.strip()) for element in elements[1:]]
+            print(parsed_elements)
+            arm.setPosition(1, round(parsed_elements[0]), wait=False)
+            arm.setPosition(2, round(parsed_elements[1]), wait=False)
+            arm.setPosition(3, round(parsed_elements[2]), wait=False)
+            arm.setPosition(4, round(parsed_elements[3]), wait=False)
+            arm.setPosition(5, round(parsed_elements[4]), wait=False)
         if mode == 'arm':
             L1 = 4.5
             L2 = 6.1
