@@ -121,8 +121,8 @@ def Terminal_Control(motor):
         mode = elements[0]
         if mode == 'arm':
             L1 = 4.5
-            L2 = 6.3
-            L3 = 7
+            L2 = 6.1
+            L3 = 6.5
             parsed_elements = [float(element.strip()) for element in elements[1:]]
             print(parsed_elements)
             [Base,Arm_Extend,Elbow,Wrist,move] = IK(parsed_elements[0],parsed_elements[1],z = parsed_elements[2],L1=L1,L2=L2,L3=L3,gribber_angle=parsed_elements[3],currentBase = parsed_elements[4])
