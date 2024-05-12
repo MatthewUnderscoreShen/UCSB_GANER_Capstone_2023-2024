@@ -141,7 +141,7 @@ def Terminal_Control(motor):
                 return None
             
             arm.setPosition(3, round(500 - 700 * (Wrist/np.pi)), wait=False)
-            arm.setPosition(4, round(450 - 600 * (Elbow/np.pi)), wait=False)
+            arm.setPosition(4, round(270 - 600 * (Elbow/np.pi)), wait=False)
             arm.setPosition(5, round(800 - 600 * Arm_Extend/np.pi), wait=False)
             rotate(motor,np.rad2deg(Base))
             if(move > 0):
