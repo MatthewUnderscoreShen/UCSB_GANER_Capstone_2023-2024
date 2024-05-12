@@ -127,6 +127,12 @@ def Terminal_Control(motor):
             arm.setPosition(3, round(parsed_elements[2]), wait=False)
             arm.setPosition(4, round(parsed_elements[3]), wait=False)
             arm.setPosition(5, round(parsed_elements[4]), wait=False)
+        if mode == "grip":
+            parsed_elements = [float(element.strip()) for element in elements[1:]]
+            print(parsed_elements)
+            if(-0.1 < parsed_elements[0] < 1.1):
+                arm.setPosition(1, round(500 + 500 * parsed_elements[0]), wait=False)
+            arm.setPosition(2, round(500 + 600 (parsed_elements[1]/180)), wait=False)
         if mode == 'arm':
             L1 = 4.5
             L2 = 6.1
