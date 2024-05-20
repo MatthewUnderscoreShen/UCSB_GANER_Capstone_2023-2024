@@ -5,6 +5,7 @@ from drive_control.motor import Motor
 from std_msgs.msg import String
 from std_msgs.msg import Int16MultiArray
 from sensor_msgs.msg import Joy
+from nav_msgs.msg import Odometry
 
 class MotorController(object):
 
@@ -12,18 +13,27 @@ class MotorController(object):
         pins = rospy.get_param("/pins")
         topics = rospy.get_param("/topics")
         hz = 100
+        self.min_pow = 0.3*hz
 
         self.left_motor = Motor(pins["pwm"]["left"], pins["dir"]["left"], hz, False)
         self.right_motor = Motor(pins["pwm"]["right"], pins["dir"]["right"], hz, False)
 
         self.drive_pub = rospy.Publisher(topics["drive_out"], String, queue_size=10)
+        self.cmplt_pub = rospy.Publisher(topics["cmd_cmplt"], String, queue_size=3)
         rospy.Subscriber(topics["drive_in"], String, self.drive_callback)
         rospy.Subscriber(topics["is_on"], Int16MultiArray, self.is_on_callback)
         rospy.Subscriber(topics["joy"], Joy, self.joy_callback)
 
         self.is_teleop = False
+
+        self.auto_cmds = {"drive forward": (self.drive_open, (0.7,0.7)),
+                          "drive backward": (self.drive_open, (-0.7,-0.7)),
+                          "stop": (self.drive_open, (0,0))
+                         }
     
     def drive_callback(self, data):
+        cmd = self.auto_cmds[data.data]
+        cmd[0](cmd[1])
         return  # auto commands
 
     def is_on_callback(self, data):
@@ -32,15 +42,30 @@ class MotorController(object):
     def joy_callback(self, data):
         if not self.is_teleop:
             return
-        
-        self.left_motor.set_vel(data.axes[1])
-        self.right_motor.set_vel(data.axes[4])
+        self.drive_open((self.hz*np.power(data.axes[1],3), self.hz*np.power(data.axes[4],3)))
+    
+    def align_on_stairs(self):
+        # assumes pointed directly at the stairs, at its base
+        return  # 
 
-        self.drive_pub.publish(String("Left: " + str(data.axes[1]) + "   Right: " + str(data.axes[4])))
+    def drive_pid(self, vels):  # vels is a tuple with left and right vel in m/s
+        return # publish to l/rwheel_vtarget
+        # also make the publisher, subscriber, and callback function
+
+    def drive_open(self, pow):  # pow takes a tuple with left and right power (-1 to 1)
+        if pow[0] != 0:
+            self.left_motor.set_vel(max(self.min_pow, pow[0]))
+        else:
+            self.left_motor.stop()
+        if pow[1] != 0:
+            self.right_motor.set_vel(max(self.min_pow, pow[1]))
+        else:
+            self.right_motor.stop()
 
     def stop(self):
         self.left_motor.stop()
         self.right_motor.stop()
+        self.drive_pub.publish(String("Left: " + str(0.0) + "   Right: " + str(0.0)))
 
 if __name__ == "__main__":
     rospy.init_node("motor_control")

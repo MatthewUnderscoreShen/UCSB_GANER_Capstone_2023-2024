@@ -1,5 +1,7 @@
 <launch>
-    <node pkg="distance_sensor" type="distance_node" name="distance_node"/>
-        <!-- <param name="topic_name" value="/distance_front" type="str"/> -->
-    <!-- </node> -->
+    <node pkg="distance_sensor" type="distance_node" name="front_distance_node">
+        <param name="topic" value="front_distance" type="str"/>
+        <param name="trig" value="6" type="int"/>
+        <param name="echo" value="5" type="int"/>
+    </node>
 </launch>

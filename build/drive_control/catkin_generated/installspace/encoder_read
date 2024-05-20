@@ -2,6 +2,7 @@
 import rospy
 from std_msgs.msg import Int16
 from drive_control.encoder import Encoder
+import time
 
 class EncoderReader(object):
 
@@ -25,18 +26,17 @@ class EncoderReader(object):
         r_last = 0
         l_read = (0,0)
         r_read = (0,0)
-        rate = rospy.Rate(1000)
+        rate = rospy.Rate(20000)
         while not rospy.is_shutdown():
             l_read = self.left_enc.read()
             r_read = self.right_enc.read()
 
             if l_read[0] and not l_last:    # if goes from low to high
                 left_ticks.data += 1 if l_read[1] else -1
+                self.left_ticks_pub.publish(left_ticks)
             if r_read[0] and not r_last:
                 right_ticks.data += 1 if r_read[1] else -1
-
-            self.left_ticks_pub.publish(left_ticks)
-            self.right_ticks_pub.publish(right_ticks)
+                self.right_ticks_pub.publish(right_ticks)
 
             l_last = l_read[0]
             r_last = r_read[0]
