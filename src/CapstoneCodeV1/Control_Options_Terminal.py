@@ -147,7 +147,7 @@ def Terminal_Control(motor):
                 return None
             
             arm.setPosition(3, round(500 - 700 * (Wrist/np.pi)), wait=False)
-            arm.setPosition(4, round(270 - 600 * (Elbow/np.pi)), wait=False)
+            arm.setPosition(4, round(500 - 600 * (Elbow/np.pi)), wait=False)
             arm.setPosition(5, round(800 - 600 * Arm_Extend/np.pi), wait=False)
             rotate(motor,np.rad2deg(Base))
             if(move > 0.1):
@@ -158,7 +158,7 @@ def Terminal_Control(motor):
         elif mode == 'move':
             [speed,turn,t] = [float(element.strip()) for element in elements[1:]]
             #turn right: t = 2 -> 90 degree
-            #turn left: t =2.4 -> 90 degree
+            #turn left: t =2 -> 90 degree
 
             if(turn > 0.1):
                 movement(motor,'right',t)
@@ -173,6 +173,10 @@ def Terminal_Control(motor):
         elif mode == 'rotate':
             ang = float(elements[1])
             rotate(motor,ang)
+        elif mode == "h-move":
+            #assume positive is right
+            [inch] = [float(element.strip()) for element in elements[1:]]
+
     
     except ValueError:
         print("input is not valid number")
