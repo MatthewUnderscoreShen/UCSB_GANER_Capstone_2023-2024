@@ -13,26 +13,31 @@ class Mux(object):
         self.drive_pub = rospy.Publisher(topics["drive_in"], String, queue_size=10)
         self.arm_pub = rospy.Publisher(topics["arm_in"], Float32MultiArray, queue_size=10)
         self.is_pub = rospy.Publisher(topics["is_on"], Int16MultiArray, queue_size=10)
-        rospy.Subscriber("/current_task", String, self.task_callback)
-        # is_this_on : [is_teleop, is_camera_looking, ]
+        rospy.Subscriber(topics["task"], String, self.task_callback)
+        # is_this_on : [is_teleop, is_camera_looking, is_distance]
 
-        self.commands = {"Teleop": {"func": "msg",
-                                    "content": {"pub": self.is_pub, "type": Int16MultiArray(), "data": [1,0]}},
-                         "Auto": {"func": "msg", 
-                                  "content": {"pub": self.is_pub, "type": Int16MultiArray(), "data": [0,0]}},
-                         "Upstairs": {"func": "sequence", 
-                                      "content": {"pub": self.is_pub, "type": Int16MultiArray(), 
+        self.commands = {"Teleop": (self.pub_msg, (self.is_pub, Int16MultiArray(), [1,0])),
+                         "Auto": (self.pub_msg, (self.is_pub, Int16MultiArray(), [0,0])),
+                         "Upstairs": {"func": self.pub_sequence, 
+                                      "content": {"funcs": [], "type": Int16MultiArray(), 
                                                   "data": [""]}},
+                         "Test P": (self.pub_msg, (self.drive_pub, String(), "stop")),
+                         "Test L": (self.pub_msg, (self.drive_pub, String(), "drive backward")),
+                         "Test R": (self.pub_msg, (self.drive_pub, String(), "drive forward"))
                         }
 
     def task_callback(self, data):
         stuff = self.commands[data.data]
-        self.pub_msg(stuff["pub"], stuff["type"], stuff["data"])
+        stuff[0](stuff[1])
     
-    def pub_msg(self, pub, type, data):
-        msg = type
-        msg.data = data
-        pub.publish(msg)
+    def pub_sequence(self, content):
+        #for loop
+            #
+        return
+
+    def pub_msg(self, content): # takes pub reference, msg type, msg
+        content[1].data = content[2]
+        content[0].publish(content[1])
 
 
 if __name__ == '__main__':

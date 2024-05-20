@@ -1,5 +1,5 @@
 <launch>
     <node pkg="drive_control" type="motor_control" name="motor_control"/>
     <node pkg="drive_control" type="arm_control" name="arm_control"/>
-    <node pkg="drive_control" type="encoder_read" name="encoder_read"/>
+    <!-- <node pkg="drive_control" type="encoder_read" name="encoder_read"/> -->
 </launch> 

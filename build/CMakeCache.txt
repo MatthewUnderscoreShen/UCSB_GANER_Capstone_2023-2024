@@ -394,6 +394,9 @@ _gtest_INCLUDES:FILEPATH=/usr/include/gtest/gtest.h
 //Path to a file.
 _gtest_SOURCES:FILEPATH=/usr/src/gtest/src/gtest.cc
 
+//The directory containing a CMake configuration file for actionlib_msgs.
+actionlib_msgs_DIR:PATH=/opt/ros/noetic/share/actionlib_msgs/cmake
+
 //Value Computed by CMake
 camera_BINARY_DIR:STATIC=/home/capstone/UCSB_GANER_Capstone_2023-2024/build/camera
 
@@ -411,6 +414,12 @@ diagnostic_msgs_DIR:PATH=/opt/ros/noetic/share/diagnostic_msgs/cmake
 
 //The directory containing a CMake configuration file for diagnostic_updater.
 diagnostic_updater_DIR:PATH=/opt/ros/noetic/share/diagnostic_updater/cmake
+
+//Value Computed by CMake
+differential_drive_BINARY_DIR:STATIC=/home/capstone/UCSB_GANER_Capstone_2023-2024/build/differential-drive
+
+//Value Computed by CMake
+differential_drive_SOURCE_DIR:STATIC=/home/capstone/UCSB_GANER_Capstone_2023-2024/src/differential-drive
 
 //Value Computed by CMake
 distance_sensor_BINARY_DIR:STATIC=/home/capstone/UCSB_GANER_Capstone_2023-2024/build/distance_sensor
@@ -523,6 +532,9 @@ mpu6050_dmp_ros_BINARY_DIR:STATIC=/home/capstone/UCSB_GANER_Capstone_2023-2024/b
 
 //Value Computed by CMake
 mpu6050_dmp_ros_SOURCE_DIR:STATIC=/home/capstone/UCSB_GANER_Capstone_2023-2024/src/mpu6050-dmp-ros-raspberry
+
+//The directory containing a CMake configuration file for nav_msgs.
+nav_msgs_DIR:PATH=/opt/ros/noetic/share/nav_msgs/cmake
 
 //Value Computed by CMake
 read_i2c_BINARY_DIR:STATIC=/home/capstone/UCSB_GANER_Capstone_2023-2024/build/read_i2c
@@ -750,7 +762,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=17
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=18
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

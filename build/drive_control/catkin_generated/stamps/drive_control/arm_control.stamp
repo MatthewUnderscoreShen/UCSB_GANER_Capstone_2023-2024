@@ -6,12 +6,7 @@ from sensor_msgs.msg import Joy
 from drive_control.arm import Arm
 
 class ArmController(object):
-    setpoints = ([400, 415, 500, 480, 500],     # arm up
-                 [400, 415, 500, 750, 500],     # link 1 up, link 2 bent (pointing forward)
-                 [400, 415, 500, 320, 700],     # start climb start (bottom 45 forward, middle 45 back)
-                 [400, 415, 500, 480, 800]      # flat (for climbing)
-                )
-    
+
     def __init__(self):
         self.arm = Arm()
         # sub and pub setup
@@ -24,7 +19,7 @@ class ArmController(object):
         # teleop boolean
         self.is_teleop = False
         # variables for ignoring joy_callback for analog joystick inputs
-        self.curr_pos = self.setpoints[0].copy()
+        self.curr_pos = [400, 415, 500, 480, 500] # arm up default
         self.last_pos = self.curr_pos.copy()
         self.last_btn = (0 for _ in range(13))
         self.last_axes = (0.0 for _ in range(8))
@@ -38,6 +33,15 @@ class ArmController(object):
         #while not rospy.is_shutdown():
             #msg.data = self.arm.get_pos()
             #self.arm_pub.publish(msg)
+
+        self.set_set()
+
+        self.commands = [self.set_arm, self.set_arm, self.set_arm, self.set_arm,    # X O T S
+                         self.set_arm, self.set_arm, self.set_arm, self.set_arm,    # LB RB LT RT
+                         self.do_nothing, self.do_nothing,                          # Share, Options
+                         self.set_arm, self.do_nothing, self.do_nothing,            # PS4, LJ, RJ
+                         self.set_arm, self.set_arm                                 # dpad LR, dpad UD
+                        ]
     
     def arm_callback(self, data):
         # float32 array with angle values
@@ -49,45 +53,18 @@ class ArmController(object):
     
     def joy_callback(self, data):
         # It's a bit of a mess
-        # Claw, Claw rotate, top link, middle link, bottom link
         if not self.is_teleop or (data.buttons == self.last_btn and data.axes[6:] == self.last_axes[6:]):
             # only run if teleop on and if the buttons have changed
             return
         
-        # Teleop button mappings
-        if data.buttons[0] == 1:    # X
-            # flat
-            self.curr_pos = self.setpoints[3].copy()
-        elif data.buttons[1]:       # O
-            # link 1 up, link 2 bent (pointing forward)
-            self.curr_pos = self.setpoints[1].copy()
-        elif data.buttons[2]:       # Triangle
-            # arm up
-            self.curr_pos = self.setpoints[0].copy()
-        elif data.buttons[3]:       # Square
-            self.curr_pos = self.setpoints[2].copy()
-        elif data.buttons[4]:       # left bumper
-            # 10deg about 40 ticks
-            # middle link up
-            self.curr_pos[3] = self.last_pos[3] - 40
-        elif data.buttons[5]:       # right bumper
-            # top link up
-            self.curr_pos[2] = self.last_pos[2] - 40
-        elif data.buttons[6]:       # left trigger
-            # middle link down
-            self.curr_pos[3] = self.last_pos[3] + 40
-        elif data.buttons[7]:       # right trigger
-            # top link down
-            self.curr_pos[2] = self.last_pos[2] + 40
-        elif data.buttons[10]:
-            # open if closed and visa versa
-            self.curr_pos[0] = 400 if self.last_pos[0] > 550 else 750
-        elif data.axes[6] != 0:
-            # left = 30 deg CCW, right = 30 deg CW
-            self.curr_pos[1] = self.last_pos[1] + (1 if data.axes[6] > 0 else -1)*120
-        elif data.axes[7] != 0:
-            # bottom link up/down
-            self.curr_pos[4] = self.last_pos[4] + (1 if data.axes[7] < 0 else -1)*20
+        self.set_set()
+        
+        for i in range(13):
+            if data.buttons[i]:
+                self.commands[i](self.setpoints[i])
+        for i in range(6,8):
+            if data.axes[i] != 0:
+                self.commands[i+7](self.setpoints[i+(7 if data.axes[i] > 0 else 9)])
         
         self.arm.set_pos(self.curr_pos)
         self.msg.data = self.curr_pos.copy()
@@ -96,6 +73,31 @@ class ArmController(object):
         self.last_pos = self.curr_pos.copy()
         self.last_axes = data.axes
         self.last_btn = data.buttons
+
+    def set_arm(self, pos):
+        self.curr_pos = pos.copy()
+    
+    def do_nothing(self, data):
+        return
+    
+    def set_set(self):
+        # Claw, Claw rotate, top link, middle link, bottom link
+        self.setpoints = (  [400, 415, 500, 480, 800],     # flat (for climbing)
+                            [400, 415, 500, 750, 500],     # link 1 up, link 2 bent (pointing forward)
+                            [400, 415, 500, 480, 500],     # arm up
+                            [400, 415, 500, 320, 700],     # start climb start (bottom 45 forward, middle 45 back)
+                            [(self.last_pos[i] + (-40 if i == 3 else 0)) for i in range(5)],    # middle up 10deg (40 ticks)
+                            [(self.last_pos[i] + (-40 if i == 2 else 0)) for i in range(5)],    # top up 10deg
+                            [(self.last_pos[i] + (40 if i == 3 else 0)) for i in range(5)],     # middle down 10deg
+                            [(self.last_pos[i] + (40 if i == 2 else 0)) for i in range(5)],     # top down 10deg
+                            0, 0, 
+                            [400 if self.last_pos[0] > 550 else 750] + self.last_pos[1:],   # toggle claw
+                            0, 0,
+                            [(self.last_pos[i] + (-120 if i == 1 else 0)) for i in range(5)],    # claw 30deg CCW
+                            [(self.last_pos[i] + (-20 if i == 4 else 0)) for i in range(5)],    # bottom down 5deg
+                            [(self.last_pos[i] + (120 if i == 1 else 0)) for i in range(5)],   # claw 30deg CW
+                            [(self.last_pos[i] + (20 if i == 4 else 0)) for i in range(5)],     # bottom up 5deg
+                         )
 
 if __name__ == "__main__":
     rospy.init_node("arm_control")

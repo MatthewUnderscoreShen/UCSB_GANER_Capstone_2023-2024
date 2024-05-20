@@ -66,6 +66,7 @@ all: joystick_drivers/joy/all
 all: mpu6050-dmp-ros-raspberry/all
 all: joystick_drivers/spacenav_node/all
 all: tasks/all
+all: differential-drive/all
 all: joystick_drivers/wiimote/all
 
 .PHONY : all
@@ -84,6 +85,7 @@ preinstall: joystick_drivers/joy/preinstall
 preinstall: mpu6050-dmp-ros-raspberry/preinstall
 preinstall: joystick_drivers/spacenav_node/preinstall
 preinstall: tasks/preinstall
+preinstall: differential-drive/preinstall
 preinstall: joystick_drivers/wiimote/preinstall
 
 .PHONY : preinstall
@@ -107,6 +109,7 @@ clean: joystick_drivers/joy/clean
 clean: mpu6050-dmp-ros-raspberry/clean
 clean: joystick_drivers/spacenav_node/clean
 clean: tasks/clean
+clean: differential-drive/clean
 clean: joystick_drivers/wiimote/clean
 
 .PHONY : clean
@@ -132,6 +135,24 @@ camera/clean: camera/CMakeFiles/std_msgs_generate_messages_eus.dir/clean
 camera/clean: camera/CMakeFiles/std_msgs_generate_messages_cpp.dir/clean
 
 .PHONY : camera/clean
+
+#=============================================================================
+# Directory level rules for directory differential-drive
+
+# Recursive "all" directory target.
+differential-drive/all:
+
+.PHONY : differential-drive/all
+
+# Recursive "preinstall" directory target.
+differential-drive/preinstall:
+
+.PHONY : differential-drive/preinstall
+
+# Recursive "clean" directory target.
+differential-drive/clean:
+
+.PHONY : differential-drive/clean
 
 #=============================================================================
 # Directory level rules for directory distance_sensor
@@ -174,7 +195,16 @@ drive_control/preinstall:
 .PHONY : drive_control/preinstall
 
 # Recursive "clean" directory target.
-drive_control/clean:
+drive_control/clean: drive_control/CMakeFiles/nav_msgs_generate_messages_eus.dir/clean
+drive_control/clean: drive_control/CMakeFiles/nav_msgs_generate_messages_cpp.dir/clean
+drive_control/clean: drive_control/CMakeFiles/nav_msgs_generate_messages_lisp.dir/clean
+drive_control/clean: drive_control/CMakeFiles/nav_msgs_generate_messages_nodejs.dir/clean
+drive_control/clean: drive_control/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/clean
+drive_control/clean: drive_control/CMakeFiles/nav_msgs_generate_messages_py.dir/clean
+drive_control/clean: drive_control/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/clean
+drive_control/clean: drive_control/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/clean
+drive_control/clean: drive_control/CMakeFiles/actionlib_msgs_generate_messages_py.dir/clean
+drive_control/clean: drive_control/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/clean
 
 .PHONY : drive_control/clean
 
@@ -1801,6 +1831,276 @@ geometry_msgs_generate_messages_nodejs: distance_sensor/CMakeFiles/geometry_msgs
 distance_sensor/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/clean:
 	$(MAKE) -f distance_sensor/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build.make distance_sensor/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/clean
 .PHONY : distance_sensor/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/clean
+
+#=============================================================================
+# Target rules for target drive_control/CMakeFiles/nav_msgs_generate_messages_eus.dir
+
+# All Build rule for target.
+drive_control/CMakeFiles/nav_msgs_generate_messages_eus.dir/all:
+	$(MAKE) -f drive_control/CMakeFiles/nav_msgs_generate_messages_eus.dir/build.make drive_control/CMakeFiles/nav_msgs_generate_messages_eus.dir/depend
+	$(MAKE) -f drive_control/CMakeFiles/nav_msgs_generate_messages_eus.dir/build.make drive_control/CMakeFiles/nav_msgs_generate_messages_eus.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles --progress-num= "Built target nav_msgs_generate_messages_eus"
+.PHONY : drive_control/CMakeFiles/nav_msgs_generate_messages_eus.dir/all
+
+# Build rule for subdir invocation for target.
+drive_control/CMakeFiles/nav_msgs_generate_messages_eus.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/nav_msgs_generate_messages_eus.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+.PHONY : drive_control/CMakeFiles/nav_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+nav_msgs_generate_messages_eus: drive_control/CMakeFiles/nav_msgs_generate_messages_eus.dir/rule
+
+.PHONY : nav_msgs_generate_messages_eus
+
+# clean rule for target.
+drive_control/CMakeFiles/nav_msgs_generate_messages_eus.dir/clean:
+	$(MAKE) -f drive_control/CMakeFiles/nav_msgs_generate_messages_eus.dir/build.make drive_control/CMakeFiles/nav_msgs_generate_messages_eus.dir/clean
+.PHONY : drive_control/CMakeFiles/nav_msgs_generate_messages_eus.dir/clean
+
+#=============================================================================
+# Target rules for target drive_control/CMakeFiles/nav_msgs_generate_messages_cpp.dir
+
+# All Build rule for target.
+drive_control/CMakeFiles/nav_msgs_generate_messages_cpp.dir/all:
+	$(MAKE) -f drive_control/CMakeFiles/nav_msgs_generate_messages_cpp.dir/build.make drive_control/CMakeFiles/nav_msgs_generate_messages_cpp.dir/depend
+	$(MAKE) -f drive_control/CMakeFiles/nav_msgs_generate_messages_cpp.dir/build.make drive_control/CMakeFiles/nav_msgs_generate_messages_cpp.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles --progress-num= "Built target nav_msgs_generate_messages_cpp"
+.PHONY : drive_control/CMakeFiles/nav_msgs_generate_messages_cpp.dir/all
+
+# Build rule for subdir invocation for target.
+drive_control/CMakeFiles/nav_msgs_generate_messages_cpp.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/nav_msgs_generate_messages_cpp.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+.PHONY : drive_control/CMakeFiles/nav_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+nav_msgs_generate_messages_cpp: drive_control/CMakeFiles/nav_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : nav_msgs_generate_messages_cpp
+
+# clean rule for target.
+drive_control/CMakeFiles/nav_msgs_generate_messages_cpp.dir/clean:
+	$(MAKE) -f drive_control/CMakeFiles/nav_msgs_generate_messages_cpp.dir/build.make drive_control/CMakeFiles/nav_msgs_generate_messages_cpp.dir/clean
+.PHONY : drive_control/CMakeFiles/nav_msgs_generate_messages_cpp.dir/clean
+
+#=============================================================================
+# Target rules for target drive_control/CMakeFiles/nav_msgs_generate_messages_lisp.dir
+
+# All Build rule for target.
+drive_control/CMakeFiles/nav_msgs_generate_messages_lisp.dir/all:
+	$(MAKE) -f drive_control/CMakeFiles/nav_msgs_generate_messages_lisp.dir/build.make drive_control/CMakeFiles/nav_msgs_generate_messages_lisp.dir/depend
+	$(MAKE) -f drive_control/CMakeFiles/nav_msgs_generate_messages_lisp.dir/build.make drive_control/CMakeFiles/nav_msgs_generate_messages_lisp.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles --progress-num= "Built target nav_msgs_generate_messages_lisp"
+.PHONY : drive_control/CMakeFiles/nav_msgs_generate_messages_lisp.dir/all
+
+# Build rule for subdir invocation for target.
+drive_control/CMakeFiles/nav_msgs_generate_messages_lisp.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/nav_msgs_generate_messages_lisp.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+.PHONY : drive_control/CMakeFiles/nav_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+nav_msgs_generate_messages_lisp: drive_control/CMakeFiles/nav_msgs_generate_messages_lisp.dir/rule
+
+.PHONY : nav_msgs_generate_messages_lisp
+
+# clean rule for target.
+drive_control/CMakeFiles/nav_msgs_generate_messages_lisp.dir/clean:
+	$(MAKE) -f drive_control/CMakeFiles/nav_msgs_generate_messages_lisp.dir/build.make drive_control/CMakeFiles/nav_msgs_generate_messages_lisp.dir/clean
+.PHONY : drive_control/CMakeFiles/nav_msgs_generate_messages_lisp.dir/clean
+
+#=============================================================================
+# Target rules for target drive_control/CMakeFiles/nav_msgs_generate_messages_nodejs.dir
+
+# All Build rule for target.
+drive_control/CMakeFiles/nav_msgs_generate_messages_nodejs.dir/all:
+	$(MAKE) -f drive_control/CMakeFiles/nav_msgs_generate_messages_nodejs.dir/build.make drive_control/CMakeFiles/nav_msgs_generate_messages_nodejs.dir/depend
+	$(MAKE) -f drive_control/CMakeFiles/nav_msgs_generate_messages_nodejs.dir/build.make drive_control/CMakeFiles/nav_msgs_generate_messages_nodejs.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles --progress-num= "Built target nav_msgs_generate_messages_nodejs"
+.PHONY : drive_control/CMakeFiles/nav_msgs_generate_messages_nodejs.dir/all
+
+# Build rule for subdir invocation for target.
+drive_control/CMakeFiles/nav_msgs_generate_messages_nodejs.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/nav_msgs_generate_messages_nodejs.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+.PHONY : drive_control/CMakeFiles/nav_msgs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+nav_msgs_generate_messages_nodejs: drive_control/CMakeFiles/nav_msgs_generate_messages_nodejs.dir/rule
+
+.PHONY : nav_msgs_generate_messages_nodejs
+
+# clean rule for target.
+drive_control/CMakeFiles/nav_msgs_generate_messages_nodejs.dir/clean:
+	$(MAKE) -f drive_control/CMakeFiles/nav_msgs_generate_messages_nodejs.dir/build.make drive_control/CMakeFiles/nav_msgs_generate_messages_nodejs.dir/clean
+.PHONY : drive_control/CMakeFiles/nav_msgs_generate_messages_nodejs.dir/clean
+
+#=============================================================================
+# Target rules for target drive_control/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir
+
+# All Build rule for target.
+drive_control/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/all:
+	$(MAKE) -f drive_control/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build.make drive_control/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/depend
+	$(MAKE) -f drive_control/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build.make drive_control/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles --progress-num= "Built target actionlib_msgs_generate_messages_cpp"
+.PHONY : drive_control/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/all
+
+# Build rule for subdir invocation for target.
+drive_control/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+.PHONY : drive_control/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+actionlib_msgs_generate_messages_cpp: drive_control/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : actionlib_msgs_generate_messages_cpp
+
+# clean rule for target.
+drive_control/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/clean:
+	$(MAKE) -f drive_control/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build.make drive_control/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/clean
+.PHONY : drive_control/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/clean
+
+#=============================================================================
+# Target rules for target drive_control/CMakeFiles/nav_msgs_generate_messages_py.dir
+
+# All Build rule for target.
+drive_control/CMakeFiles/nav_msgs_generate_messages_py.dir/all:
+	$(MAKE) -f drive_control/CMakeFiles/nav_msgs_generate_messages_py.dir/build.make drive_control/CMakeFiles/nav_msgs_generate_messages_py.dir/depend
+	$(MAKE) -f drive_control/CMakeFiles/nav_msgs_generate_messages_py.dir/build.make drive_control/CMakeFiles/nav_msgs_generate_messages_py.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles --progress-num= "Built target nav_msgs_generate_messages_py"
+.PHONY : drive_control/CMakeFiles/nav_msgs_generate_messages_py.dir/all
+
+# Build rule for subdir invocation for target.
+drive_control/CMakeFiles/nav_msgs_generate_messages_py.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/nav_msgs_generate_messages_py.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+.PHONY : drive_control/CMakeFiles/nav_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+nav_msgs_generate_messages_py: drive_control/CMakeFiles/nav_msgs_generate_messages_py.dir/rule
+
+.PHONY : nav_msgs_generate_messages_py
+
+# clean rule for target.
+drive_control/CMakeFiles/nav_msgs_generate_messages_py.dir/clean:
+	$(MAKE) -f drive_control/CMakeFiles/nav_msgs_generate_messages_py.dir/build.make drive_control/CMakeFiles/nav_msgs_generate_messages_py.dir/clean
+.PHONY : drive_control/CMakeFiles/nav_msgs_generate_messages_py.dir/clean
+
+#=============================================================================
+# Target rules for target drive_control/CMakeFiles/actionlib_msgs_generate_messages_eus.dir
+
+# All Build rule for target.
+drive_control/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/all:
+	$(MAKE) -f drive_control/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/build.make drive_control/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/depend
+	$(MAKE) -f drive_control/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/build.make drive_control/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles --progress-num= "Built target actionlib_msgs_generate_messages_eus"
+.PHONY : drive_control/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/all
+
+# Build rule for subdir invocation for target.
+drive_control/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+.PHONY : drive_control/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+actionlib_msgs_generate_messages_eus: drive_control/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/rule
+
+.PHONY : actionlib_msgs_generate_messages_eus
+
+# clean rule for target.
+drive_control/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/clean:
+	$(MAKE) -f drive_control/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/build.make drive_control/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/clean
+.PHONY : drive_control/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/clean
+
+#=============================================================================
+# Target rules for target drive_control/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir
+
+# All Build rule for target.
+drive_control/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/all:
+	$(MAKE) -f drive_control/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/build.make drive_control/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/depend
+	$(MAKE) -f drive_control/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/build.make drive_control/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles --progress-num= "Built target actionlib_msgs_generate_messages_nodejs"
+.PHONY : drive_control/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/all
+
+# Build rule for subdir invocation for target.
+drive_control/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+.PHONY : drive_control/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+actionlib_msgs_generate_messages_nodejs: drive_control/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/rule
+
+.PHONY : actionlib_msgs_generate_messages_nodejs
+
+# clean rule for target.
+drive_control/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/clean:
+	$(MAKE) -f drive_control/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/build.make drive_control/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/clean
+.PHONY : drive_control/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/clean
+
+#=============================================================================
+# Target rules for target drive_control/CMakeFiles/actionlib_msgs_generate_messages_py.dir
+
+# All Build rule for target.
+drive_control/CMakeFiles/actionlib_msgs_generate_messages_py.dir/all:
+	$(MAKE) -f drive_control/CMakeFiles/actionlib_msgs_generate_messages_py.dir/build.make drive_control/CMakeFiles/actionlib_msgs_generate_messages_py.dir/depend
+	$(MAKE) -f drive_control/CMakeFiles/actionlib_msgs_generate_messages_py.dir/build.make drive_control/CMakeFiles/actionlib_msgs_generate_messages_py.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles --progress-num= "Built target actionlib_msgs_generate_messages_py"
+.PHONY : drive_control/CMakeFiles/actionlib_msgs_generate_messages_py.dir/all
+
+# Build rule for subdir invocation for target.
+drive_control/CMakeFiles/actionlib_msgs_generate_messages_py.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/actionlib_msgs_generate_messages_py.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+.PHONY : drive_control/CMakeFiles/actionlib_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+actionlib_msgs_generate_messages_py: drive_control/CMakeFiles/actionlib_msgs_generate_messages_py.dir/rule
+
+.PHONY : actionlib_msgs_generate_messages_py
+
+# clean rule for target.
+drive_control/CMakeFiles/actionlib_msgs_generate_messages_py.dir/clean:
+	$(MAKE) -f drive_control/CMakeFiles/actionlib_msgs_generate_messages_py.dir/build.make drive_control/CMakeFiles/actionlib_msgs_generate_messages_py.dir/clean
+.PHONY : drive_control/CMakeFiles/actionlib_msgs_generate_messages_py.dir/clean
+
+#=============================================================================
+# Target rules for target drive_control/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir
+
+# All Build rule for target.
+drive_control/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/all:
+	$(MAKE) -f drive_control/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build.make drive_control/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/depend
+	$(MAKE) -f drive_control/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build.make drive_control/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles --progress-num= "Built target actionlib_msgs_generate_messages_lisp"
+.PHONY : drive_control/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/all
+
+# Build rule for subdir invocation for target.
+drive_control/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 drive_control/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/capstone/UCSB_GANER_Capstone_2023-2024/build/CMakeFiles 0
+.PHONY : drive_control/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+actionlib_msgs_generate_messages_lisp: drive_control/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/rule
+
+.PHONY : actionlib_msgs_generate_messages_lisp
+
+# clean rule for target.
+drive_control/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/clean:
+	$(MAKE) -f drive_control/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build.make drive_control/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/clean
+.PHONY : drive_control/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/clean
 
 #=============================================================================
 # Target rules for target joystick_drivers/joy/CMakeFiles/joy_node.dir

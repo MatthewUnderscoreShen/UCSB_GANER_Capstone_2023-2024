@@ -1,6 +1,6 @@
 <launch>
 <!-- change this next line to include the launch file for your robot's hardware drivers: -->
-    <include file="$(find knex_ros)/launch/knex_arduino_ser.launch" />
+    <!-- <include file="$(find knex_ros)/launch/knex_arduino_ser.launch" /> -->
  
     <rosparam param="ticks_meter">70</rosparam>
  
