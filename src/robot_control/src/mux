@@ -18,21 +18,23 @@ class Mux(object):
 
         self.commands = {"Teleop": (self.pub_msg, (self.is_pub, Int16MultiArray(), [1,0])),
                          "Auto": (self.pub_msg, (self.is_pub, Int16MultiArray(), [0,0])),
-                         "Upstairs": {"func": self.pub_sequence, 
-                                      "content": {"funcs": [], "type": Int16MultiArray(), 
-                                                  "data": [""]}},
                          "Test P": (self.pub_msg, (self.drive_pub, String(), "stop")),
                          "Test L": (self.pub_msg, (self.drive_pub, String(), "drive backward")),
-                         "Test R": (self.pub_msg, (self.drive_pub, String(), "drive forward"))
+                         "Test R": (self.pub_msg, (self.drive_pub, String(), "drive forward")),
+                         "Upstairs": (self.set_sequence, ())
                         }
+                        
 
     def task_callback(self, data):
-        stuff = self.commands[data.data]
-        stuff[0](stuff[1])
+        try:
+            stuff = self.commands[data.data]
+            stuff[0](stuff[1])
+        except:
+            return
     
-    def pub_sequence(self, content):
+    def set_sequence(self, content):
         #for loop
-            #
+            # (cmd to run, complete condition)
         return
 
     def pub_msg(self, content): # takes pub reference, msg type, msg

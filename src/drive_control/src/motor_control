@@ -25,9 +25,12 @@ class MotorController(object):
         rospy.Subscriber(topics["joy"], Joy, self.joy_callback)
 
         self.is_teleop = False
+        self.is_dist_front = False
 
         self.auto_cmds = {"drive forward": (self.drive_open, (0.67,0.7)),
                           "drive backward": (self.drive_open, (-0.67,-0.7)),
+                          "stair up": (self.drive_open, (0.38,0.4)),
+                          "stair down": (self.drive_open, (-0.38,0.4)),
                           "stop": (self.drive_open, (0,0))
                          }
     
