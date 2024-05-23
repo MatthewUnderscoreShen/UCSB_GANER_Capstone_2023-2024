@@ -23,7 +23,7 @@ class Mux(object):
                          "Test R": (self.pub_msg, (self.drive_pub, String(), "drive forward")),
                          "Upstairs": (self.set_sequence, ())
                         }
-                        
+
 
     def task_callback(self, data):
         try:
