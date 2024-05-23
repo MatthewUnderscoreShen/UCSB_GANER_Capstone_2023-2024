@@ -140,22 +140,18 @@ def Terminal_Control(motor):
             L3 = 6.5
             parsed_elements = [float(element.strip()) for element in elements[1:]]
             print(parsed_elements)
-            [Base,Arm_Extend,Elbow,Wrist,move] = IK(parsed_elements[0],parsed_elements[1],z = 0,L1=L1,L2=L2,L3=L3,gribber_angle=parsed_elements[2])
+            [Arm_Extend,Elbow,Wrist] = IK(parsed_elements[0],gribber_angle=parsed_elements[1],z = 0,L1=L1,L2=L2,L3=L3)
             checkpoint = 1
-            
-            if(Arm_Extend > np.pi/2):
-                print("too close")
-                return None
             
             arm.setPosition(3, round(500 - 700 * (Wrist/np.pi)), wait=False)
             arm.setPosition(4, round(500 - 600 * (Elbow/np.pi)), wait=False)
             arm.setPosition(5, round(800 - 600 * Arm_Extend/np.pi), wait=False)
-            rotate(motor,np.rad2deg(Base))
-            if(move > 0.1):
-                movement(motor,'foward',move/5)
-            if(move < 0.1):
-                movement(motor,'backward',-move/5)
-            print("theta_base,theta1,theta2,theta3:",Base,' ',Arm_Extend,' ',Elbow,' ',Wrist)
+            # rotate(motor,np.rad2deg(Base))
+            # if(move > 0.1):
+            #     movement(motor,'foward',move/5)
+            # if(move < 0.1):
+            #     movement(motor,'backward',-move/5)
+            print("theta1,theta2,theta3:",Arm_Extend,' ',Elbow,' ',Wrist)
         elif mode == 'move':
             [speed,turn,t] = [float(element.strip()) for element in elements[1:]]
             #turn right: t = 2 -> 90 degree
