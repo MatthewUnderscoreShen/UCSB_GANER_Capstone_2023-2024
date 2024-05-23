@@ -140,7 +140,7 @@ def Terminal_Control(motor):
             L3 = 6.5
             parsed_elements = [float(element.strip()) for element in elements[1:]]
             print(parsed_elements)
-            [Arm_Extend,Elbow,Wrist] = IK(parsed_elements[0],gribber_angle=parsed_elements[1],z = 0,L1=L1,L2=L2,L3=L3)
+            [Arm_Extend,Elbow,Wrist] = IK(parsed_elements[0],parsed_elements[1],L1=L1,L2=L2,L3=L3)
             checkpoint = 1
             
             arm.setPosition(3, round(500 - 700 * (Wrist/np.pi)), wait=False)
