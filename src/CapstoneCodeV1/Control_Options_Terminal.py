@@ -133,6 +133,7 @@ def Terminal_Control(motor):
             if(-0.1 < parsed_elements[0] < 1.1):
                 arm.setPosition(1, round(500 + 500 * parsed_elements[0]), wait=False)
             arm.setPosition(2, round(400 + 800*(parsed_elements[1]/180)), wait=False)
+            print("ang[0:1]:",round(500 + 500 * parsed_elements[0]),' ',round(400 + 800*(parsed_elements[1]/180)))
         if mode == 'arm':
             #arm 14 18.5 40
             L1 = 4.5
@@ -151,7 +152,7 @@ def Terminal_Control(motor):
             #     movement(motor,'foward',move/5)
             # if(move < 0.1):
             #     movement(motor,'backward',-move/5)
-            print("theta1,theta2,theta3:",Arm_Extend,' ',Elbow,' ',Wrist)
+            print("ang[2:4]:",round(470 - 700 * (Wrist/np.pi)),' ',round(450 - 600 * (Elbow/np.pi)),' ',round(800 - 600 * Arm_Extend/np.pi))
         elif mode == 'demo':
             [speed,turn,t] = [float(element.strip()) for element in elements[1:]]
             #turn right: t = 2 -> 90 degree
