@@ -30,40 +30,62 @@ time.sleep(2)
 
 
 
-xmax = 315 # Max x value of camera
-xcenter = xmax/2 # Center of camera x axis
-pixy_err = 5 # camera input error - dependent on testing
-dt_speed = 1 # Standard forward driving speed for drivetrain 0-1
-# global angle1 #, angle2, angle3, angle4, angle5
-
-# Initialization Angles for the Arm
-# angle1 = 0.0
-# angle2 = 0.0
-# angle3 = 90.0
-# angle4 = 90.0
-# angle5 = 90.0
-# angle6 = 90.0
-
-# global y, z
-theta1 = 0.0; theta2 = 0.0; theta3 = 0.0
-y = 3
-z = 15
-
-direction1 = 'L1'; direction2 = 'R1'; but1 = 'options'; but2 = 'share'; but3 = 's'; but4 = 't'; but5 = 'o'; but6 = 'x'
-butYpos = 'Dpad up'; butYneg = 'Dpad down'; butZpos = 'Dpad left'; butZneg = 'Dpad right'
-inc1 = 1.0; inc2 = 3.0; inc3 = 1.0; inc4 = 1.0; inc5 = 1.0; inc6 = 1.0; xarmmin = -125.0; xarmmax = 125.0
-minang1 = -11; maxang1 = 32;minang2 = xarmmin; maxang2 = xarmmax; minang3 = xarmmin; maxang3 = xarmmax;minang4 = xarmmin; maxang4 = xarmmax; minang5 = -78.0; maxang5 = 91.0; minang6 = xarmmin; maxang6 = xarmmax;
-outofrange = 0; change_kin_ang_but_1 = 'share'; change_kin_ang_but_2 = 'options'
-change_to_ang_but_1 = 'x'; change_to_ang_but_2 = 'o'; change_to_ang_but_3 = 't'; change_to_ang_but_4 = 's';
-l1 = 11; l2 = 15.2;
-waitTime = 1
-
 
 arm = xarm.Controller('USB')
 
+def arm_start_mode():
 
-kinematics = False; shutdown_started = False
-oldtheta3 = -20.0; oldtheta2 = 100.0; oldtheta1 = -45.0
+    arm.setPosition(1, 500, wait=False)
+    arm.setPosition(2, 500, wait=False)
+    arm.setPosition(3, 500, wait=False)
+    arm.setPosition(4, 500, wait=False)
+    arm.setPosition(5, 500, wait=False)
+    arm.setPosition(6, 500, wait=False)
+
+def arm_trasition_mode():
+
+    arm.setPosition(1, 500, wait=False)
+    arm.setPosition(2, 430, wait=False)
+    arm.setPosition(3, 500, wait=False)
+    arm.setPosition(4, 756, wait=False)
+    arm.setPosition(5, 500, wait=False)
+    arm.setPosition(6, 500, wait=False)
+
+
+def arm_stair_mode():
+
+    arm.setPosition(1, 500, wait=False)
+    arm.setPosition(2, 500, wait=False)
+    arm.setPosition(3, 600, wait=False)
+    arm.setPosition(4, 500, wait=False)
+    arm.setPosition(5, 1000, wait=False)
+    arm.setPosition(6, 500, wait=False)
+
+
+def latch_subroutine():
+
+    # if latch_detected == True:
+
+    arm.setPosition(1, 500, wait=False)
+    arm.setPosition(2, 430, wait=False)
+    arm.setPosition(3, 500, wait=False)
+    arm.setPosition(4, 756, wait=False)
+    arm.setPosition(5, 500, wait=False)
+    arm.setPosition(6, 500, wait=False)
+
+    movement('foward', 1)
+    movement('right',1)
+    movement('backward',1)
+
+    arm_trasition_mode()
+
+    movement('foward',1)
+    
+
+    
+
+    
+
 
 
 def movement(motor, movement_type, time):
@@ -97,6 +119,8 @@ def KeyBoard_Control(motor):
 
 
 def Autonomous_Control(motor):
+    arm_start_mode()
+
     while True:
 
         dist = distance()
