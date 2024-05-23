@@ -152,11 +152,25 @@ def Terminal_Control(motor):
             # if(move < 0.1):
             #     movement(motor,'backward',-move/5)
             print("theta1,theta2,theta3:",Arm_Extend,' ',Elbow,' ',Wrist)
+        elif mode == 'demo':
+            [speed,turn,t] = [float(element.strip()) for element in elements[1:]]
+            #turn right: t = 2 -> 90 degree
+            #turn left: t =2 -> 90 degree
+            #
+            if(t < 0):
+                print("time error")
+                return 0
+            motor.move(speed,turn,t)
+            motor.move(0,0,0.1)
+
         elif mode == 'move':
             [speed,turn,t] = [float(element.strip()) for element in elements[1:]]
             #turn right: t = 2 -> 90 degree
             #turn left: t =2 -> 90 degree
-
+            #
+            if(t < 0):
+                print("time error")
+                return 0
             if(turn > 0.1):
                 movement(motor,'right',t)
             elif(turn < -0.1):
