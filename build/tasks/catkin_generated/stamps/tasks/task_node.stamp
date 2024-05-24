@@ -10,7 +10,7 @@ class TaskNode(object):
         topics = rospy.get_param("/topics")
         self.task_pub = rospy.Publisher(topics["task"], String, queue_size=10)
         rospy.Subscriber(topics["joy"], Joy, self.joy_callback)
-        self.btn_2_msg = ["0","1","2","3","4","5","6","7","Auto","Teleop","Test P","Test L","Test R"]
+        self.btn_2_msg = ["0","Open Latch","2","3","4","5","6","7","Auto","Teleop","Test P","Test L","Test R"]
         self.last_pressed = [0 for _ in range(len(self.btn_2_msg))]
 
 

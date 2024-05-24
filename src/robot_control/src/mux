@@ -21,6 +21,8 @@ class Mux(object):
                          "Test P": (self.pub_msg, (self.drive_pub, String(), "stop")),
                          "Test L": (self.pub_msg, (self.drive_pub, String(), "drive backward")),
                          "Test R": (self.pub_msg, (self.drive_pub, String(), "drive forward")),
+                         ""
+                         "Open Latch": (self.pub_msg, (self.arm_pub, String(), "open latch")),
                          "Upstairs": (self.set_sequence, ())
                         }
 
@@ -33,6 +35,7 @@ class Mux(object):
             return
     
     def set_sequence(self, content):
+        count = 0
         #for loop
             # (cmd to run, complete condition)
         return

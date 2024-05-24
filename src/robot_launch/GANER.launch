@@ -5,4 +5,5 @@
     <include file="$(find robot_control)/launch/robot_control.launch"/>
     <include file="$(find tasks)/launch/tasks.launch"/>
     <include file="$(find distance_sensor)/launch/distance_sensors.launch"/>
+    <include file="$(find mpu6050_dmp_ros)/launch/mpu6050.launch"/>
 </launch> 

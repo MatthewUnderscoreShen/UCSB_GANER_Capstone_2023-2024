@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import rospy
+import numpy as np
 from std_msgs.msg import Float32MultiArray
 from std_msgs.msg import Int16MultiArray
 from sensor_msgs.msg import Joy
@@ -23,6 +24,7 @@ class ArmController(object):
         self.last_pos = self.curr_pos.copy()
         self.last_btn = (0 for _ in range(13))
         self.last_axes = (0.0 for _ in range(8))
+        self.rate = rospy.Rate(0.5)
 
         # Unfortunately the xarm module is trash and has an error when 
         # reading servo positions so im just gonna leave this here in 
@@ -42,11 +44,16 @@ class ArmController(object):
                          self.set_arm, self.do_nothing, self.do_nothing,            # PS4, LJ, RJ
                          self.set_arm, self.set_arm                                 # dpad LR, dpad UD
                         ]
+        self.auto_cmds = {"arm stair bottom": (self.set_arm, (self.setpoints(3))),
+                          "arm stair middle": (self.set_arm, (self.setpoints(1))),
+                          "flat": (self.set_arm, (self.setpoints(0))),
+                          "open latch": (self.open_latch, ())
+                         }
     
     def arm_callback(self, data):
-        # float32 array with angle values
-        return  # disabled for now
-        self.arm.set_pos(data.data)
+        cmd = self.auto_cmds[data.data]
+        cmd[0](cmd[1])
+        return
 
     def is_on_callback(self, data):
         self.is_teleop = data.data[0]
@@ -97,7 +104,46 @@ class ArmController(object):
                             [(self.last_pos[i] + (-20 if i == 4 else 0)) for i in range(5)],    # bottom down 5deg
                             [(self.last_pos[i] + (120 if i == 1 else 0)) for i in range(5)],   # claw 30deg CW
                             [(self.last_pos[i] + (20 if i == 4 else 0)) for i in range(5)],     # bottom up 5deg
+                            [500, 430, 500, 756, 500],  # latch open start
+                            [500, 430, 500, 250, 500]   # latch open end
                          )
+    
+    def open_latch(self):
+        self.set_arm(self.setpoints[15])
+        self.rate.sleep()
+        self.set_arm(self.setpoints[16])
+    
+    def IK(y, gribber_angle,L1=4.5,L2=6.3,L3=7,Base_Height = 5):    # takes in deg
+        #L1-Arm L2-elbow L3-wrist Base is distance from elbow joint to robot rotation center
+        #usage: only get input for target height and the gripper angle, the height should adjust automatically
+        pi = np.pi
+        gribber_angle = np.deg2rad(gribber_angle)
+        y = y - Base_Height #reduce base height
+        y = y - np.sin(gribber_angle)*L3
+        if y > L1 + L2:
+            #print("too far")
+            y = L1 + L2 - 0.01
+        if(y > L1):
+            theta1 = pi/2
+            y = y - L1
+            theta2 = -np.arccos(y/L2)
+        else:
+            theta1 = np.arcsin(y/L1)
+            theta2 = -theta1
+        
+        theta3 = gribber_angle - theta1 - theta2
+        return theta1,theta2,theta3 # returns in radians
+    
+    def rad2ticks(self, angs):  # doesnt change wrist and 
+        out = angs.copy()
+        # out[0] = 
+        out[1] = 415 - 770*angs[1]/np.pi
+        out[2] = 470 - 700*angs[2]/np.pi
+        out[3] = 450 - 600*angs[3]/np.pi
+        out[4] = 800 - 600*angs[4]/np.pi
+
+        return out
+
 
 if __name__ == "__main__":
     rospy.init_node("arm_control")
