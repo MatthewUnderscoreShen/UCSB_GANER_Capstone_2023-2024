@@ -43,13 +43,6 @@
 /home/capstone/UCSB_GANER_Capstone_2023-2024/build/joystick_drivers/joystick_drivers/CMakeFiles/edit_cache.dir
 /home/capstone/UCSB_GANER_Capstone_2023-2024/build/joystick_drivers/joystick_drivers/CMakeFiles/test.dir
 /home/capstone/UCSB_GANER_Capstone_2023-2024/build/joystick_drivers/joystick_drivers/CMakeFiles/_catkin_empty_exported_target.dir
-/home/capstone/UCSB_GANER_Capstone_2023-2024/build/read_i2c/CMakeFiles/install/strip.dir
-/home/capstone/UCSB_GANER_Capstone_2023-2024/build/read_i2c/CMakeFiles/install/local.dir
-/home/capstone/UCSB_GANER_Capstone_2023-2024/build/read_i2c/CMakeFiles/install.dir
-/home/capstone/UCSB_GANER_Capstone_2023-2024/build/read_i2c/CMakeFiles/list_install_components.dir
-/home/capstone/UCSB_GANER_Capstone_2023-2024/build/read_i2c/CMakeFiles/rebuild_cache.dir
-/home/capstone/UCSB_GANER_Capstone_2023-2024/build/read_i2c/CMakeFiles/edit_cache.dir
-/home/capstone/UCSB_GANER_Capstone_2023-2024/build/read_i2c/CMakeFiles/test.dir
 /home/capstone/UCSB_GANER_Capstone_2023-2024/build/robot_launch/CMakeFiles/install/strip.dir
 /home/capstone/UCSB_GANER_Capstone_2023-2024/build/robot_launch/CMakeFiles/install/local.dir
 /home/capstone/UCSB_GANER_Capstone_2023-2024/build/robot_launch/CMakeFiles/install.dir

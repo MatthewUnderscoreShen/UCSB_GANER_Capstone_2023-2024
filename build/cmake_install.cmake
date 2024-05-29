@@ -132,7 +132,6 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/capstone/UCSB_GANER_Capstone_2023-2024/build/gtest/cmake_install.cmake")
   include("/home/capstone/UCSB_GANER_Capstone_2023-2024/build/joystick_drivers/joystick_drivers/cmake_install.cmake")
-  include("/home/capstone/UCSB_GANER_Capstone_2023-2024/build/read_i2c/cmake_install.cmake")
   include("/home/capstone/UCSB_GANER_Capstone_2023-2024/build/robot_launch/cmake_install.cmake")
   include("/home/capstone/UCSB_GANER_Capstone_2023-2024/build/camera/cmake_install.cmake")
   include("/home/capstone/UCSB_GANER_Capstone_2023-2024/build/gpio_control/cmake_install.cmake")

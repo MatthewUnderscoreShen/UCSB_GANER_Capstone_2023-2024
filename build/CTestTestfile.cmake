@@ -6,7 +6,6 @@
 # testing this directory and lists subdirectories to be tested as well.
 subdirs("gtest")
 subdirs("joystick_drivers/joystick_drivers")
-subdirs("read_i2c")
 subdirs("robot_launch")
 subdirs("camera")
 subdirs("gpio_control")
