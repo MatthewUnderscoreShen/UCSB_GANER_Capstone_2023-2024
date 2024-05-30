@@ -44,6 +44,7 @@ import RPi.GPIO as GPIO
 
 def Detect_Object():
     model = YOLO('best.pt') 
+    model.conf = 0.30
     os.system('raspistill -o image.jpg -h 640 -w 640 -t 10 -rot 0')
     results = model(['image.jpg'])  # return a list of Results objects
     xyxy = results[0].boxes.xyxy.numpy()
