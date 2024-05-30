@@ -4,6 +4,7 @@ from Motor_DTLever import Motor_DTLever
 import Arm_Class
 #import Controller as js
 from ultrasonic_sensor_setup import distance
+from Latch_Detect import Detect_Object
 
 from time import sleep
 from os import environ
@@ -197,6 +198,9 @@ def Terminal_Control(motor):
             command = "raspistill -o "+ str(number) + ".jpg -h 640 -w 640 -t 10 -rot 0"
             print(command)
             os.system(command)
+        if mode == 'detect':
+            xyxy = Detect_Object()
+            print(xyxy)
 
 
     
