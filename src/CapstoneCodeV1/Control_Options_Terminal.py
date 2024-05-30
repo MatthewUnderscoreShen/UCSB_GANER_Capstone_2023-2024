@@ -18,7 +18,9 @@ import time
 import KeyPressModule as kp
 
 from Inverse_kinematic import IK
+import os
 import numpy as np
+
 
 GPIO.setmode(GPIO.BCM)
 
@@ -188,6 +190,11 @@ def Terminal_Control(motor):
         elif mode == "h-move":
             #assume positive is right
             [inch] = [float(element.strip()) for element in elements[1:]]
+
+        if mode == 'photo':
+            number = [float(element.strip()) for element in elements[1:]]
+            os.system('raspistill -o '+ number + '.jpg -h 640 -w 640 -t 10 -rot 0')
+
 
     
     except ValueError:
