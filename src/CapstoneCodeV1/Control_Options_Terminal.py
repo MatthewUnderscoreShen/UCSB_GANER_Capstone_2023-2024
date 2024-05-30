@@ -146,7 +146,7 @@ def Terminal_Control(motor):
             [Arm_Extend,Elbow,Wrist] = IK(parsed_elements[0],parsed_elements[1],L1=L1,L2=L2,L3=L3)
             checkpoint = 1
             
-            arm.setPosition(3, round(470 - 700 * (Wrist/np.pi)), wait=False)
+            arm.setPosition(3, round(500 - 700 * (Wrist/np.pi)), wait=False)
             arm.setPosition(4, round(450 - 600 * (Elbow/np.pi)), wait=False)
             arm.setPosition(5, round(800 - 600 * Arm_Extend/np.pi), wait=False)
             # rotate(motor,np.rad2deg(Base))
