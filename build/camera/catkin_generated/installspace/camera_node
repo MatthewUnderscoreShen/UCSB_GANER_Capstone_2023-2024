@@ -14,18 +14,21 @@ class CameraNode(object):
         self.camera = Camera(rospack.get_path("camera"))
         topics = rospy.get_param("/topics")
 
-        self.cam_pub = rospy.Publisher(topics["cam"], String, queue_size=5)
+        self.cam_pub = rospy.Publisher(topics["cam"], Float32MultiArray, queue_size=5)
         rospy.Subscriber(topics["is_on"], Int16MultiArray, self.mux_callback)
 
         self.is_looking = True  # default False
         
-        msg = Int16MultiArray()
+        msg = Float32MultiArray()
         while self.is_looking and not rospy.is_shutdown():
-            msg.data = self.camera.detect_object()[0]
+            try:
+                msg.data = self.camera.detect_object()[0]
+                self.cam_publish.publish(msg.data)
+            except:
+                continue
             # data fed as xyxy[0][i], 2 pairs of xy coordinates
             # xy coordinates relative to image
             # pair 1 is the end of the handle, pair 2 is the knob
-            self.cam_pub.publish(msg.data)
 
     def mux_callback(self, data):
         self.is_looking = data.data[1]

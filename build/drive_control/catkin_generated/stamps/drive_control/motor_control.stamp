@@ -1,21 +1,30 @@
 #!/usr/bin/env python3
 import rospy
 import numpy as np
+from scipy.spatial.transform import Rotation as R
 from drive_control.motor import Motor
 from std_msgs.msg import String
 from std_msgs.msg import Int16MultiArray
 from sensor_msgs.msg import Joy
 from sensor_msgs.msg import Range
+from sensor_msgs.msg import Imu
 from geometry_msgs.msg import Quaternion
 from nav_msgs.msg import Odometry
 
 class MotorController(object):
+
+    # A few functions here follow a format where you pass a function and some args
+    # These are used to allow for multiple different uses of a function and to
+    # facilitate the way I've written sequential commands. 
 
     def __init__(self):
         pins = rospy.get_param("/pins")
         topics = rospy.get_param("/topics")
         hz = 100
         self.min_pow = 0.3
+        self.align_rate = rospy.Rate(4)
+        self.check_rate = rospy.Rate(10)
+        self.euler = [0.0, 0.0, 0.0]    # x, y, z
 
         self.left_motor = Motor(pins["pwm"]["left"], pins["dir"]["left"], hz, False)
         self.right_motor = Motor(pins["pwm"]["right"], pins["dir"]["right"], hz, False)
@@ -26,18 +35,24 @@ class MotorController(object):
         rospy.Subscriber(topics["is_on"], Int16MultiArray, self.is_on_callback)
         rospy.Subscriber(topics["joy"], Joy, self.joy_callback)
         rospy.Subscriber("/front_distance", Range, self.front_dist_callback)
+        rospy.Subscriber("/imu_data", Imu, self.imu_callback)
+
+        self.test_pub = rospy.Publisher("test", String, queue_size=10)
 
         self.is_teleop = False
-        # (dist lower limit(cm), counts to activate, current count (10Hz))
-        self.dist_limits = {"front": (10.0, 10, 0),
-                            "left": (7.5, 10, 0) 
+        # (dist lower limit(cm), counts to activate, current count (10Hz), is_active)
+        self.dist_limits = {"front": (10.0, 10, 0, 0),
+                            "left": (7.5, 10, 0, 0),
+                            "right": (7.5, 10, 0, 0) 
                            }
 
         self.auto_cmds = {"drive forward": (self.drive_open, (0.67,0.7)),
                           "drive backward": (self.drive_open, (-0.67,-0.7)),
                           "stair up": (self.drive_open, (0.38,0.4)),
                           "stair down": (self.drive_open, (-0.38,0.4)),
-                          "stop": (self.drive_open, (0,0))
+                          "stop": (self.drive_open, (0,0)),
+                          "align stairs": (self.align_on_stairs, (1)),
+                          "upstairs turn":(self.turn_to_angle, (0.4,))
                          }
     
     def drive_callback(self, data):
@@ -61,15 +76,52 @@ class MotorController(object):
                 dist[2] = 0
                 self.stop()
         return
-
     
-    def align_on_stairs(self):
-        # assumes pointed directly at the stairs, at its base
-        return  # 
+    def imu_callback(self, data):
+        r = R.from_quat([data.orientation.x, data.orientation.y, data.orientation.z, data.orientation.w])
+        euler = r.as_euler('xyz')
+        self.test_pub.publish(str(euler))
+        return
+    
+    def turn_to_angle(self, spd, dir, stop_ang, stop_func, stop_args=[]):
+        # spd, left(1) or right(-1), stopping angle in radians
+        # function can be used as a wall avoidance safety measure by passing
+        # self.stop into stop_func, but is also used as part of a chain of
+        # commands.
+        self.drive_open(dir*spd, -1*dir*spd)
+        while not abs(self.euler[2] - stop_ang) < 0.1:
+            self.check_rate.sleep()
+        self.stop()
+        if not stop_args:
+            stop_func()
+        else:
+            stop_func(stop_args)
+        return
 
-    def drive_pid(self, vels):  # vels is a tuple with left and right vel in m/s
-        return # publish to l/rwheel_vtarget
-        # also make the publisher, subscriber, and callback function
+    def straight_until(self, spd, stop_cond_func, stop_cond, stop_func, stop_args):
+        self.drive_open(spd, spd)
+        while not stop_cond_func(stop_cond):
+            return
+        return
+    
+    def align_on_stairs(self, cycles):
+        # assumes pointed directly at the stairs, at its base
+        # Movement: left forward, right forward, back, pray, repeat
+        for _ in range(cycles):
+            self.left_motor.set_vel(0.2)
+            self.align_rate.sleep()
+            self.stop()
+            self.align_rate.sleep()
+            self.right_motor.set_vel(0.2)
+            self.align_rate.sleep()
+            self.stop()
+            self.align_rate.sleep()
+            self.left_motor.set_vel(-0.4)
+            self.right_motor.set_vel(-0.4)
+            self.align_rate.sleep()
+            self.stop()
+            self.align_rate.sleep()
+        return
 
     def drive_open(self, pow):  # pow takes a tuple with left and right power (-1 to 1)
         if pow[0] != 0:

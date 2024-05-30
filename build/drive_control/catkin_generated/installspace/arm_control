@@ -44,9 +44,9 @@ class ArmController(object):
                          self.set_arm, self.do_nothing, self.do_nothing,            # PS4, LJ, RJ
                          self.set_arm, self.set_arm                                 # dpad LR, dpad UD
                         ]
-        self.auto_cmds = {"arm stair bottom": (self.set_arm, (self.setpoints(3))),
-                          "arm stair middle": (self.set_arm, (self.setpoints(1))),
-                          "flat": (self.set_arm, (self.setpoints(0))),
+        self.auto_cmds = {"arm stair bottom": (self.set_arm, (self.setpoints[3])),
+                          "arm stair middle": (self.set_arm, (self.setpoints[1])),
+                          "flat": (self.set_arm, (self.setpoints[0])),
                           "open latch": (self.open_latch, ())
                          }
     

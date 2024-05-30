@@ -21,7 +21,8 @@ class Mux(object):
                          "Test P": (self.pub_msg, (self.drive_pub, String(), "stop")),
                          "Test L": (self.pub_msg, (self.drive_pub, String(), "drive backward")),
                          "Test R": (self.pub_msg, (self.drive_pub, String(), "drive forward")),
-                         ""
+                         "Align Stairs": (self.pub_msg, (self.drive_pub, String(), "align stairs")),
+                         "Upstairs Turn": (self.pub_msg, (self.drive_pub, String(), "upstairs turn")),
                          "Open Latch": (self.pub_msg, (self.arm_pub, String(), "open latch")),
                          "Upstairs": (self.set_sequence, ())
                         }

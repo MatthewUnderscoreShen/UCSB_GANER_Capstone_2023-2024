@@ -23,7 +23,13 @@ class MotorController(object):
         hz = 100
         self.min_pow = 0.3
         self.align_rate = rospy.Rate(4)
+        self.check_rate = rospy.Rate(10)
         self.euler = [0.0, 0.0, 0.0]    # x, y, z
+        self.front_dist = 0.0
+        self.left_dist = 0.0
+        self.right_dist = 0.0
+        self.back_dist = 0.0
+        self.arm_dist = 0.0
 
         self.left_motor = Motor(pins["pwm"]["left"], pins["dir"]["left"], hz, False)
         self.right_motor = Motor(pins["pwm"]["right"], pins["dir"]["right"], hz, False)
@@ -50,6 +56,7 @@ class MotorController(object):
                           "stair up": (self.drive_open, (0.38,0.4)),
                           "stair down": (self.drive_open, (-0.38,0.4)),
                           "stop": (self.drive_open, (0,0)),
+                          "align stairs": (self.align_on_stairs, (1)),
                           "upstairs turn":(self.turn_to_angle, (0.4,))
                          }
     
@@ -67,6 +74,8 @@ class MotorController(object):
         self.drive_open((np.power(data.axes[1],3), np.power(data.axes[4],3)))
     
     def front_dist_callback(self, data):
+        self.front_dist = data.range
+        """
         dist = self.dist_limits["front"]
         if data.range < dist[0]:
             dist[2] += 1
@@ -74,6 +83,7 @@ class MotorController(object):
                 dist[2] = 0
                 self.stop()
         return
+        """
     
     def imu_callback(self, data):
         r = R.from_quat([data.orientation.x, data.orientation.y, data.orientation.z, data.orientation.w])
@@ -81,14 +91,26 @@ class MotorController(object):
         self.test_pub.publish(str(euler))
         return
     
-    def turn_to_angle(self, spd, dir, stop_ang, stop_func, stop_args=[]):
+    def turn_to_angle(self, spd, dir, stop_ang, stop_func, stop_args=[]):   # change to "turn_until"
         # spd, left(1) or right(-1), stopping angle in radians
         # function can be used as a wall avoidance safety measure by passing
         # self.stop into stop_func, but is also used as part of a chain of
         # commands.
         self.drive_open(dir*spd, -1*dir*spd)
         while not abs(self.euler[2] - stop_ang) < 0.1:
-            continue
+            self.check_rate.sleep()
+        self.stop()
+        if not stop_args:
+            stop_func()
+        else:
+            stop_func(stop_args)
+        return
+
+    def straight_until(self, spd, stop_cond_func, stop_cond, stop_func, stop_args=[]):
+        self.drive_open(spd, spd)
+        while not stop_cond_func(stop_cond):
+            self.check_rate.sleep()
+        self.stop()
         if not stop_args:
             stop_func()
         else:
@@ -99,16 +121,16 @@ class MotorController(object):
         # assumes pointed directly at the stairs, at its base
         # Movement: left forward, right forward, back, pray, repeat
         for _ in range(cycles):
-            self.left_motor.set_vel(0.2)
+            self.left_motor.set_vel(0.25)
             self.align_rate.sleep()
             self.stop()
             self.align_rate.sleep()
-            self.right_motor.set_vel(0.2)
+            self.right_motor.set_vel(0.25)
             self.align_rate.sleep()
             self.stop()
             self.align_rate.sleep()
-            self.left_motor.set_vel(-0.4)
-            self.right_motor.set_vel(-0.4)
+            self.left_motor.set_vel(-0.35)
+            self.right_motor.set_vel(-0.45)
             self.align_rate.sleep()
             self.stop()
             self.align_rate.sleep()
