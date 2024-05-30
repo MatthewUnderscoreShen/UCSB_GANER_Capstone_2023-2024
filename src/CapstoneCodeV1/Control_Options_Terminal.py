@@ -201,6 +201,28 @@ def Terminal_Control(motor):
         if mode == 'detect':
             xyxy = Detect_Object()
             print(xyxy)
+        if mode == "dis":
+            print(distance())
+        if mode == "scan":
+            xyxy = Detect_Object()
+            print(xyxy)
+            conf = 0
+            while conf < 2:
+                if xyxy.size == 0:
+                    print("warning, the box is not detected")
+                    rotate(motor,30)
+                    xyxy = Detect_Object()
+                    conf = 0
+                else:
+                    conf += 1
+                    print(xyxy)
+                    if((xyxy[0][0]+xyxy[0][2])/2 > 340):
+                        rotate(motor,5)
+                    if((xyxy[0][0]+xyxy[0][2])/2 < 300):
+                        rotate(motor,-5)
+                    movement(motor,'stop',0.1)
+                    xyxy = Detect_Object()
+
 
 
     
