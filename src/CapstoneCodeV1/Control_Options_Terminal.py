@@ -243,6 +243,7 @@ def Terminal_Control(motor):
             while(dis >40):
                 motor.move(0,-0.9,0.1)
                 dis = distance()
+            motor.move(0,0,0.1)
             scan(motor)
             armControl(arm,17,30)
             while(dis > 29.3):
