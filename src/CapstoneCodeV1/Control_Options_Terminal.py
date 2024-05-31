@@ -128,9 +128,9 @@ def scan(motor):
         else:
             
             print(xyxy)
-            if((xyxy[0][0]+xyxy[0][2])/2 > 360):
+            if((xyxy[0][0]+xyxy[0][2])/2 > 400):
                 rotate(motor,5)
-            elif((xyxy[0][0]+xyxy[0][2])/2 < 320):
+            elif((xyxy[0][0]+xyxy[0][2])/2 < 370):
                 rotate(motor,-5)
             else:
                 conf += 1
@@ -237,15 +237,16 @@ def Terminal_Control(motor):
             scan(motor)
         if mode == "auto":
             gripControl(arm,1,-90)
-            armControl(arm,14,0)
+            armControl(arm,11,0)
             scan(motor)
             dis = distance()
             while(dis >40):
-                motor.move(0,-0.9,0.1)
+                motor.move(0,-0.9,0.05)
                 dis = distance()
             motor.move(0,0,0.1)
             scan(motor)
             armControl(arm,17,30)
+            sleep(1)
             while(dis > 29.3):
                 motor.move(0,-0.8,0.1)
                 dis = distance()
