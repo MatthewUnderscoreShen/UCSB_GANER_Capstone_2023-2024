@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 import rospy
+import time
 import numpy as np
 from std_msgs.msg import Float32MultiArray
+from std_msgs.msg import String
 from std_msgs.msg import Int16MultiArray
 from sensor_msgs.msg import Joy
 from drive_control.arm import Arm
@@ -12,10 +14,11 @@ class ArmController(object):
         self.arm = Arm()
         # sub and pub setup
         self.topics = rospy.get_param("/topics")
-        rospy.Subscriber(self.topics["arm_in"], Float32MultiArray, self.arm_callback)
+        rospy.Subscriber(self.topics["arm_in"], String, self.arm_callback)
         rospy.Subscriber(self.topics["is_on"], Int16MultiArray, self.is_on_callback)
         rospy.Subscriber(self.topics["joy"], Joy, self.joy_callback)
         self.arm_pub = rospy.Publisher(self.topics["arm_out"], Float32MultiArray, queue_size=10)
+        self.task_pub = rospy.Publisher(self.topics["task"], String, queue_size=10)
 
         # teleop boolean
         self.is_teleop = False
@@ -41,12 +44,15 @@ class ArmController(object):
         self.commands = [self.set_arm, self.set_arm, self.set_arm, self.set_arm,    # X O T S
                          self.set_arm, self.set_arm, self.set_arm, self.set_arm,    # LB RB LT RT
                          self.do_nothing, self.do_nothing,                          # Share, Options
-                         self.set_arm, self.do_nothing, self.do_nothing,            # PS4, LJ, RJ
+                         self.set_arm, self.do_nothing, self.set_arm,            # PS4, LJ, RJ
                          self.set_arm, self.set_arm                                 # dpad LR, dpad UD
                         ]
         self.auto_cmds = {"arm stair bottom": (self.set_arm, (self.setpoints[3])),
                           "arm stair middle": (self.set_arm, (self.setpoints[1])),
-                          "flat": (self.set_arm, (self.setpoints[0])),
+                          "flat": (self.set_arm, (self.setpoints[0])),  # also arm stair up
+                          "look up": (self.set_arm, (self.setpoints[2])),
+                          "upstairs look down": (self.set_pos_msg, 
+                                                 (self.setpoints[19], "Upstairs Straight 3", 0, 1.5)),
                           "open latch": (self.open_latch, ())
                          }
     
@@ -83,6 +89,13 @@ class ArmController(object):
 
     def set_arm(self, pos):
         self.curr_pos = pos.copy()
+
+    def set_pos_msg(self, args): # pos, msg, delay before, delay after
+        time.sleep(args[2])
+        self.arm.set_pos(args[0])
+        time.sleep(args[3])
+        self.task_pub.publish(String(args[1]))
+
     
     def do_nothing(self, data):
         return
@@ -92,26 +105,27 @@ class ArmController(object):
         self.setpoints = (  [400, 415, 500, 480, 800],     # flat (for climbing)
                             [400, 415, 500, 750, 500],     # link 1 up, link 2 bent (pointing forward)
                             [400, 415, 500, 480, 500],     # arm up
-                            [400, 415, 500, 320, 700],     # start climb start (bottom 45 forward, middle 45 back)
+                            [400, 415, 500, 320, 700],     # start climb start (bottom 60 up, middle 45 back)
                             [(self.last_pos[i] + (-40 if i == 3 else 0)) for i in range(5)],    # middle up 10deg (40 ticks)
                             [(self.last_pos[i] + (-40 if i == 2 else 0)) for i in range(5)],    # top up 10deg
                             [(self.last_pos[i] + (40 if i == 3 else 0)) for i in range(5)],     # middle down 10deg
                             [(self.last_pos[i] + (40 if i == 2 else 0)) for i in range(5)],     # top down 10deg
                             0, 0, 
                             [400 if self.last_pos[0] > 550 else 750] + self.last_pos[1:],   # toggle claw
-                            0, 0,
+                            0, [500, 415, 750, 680, 600], # tests
                             [(self.last_pos[i] + (-120 if i == 1 else 0)) for i in range(5)],    # claw 30deg CCW
                             [(self.last_pos[i] + (-20 if i == 4 else 0)) for i in range(5)],    # bottom down 5deg
                             [(self.last_pos[i] + (120 if i == 1 else 0)) for i in range(5)],   # claw 30deg CW
                             [(self.last_pos[i] + (20 if i == 4 else 0)) for i in range(5)],     # bottom up 5deg
                             [500, 430, 500, 756, 500],  # latch open start
-                            [500, 430, 500, 250, 500]   # latch open end
+                            [500, 430, 500, 250, 500],  # latch open end
+                            [500, 415, 750, 680, 600]   # claw pointing down
                          )
     
     def open_latch(self):
-        self.set_arm(self.setpoints[15])
+        self.arm.set_pos(self.setpoints[15])
         self.rate.sleep()
-        self.set_arm(self.setpoints[16])
+        self.arm.set_pos(self.setpoints[16])
     
     def IK(y, gribber_angle,L1=4.5,L2=6.3,L3=7,Base_Height = 5):    # takes in deg
         #L1-Arm L2-elbow L3-wrist Base is distance from elbow joint to robot rotation center

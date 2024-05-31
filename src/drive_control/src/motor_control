@@ -40,6 +40,10 @@ class MotorController(object):
         rospy.Subscriber(topics["is_on"], Int16MultiArray, self.is_on_callback)
         rospy.Subscriber(topics["joy"], Joy, self.joy_callback)
         rospy.Subscriber("/front_distance", Range, self.front_dist_callback)
+        rospy.Subscriber("/left_distance", Range, self.left_dist_callback)
+        rospy.Subscriber("/right_distance", Range, self.right_dist_callback)
+        rospy.Subscriber("/back_distance", Range, self.back_dist_callback)
+        rospy.Subscriber("/arm_distance", Range, self.arm_dist_callback)
         rospy.Subscriber("/imu_data", Imu, self.imu_callback)
 
         self.test_pub = rospy.Publisher("test", String, queue_size=10)
@@ -52,26 +56,42 @@ class MotorController(object):
             "stair up": (self.drive_open, (0.38,0.4)),
             "stair down": (self.drive_open, (-0.38,0.4)),
             "stop": (self.drive_open, (0,0)),
+            "find stairs": (self.straight_until, 
+                            (0.6, self.check_walls,
+                             ((1, ), (op.le, ), (50, )),
+                             self.pub_msg, (self.task_pub, String(), "To Stair Base"),
+                             self.check_walls, ((4, ), (op.ge, ), (17.5, )),
+                             self.pub_msg, (self.task_pub, String(), "Test P"))),
             "align stairs": (self.align_on_stairs, (1)),
+            "climb stairs": (self.straight_until,
+                             (0.4, self.check_imu,
+                              ((1,),),
+                              )),
             "upstairs straight": (self.straight_until, 
-                                  (0.35, self.check_walls,  # spd, stop_cond_func
-                                   ((0, ), (op.le, ), (15.0, )),  # stop_conds
+                                  (0.45, self.check_walls,  # spd, stop_cond_func
+                                   ((0, ), (op.le, ), (20, )),  # stop_conds
                                    self.pub_msg, (self.task_pub, String(), "Upstairs Turn 1"),  # stop_func # stop_args
                                    self.check_walls, ((0,), (op.le,), (10.0,)),    # fail_cond_func, fail_conds
                                    self.pub_msg, (self.task_pub, String(), "Test P"))), # fail func, fail_args(empty)
             "turn 90deg": (self.turn_until, (-0.25, np.deg2rad(90), self.stop, [])),
             "upstairs turn 90": (self.turn_until, 
-                                 (0.25, np.deg2rad(90), self.pub_msg, 
+                                 (0.175, np.deg2rad(90), self.pub_msg, 
                                   (self.task_pub, String(), "Upstairs Straight 2"))),
             "upstairs straight 2": (self.straight_until, 
-                                  (0.35, self.check_walls,  # spd, stop_cond_func
-                                   ((0, ), (op.le, ), (15.0, )),  # stop_conds
+                                  (0.45, self.check_walls,  # spd, stop_cond_func
+                                   ((0, ), (op.le, ), (17.5, )),  # stop_conds
                                    self.pub_msg, (self.task_pub, String(), "Upstairs Turn 2"),  # stop_func # stop_args
                                    self.check_walls, ((0,), (op.le,), (10.0,)),    # fail_cond_func, fail_conds
                                    self.pub_msg, (self.task_pub, String(), "Test P"))), # fail func, fail_args(empty)
-            "upstairs turn 90": (self.turn_until, 
-                                 (0.25, np.deg2rad(0), self.pub_msg, 
-                                  (self.task_pub, String(), "Upstairs Straight 3"))),
+            "upstairs turn 90 2": (self.turn_until, 
+                                 (0.175, 0.0, self.pub_msg, 
+                                  (self.task_pub, String(), "Upstairs Look Down"))),
+            "upstairs straight 3": (self.straight_until, 
+                                  (0.45, self.check_walls,  # spd, stop_cond_func
+                                   ((4, ), (op.ge, ), (17.5, )),  # stop_conds
+                                   self.pub_msg, (self.task_pub, String(), "Done"),  # stop_func # stop_args
+                                   self.check_walls, ((3,), (op.eq,), (1.0,)),    # fail_cond_func, fail_conds
+                                   self.pub_msg, (self.task_pub, String(), "Test P"))), # fail func, fail_args(empty)
             }
         
     def pub_msg(self, content):
@@ -110,7 +130,8 @@ class MotorController(object):
         # [-pi pi]
         r = R.from_quat([data.orientation.x, data.orientation.y, data.orientation.z, data.orientation.w])
         self.euler = r.as_euler('xyz')
-        self.test_pub.publish(str(self.euler))
+        self.test_pub.publish(str(self.dists))
+        #self.test_pub.publish(str(self.euler))
         return
     
     def turn_until(self, args): # (spd, stop_angle, stop_func, stop_args)
@@ -119,7 +140,7 @@ class MotorController(object):
         # self.stop into stop_func, but is also used as part of a chain of
         # commands.
         self.drive_open((args[0], -1*args[0]))
-        while not abs(self.euler[2] - args[1]) < 0.1:
+        while not abs(self.euler[2] - args[1]) < 0.2:
             self.drive_pub.publish(str(abs(self.euler[2]-args[1])))
             self.check_rate.sleep()
         self.stop()
@@ -135,12 +156,17 @@ class MotorController(object):
         ang = self.euler[2]
         self.drive_open((args[0], args[0]))
         while not args[1](args[2]):
-            self.drive_open((args[0]+0.3*(self.euler[2]-ang), args[0]-0.3*(self.euler[2]-ang)))
+            # correction in case robot swerves for whatever reason
+            # like wheels going different speeds
+            self.drive_open((args[0]+0.25*(self.euler[2]-ang)+0.025*max(0,7.5-self.dists[1]), 
+                             args[0]-0.25*(self.euler[2]-ang)+0.025*max(0,7.5-self.dists[2])))
             if args[5](args[6]):    # Some kind of fail function
+                self.stop()
                 if not args[8]:
                     args[7]()
                 else:
                     args[7](args[8])
+                return
             self.check_rate.sleep()
         self.stop()
         if not args[4]:
@@ -167,6 +193,7 @@ class MotorController(object):
         self.right_motor.set_vel(pow[1])
         time.sleep(t)
         self.stop()
+        time.sleep(t)
 
     def door2stair(self): # After the robot exits the first door,
         # it should stop when it no longer sees the stairs.
@@ -176,7 +203,8 @@ class MotorController(object):
 
 
 
-    def find_stairs(self, arc):
+    def find_stairs(self):
+
         return
 
     def drive_open(self, pow):  # pow takes a tuple with left and right power (-1 to 1)
@@ -196,8 +224,15 @@ class MotorController(object):
 
     def check_walls(self, args):   # ((front, left, etc(index)), (operators), (conditions))
         # Function checks all passed conditions and only returns True of all are True.
+        
         for i in range(len(args[0])):
             if not args[1][i](self.dists[args[0][i]], args[2][i]):
+                return False
+        return True
+    
+    def check_imu(self, args): # ((imu index, operator, condition), )
+        for c in args:
+            if not c[1](self.dists[c[0]], c[2]):
                 return False
         return True
     

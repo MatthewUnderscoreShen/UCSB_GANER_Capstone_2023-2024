@@ -11,43 +11,49 @@ class Mux(object):
     def __init__(self):
         topics = rospy.get_param("/topics")
         self.drive_pub = rospy.Publisher(topics["drive_in"], String, queue_size=10)
-        self.arm_pub = rospy.Publisher(topics["arm_in"], Float32MultiArray, queue_size=10)
+        self.arm_pub = rospy.Publisher(topics["arm_in"], String, queue_size=10)
         self.is_pub = rospy.Publisher(topics["is_on"], Int16MultiArray, queue_size=10)
         rospy.Subscriber(topics["task"], String, self.task_callback)
         rospy.Subscriber(topics["is_on"], Int16MultiArray, self.is_on_callback)
         # is_this_on : [is_teleop, is_camera_looking, is_distance]
         self.is_teleop = False
 
-        self.commands = {"Teleop": (self.pub_msg, (self.is_pub, Int16MultiArray(), [1,0])),
-                         "Auto": (self.pub_msg, (self.is_pub, Int16MultiArray(), [0,0])),
-                         "Test P": (self.pub_msg, (self.drive_pub, String(), "stop")),
-                         "Test L": (self.pub_msg, (self.drive_pub, String(), "drive backward")),
-                         "Test R": (self.pub_msg, (self.drive_pub, String(), "turn 90deg")),
-                         "Align Stairs": (self.pub_msg, (self.drive_pub, String(), "align stairs")),
-                         "Upstairs Straight 1": (self.pub_msg, (self.drive_pub, String(), "upstairs straight")),
-                         "Upstairs Turn 1": (self.pub_msg, (self.drive_pub, String(), "upstairs turn 90")),
-                         "Open Latch": (self.pub_msg, (self.arm_pub, String(), "open latch")),
-                         "Upstairs": (self.set_sequence, ())
+        # you know in hindsight this could be trimmed down a bit but the deadline
+        # is here and I'm stuck with this.
+        self.commands = {"Teleop": (self.pub_msg, ((self.is_pub, Int16MultiArray(), [1,0]),
+                                                   (self.drive_pub, String(), "stop") )),
+                         "Auto": (self.pub_msg, ((self.is_pub, Int16MultiArray(), [0,0]), 
+                                                 (self.drive_pub, String(), "stop") )),
+                         "Test P": (self.pub_msg, ((self.drive_pub, String(), "stop"), )),
+                         "Test L": (self.pub_msg, ((self.arm_pub, String(), "look up"), )),
+                         "Test R": (self.pub_msg, ((self.arm_pub, String(), "look down"), )),
+                         "Align Stairs": (self.pub_msg, ((self.drive_pub, String(), "align stairs"), )),
+                         "Upstairs Straight 1": (self.pub_msg, ((self.drive_pub, String(), "upstairs straight"), )),
+                         "Upstairs Turn 1": (self.pub_msg, ((self.drive_pub, String(), "upstairs turn 90"), )),
+                         "Upstairs Straight 2": (self.pub_msg, ((self.drive_pub, String(), "upstairs straight 2"), )),
+                         "Upstairs Turn 2": (self.pub_msg, ((self.drive_pub, String(), "upstairs turn 90 2"), )),
+                         "Upstairs Look Down": (self.pub_msg, ((self.arm_pub, String(), "upstairs look down"), )),
+                         "Upstairs Straight 3": (self.pub_msg, ((self.drive_pub, String(), "upstairs straight 3"), )),
+                         "Open Latch": (self.pub_msg, ((self.arm_pub, String(), "open latch"), )),
+                         "Done": (self.pub_msg, ((self.drive_pub, String(), "stop"),
+                                                 (self.arm_pub, String(), "look up")))
                         }
 
 
     def task_callback(self, data):
         if self.is_teleop and data.data != "Auto":
             return
-        try:
-            stuff = self.commands[data.data]
-            stuff[0](stuff[1])
+        try: 
+            for msg in self.commands[data.data][1]:
+                try:    
+                    self.commands[data.data][0](msg)
+                except:
+                    continue
         except:
             return
         
     def is_on_callback(self, data):
         self.is_teleop = data.data[0]
-        return
-    
-    def set_sequence(self, content):
-        count = 0
-        #for loop
-            # (cmd to run, complete condition)
         return
 
     def pub_msg(self, content): # takes pub reference, msg type, msg

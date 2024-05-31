@@ -28,7 +28,7 @@ class Motor(object):
         else:   # Backwards
             GPIO.output(self.dir_pin, GPIO.LOW if self.is_left else GPIO.HIGH)
         
-        self.pwm.ChangeDutyCycle(np.abs(self.hz*vel))
+        self.pwm.ChangeDutyCycle(min(100,np.abs(self.hz*vel)))
 
     def stop(self):
         self.pwm.ChangeDutyCycle(0)
