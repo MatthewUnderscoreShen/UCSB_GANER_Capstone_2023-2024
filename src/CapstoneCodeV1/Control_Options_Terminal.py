@@ -237,20 +237,24 @@ def Terminal_Control(motor):
             scan(motor)
         if mode == "auto":
             gripControl(arm,1,-90)
-            armControl(arm,16,0)
+            armControl(arm,14,0)
+            scan(motor)
+            dis = distance()
+            while(dis >40):
+                motor.move(0,-0.9,0.1)
+                dis = distance()
             scan(motor)
             armControl(arm,17,30)
-            dis = distance()
-            while(dis > 29.8):
+            while(dis > 29.3):
                 motor.move(0,-0.8,0.1)
                 dis = distance()
             motor.move(0,0,0.1)
             armControl(arm,10,-30)
-            rotate(40)
-            motor(0,-1,0.1)
-            rotate(20)
-            motor(0,-1,0.1)
-            rotate(20)
+            rotate(motor,40)
+            motor.move(0,-1,0.1)
+            rotate(motor,20)
+            motor.move(0,-1,0.1)
+            rotate(motor,20)
             
 
 
