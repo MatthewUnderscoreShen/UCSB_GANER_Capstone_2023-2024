@@ -18,15 +18,24 @@ class Mux(object):
         # is_this_on : [is_teleop, is_camera_looking, is_distance]
         self.is_teleop = False
 
-        # you know in hindsight this could be trimmed down a bit but the deadline
+        # you know in hindsight this could be trimmed down a lot but the deadline
         # is here and I'm stuck with this.
         self.commands = {"Teleop": (self.pub_msg, ((self.is_pub, Int16MultiArray(), [1,0]),
                                                    (self.drive_pub, String(), "stop") )),
                          "Auto": (self.pub_msg, ((self.is_pub, Int16MultiArray(), [0,0]), 
                                                  (self.drive_pub, String(), "stop") )),
+                         "Up": (self.pub_msg, ((self.drive_pub, String(), "stair up"), )),
+                         "Go Flat": (self.pub_msg, ((self.arm_pub, String(), "flat"), )),
+                         "Stair Bottom": (self.pub_msg, ((self.arm_pub, String(), "arm stair bottom"), )),
                          "Test P": (self.pub_msg, ((self.drive_pub, String(), "stop"), )),
                          "Test L": (self.pub_msg, ((self.arm_pub, String(), "look up"), )),
                          "Test R": (self.pub_msg, ((self.arm_pub, String(), "look down"), )),
+                         "Door To Stairs": (self.pub_msg, ((self.drive_pub, String(), "door to stairs"), 
+                                                           (self.arm_pub, String(), "look down"))),
+                         "Find Stairs": (self.pub_msg, ((self.drive_pub, String(), "find stairs"), )),
+                         "Turn To Stair": (self.pub_msg, ((self.drive_pub, String(), "turn to stair"), 
+                                                          (self.arm_pub, String(), "look up"))),
+                         "To Stair Base": (self.pub_msg, ((self.drive_pub, String(), "to stair base"), )),
                          "Align Stairs": (self.pub_msg, ((self.drive_pub, String(), "align stairs"), 
                                                          (self.arm_pub, String(), "arm stair bottom"))),
                          "Upstairs Straight 1": (self.pub_msg, ((self.drive_pub, String(), "upstairs straight"), )),

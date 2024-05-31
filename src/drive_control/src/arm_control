@@ -47,10 +47,11 @@ class ArmController(object):
                          self.set_arm, self.do_nothing, self.set_arm,            # PS4, LJ, RJ
                          self.set_arm, self.set_arm                                 # dpad LR, dpad UD
                         ]
-        self.auto_cmds = {"arm stair bottom": (self.set_arm, (self.setpoints[3])),
-                          "arm stair middle": (self.set_arm, (self.setpoints[1])),
-                          "flat": (self.set_arm, (self.setpoints[0])),  # also arm stair up
-                          "look up": (self.set_arm, (self.setpoints[2])),
+        self.auto_cmds = {"arm stair bottom": (self.arm.set_pos, (self.setpoints[3])),
+                          "arm stair middle": (self.arm.set_pos, (self.setpoints[1])),
+                          "flat": (self.arm.set_pos, (self.setpoints[0])),  # also arm stair up
+                          "look up": (self.arm.set_pos, (self.setpoints[2])),
+                          "look down": (self.arm.set_pos, (self.setpoints[19])),
                           "upstairs look down": (self.set_pos_msg, 
                                                  (self.setpoints[19], "Upstairs Straight 3", 0, 1.5)),
                           "open latch": (self.open_latch, ())
@@ -119,7 +120,7 @@ class ArmController(object):
                             [(self.last_pos[i] + (20 if i == 4 else 0)) for i in range(5)],     # bottom up 5deg
                             [500, 430, 500, 756, 500],  # latch open start
                             [500, 430, 500, 250, 500],  # latch open end
-                            [500, 415, 750, 680, 600]   # claw pointing down
+                            [400, 415, 750, 680, 600]   # claw pointing down
                          )
     
     def open_latch(self):

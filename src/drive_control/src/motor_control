@@ -53,29 +53,38 @@ class MotorController(object):
         self.auto_cmds = {
             "drive forward": (self.drive_open, (0.67,0.7)),
             "drive backward": (self.drive_open, (-0.67,-0.7)),
-            "stair up": (self.drive_open, (0.38,0.4)),
+            "stair up": (self.drive_open, (0.25,0.25)),
             "stair down": (self.drive_open, (-0.38,0.4)),
             "stop": (self.drive_open, (0,0)),
+            "door to stairs": (self.door2stair, (0)),
             "find stairs": (self.straight_until, 
-                            (0.6, self.check_walls,
+                            (0.4, self.check_walls,
                              ((1, ), (op.le, ), (50, )),
-                             self.pub_msg, (self.task_pub, String(), "To Stair Base"),
+                             self.pub_msg, (self.task_pub, String(), "Turn To Stair"),
                              self.check_walls, ((4, ), (op.ge, ), (17.5, )),
                              self.pub_msg, (self.task_pub, String(), "Test P"))),
+            "turn to stair": (self.turn_until, (-0.11, np.deg2rad(175.0),
+                                                self.pub_msg, (self.task_pub, String(), "To Stair Base"))),
+            "to stair base": (self.straight_until,
+                              (0.3, self.check_walls,
+                               ((0, ), (op.le, ), (15.0, )),
+                               self.pub_msg, (self.task_pub, String(), "Done"),
+                               self.check_walls, ((0, ), (op.le, ), (4.0, )),
+                               self.pub_msg, (self.task_pub, String(), "Test P"))),
             "align stairs": (self.align_on_stairs, (1)),
-            "climb stairs": (self.straight_until,
-                             (0.4, self.check_imu,
+            "mount stairs": (self.straight_until,
+                             (0.35, self.check_imu,
                               ((1,),),
                               )),
             "upstairs straight": (self.straight_until, 
                                   (0.45, self.check_walls,  # spd, stop_cond_func
-                                   ((0, ), (op.le, ), (20, )),  # stop_conds
+                                   ((0, ), (op.le, ), (15.0, )),  # stop_conds
                                    self.pub_msg, (self.task_pub, String(), "Upstairs Turn 1"),  # stop_func # stop_args
                                    self.check_walls, ((0,), (op.le,), (10.0,)),    # fail_cond_func, fail_conds
                                    self.pub_msg, (self.task_pub, String(), "Test P"))), # fail func, fail_args(empty)
             "turn 90deg": (self.turn_until, (-0.25, np.deg2rad(90), self.stop, [])),
             "upstairs turn 90": (self.turn_until, 
-                                 (0.175, np.deg2rad(90), self.pub_msg, 
+                                 (0.15, np.deg2rad(90), self.pub_msg, 
                                   (self.task_pub, String(), "Upstairs Straight 2"))),
             "upstairs straight 2": (self.straight_until, 
                                   (0.45, self.check_walls,  # spd, stop_cond_func
@@ -130,8 +139,8 @@ class MotorController(object):
         # [-pi pi]
         r = R.from_quat([data.orientation.x, data.orientation.y, data.orientation.z, data.orientation.w])
         self.euler = r.as_euler('xyz')
-        self.test_pub.publish(str(self.dists))
-        #self.test_pub.publish(str(self.euler))
+        #self.test_pub.publish(str(self.dists))
+        self.test_pub.publish(str(self.euler))
         return
     
     def turn_until(self, args): # (spd, stop_angle, stop_func, stop_args)
@@ -158,8 +167,8 @@ class MotorController(object):
         while not args[1](args[2]):
             # correction in case robot swerves for whatever reason
             # like wheels going different speeds
-            self.drive_open((args[0]+0.25*(self.euler[2]-ang)+0.025*max(0,7.5-self.dists[1]), 
-                             args[0]-0.25*(self.euler[2]-ang)+0.025*max(0,7.5-self.dists[2])))
+            self.drive_open((args[0]+0.0*(np.sin(self.euler[2])-np.sin(ang))+0.0*max(0,7.5-self.dists[1]), 
+                             args[0]-0.0*(np.sin(self.euler[2])-np.sin(ang))+0.0*max(0,7.5-self.dists[2])))
             if args[5](args[6]):    # Some kind of fail function
                 self.stop()
                 if not args[8]:
@@ -195,17 +204,11 @@ class MotorController(object):
         self.stop()
         time.sleep(t)
 
-    def door2stair(self): # After the robot exits the first door,
+    def door2stair(self, hah): # hah does nothing. After the robot exits the first door,
         # it should stop when it no longer sees the stairs.
-        self.drive_open(0.3, 0.3)
-        time.sleep(0.75)
-        self.turn_until((-0.3, np.deg2rad(90.0), self.stop(), ()))
-
-
-
-    def find_stairs(self):
-
-        return
+        self.drive_open((0.7, 0.7))
+        time.sleep(2.5)
+        self.turn_until((-0.11, np.deg2rad(85.0), self.pub_msg, (self.task_pub, String(), "Find Stairs")))
 
     def drive_open(self, pow):  # pow takes a tuple with left and right power (-1 to 1)
         if pow[0] != 0:
@@ -226,7 +229,10 @@ class MotorController(object):
         # Function checks all passed conditions and only returns True of all are True.
         
         for i in range(len(args[0])):
+            if self.dists[args[0][i]] < 0:
+                self.dists[args[0][i]] = float('inf')
             if not args[1][i](self.dists[args[0][i]], args[2][i]):
+                # distance sensor returns -1 if it times out, so we need a catch for that
                 return False
         return True
     
