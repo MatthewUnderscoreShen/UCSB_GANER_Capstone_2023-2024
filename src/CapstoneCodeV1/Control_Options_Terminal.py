@@ -146,6 +146,7 @@ def armControl(arm,y,ang):
     arm.setPosition(3, round(500 - 700 * (Wrist/np.pi)), wait=False)
     arm.setPosition(4, round(450 - 600 * (Elbow/np.pi)), wait=False)
     arm.setPosition(5, round(800 - 600 * Arm_Extend/np.pi), wait=False)
+    print("ang[2:4]:",round(470 - 700 * (Wrist/np.pi)),' ',round(450 - 600 * (Elbow/np.pi)),' ',round(800 - 600 * Arm_Extend/np.pi))
 
 def Terminal_Control(motor):
     try:
@@ -180,7 +181,7 @@ def Terminal_Control(motor):
             #     movement(motor,'foward',move/5)
             # if(move < 0.1):
             #     movement(motor,'backward',-move/5)
-            print("ang[2:4]:",round(470 - 700 * (Wrist/np.pi)),' ',round(450 - 600 * (Elbow/np.pi)),' ',round(800 - 600 * Arm_Extend/np.pi))
+            
         elif mode == 'demo':
             [speed,turn,t] = [float(element.strip()) for element in elements[1:]]
             #turn right: t = 2 -> 90 degree
