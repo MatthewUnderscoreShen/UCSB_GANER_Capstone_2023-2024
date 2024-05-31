@@ -239,6 +239,18 @@ def Terminal_Control(motor):
             gripControl(arm,1,-90)
             armControl(arm,16,0)
             scan(motor)
+            armControl(arm,17,30)
+            dis = distance()
+            while(dis > 29.8):
+                motor.move(0,-0.8,0.1)
+                dis = distance()
+            motor.move(0,0,0.1)
+            armControl(arm,10,-30)
+            rotate(40)
+            motor(0,-1,0.1)
+            rotate(20)
+            motor(0,-1,0.1)
+            rotate(20)
             
 
 
