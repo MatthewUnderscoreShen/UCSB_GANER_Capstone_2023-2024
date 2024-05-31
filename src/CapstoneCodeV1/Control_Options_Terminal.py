@@ -136,8 +136,14 @@ def scan(motor):
                 conf += 1
             movement(motor,'stop',0.1)
             xyxy = Detect_Object()
+def gripControl(arm,grip=1,grip_ang = 0):
+    if(-0.1 < grip < 1.1):
+        arm.setPosition(1, round(500 + 500 * grip), wait=False)
+    arm.setPosition(2, round(400 + 800*(grip_ang/180)), wait=False)
+    print("ang[0:1]:",round(500 + 500 * grip]),' ',round(400 + 800*(grip_ang/180)))
 
-def armControl(arm,y,ang):
+
+def armControl(arm,y,ang,grip=1,grip_ang = 0):
     L1 = 4.5
     L2 = 6.1
     L3 = 6.5
@@ -166,10 +172,8 @@ def Terminal_Control(motor):
         if mode == "grip":
             parsed_elements = [float(element.strip()) for element in elements[1:]]
             print(parsed_elements)
-            if(-0.1 < parsed_elements[0] < 1.1):
-                arm.setPosition(1, round(500 + 500 * parsed_elements[0]), wait=False)
-            arm.setPosition(2, round(400 + 800*(parsed_elements[1]/180)), wait=False)
-            print("ang[0:1]:",round(500 + 500 * parsed_elements[0]),' ',round(400 + 800*(parsed_elements[1]/180)))
+            gripControl(arm,parsed_elements[0],parsed_elements[1])
+
         if mode == 'arm':
             #arm 14 18.5 40
             
@@ -232,6 +236,7 @@ def Terminal_Control(motor):
         if mode == "scan":
             scan(motor)
         if mode == "auto":
+            gripControl(arm,1,-90)
             armControl(arm,16,0)
             scan(motor)
             
