@@ -140,7 +140,7 @@ def gripControl(arm,grip=1,grip_ang = 0):
     if(-0.1 < grip < 1.1):
         arm.setPosition(1, round(500 + 500 * grip), wait=False)
     arm.setPosition(2, round(400 + 800*(grip_ang/180)), wait=False)
-    print("ang[0:1]:",round(500 + 500 * grip]),' ',round(400 + 800*(grip_ang/180)))
+    print("ang[0:1]:",round(500 + 500 * grip),' ',round(400 + 800*(grip_ang/180)))
 
 
 def armControl(arm,y,ang,grip=1,grip_ang = 0):
