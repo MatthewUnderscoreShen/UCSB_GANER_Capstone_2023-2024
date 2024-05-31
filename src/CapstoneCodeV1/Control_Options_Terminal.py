@@ -223,7 +223,7 @@ def Terminal_Control(motor):
             [inch] = [float(element.strip()) for element in elements[1:]]
 
         if mode == 'photo':
-            [number] = [int(element.strip()) for element in elements[1:]]
+            [number] = [str(element.strip()) for element in elements[1:]]
             print(number)
             command = "raspistill -o data/"+ str(number) + ".jpg -h 640 -w 640 -t 10 -rot 0"
             print(command)
