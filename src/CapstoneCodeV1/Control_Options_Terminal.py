@@ -252,10 +252,13 @@ def Terminal_Control(motor):
             motor.move(0,0,0.1)
             armControl(arm,10,-30)
             rotate(motor,40)
-            motor.move(0,-1,0.1)
+            sleep(1)
+            movement(motor,'backward',0.1)
             rotate(motor,20)
-            motor.move(0,-1,0.1)
+            sleep(1)
+            movement(motor,'backward',0.1)
             rotate(motor,20)
+
             
 
 
