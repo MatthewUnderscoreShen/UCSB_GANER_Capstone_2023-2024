@@ -115,6 +115,38 @@ def rotate(motor,ang):
     
     motor.move(0,0,0.1)
 
+def scan(motor):
+    xyxy = Detect_Object()
+    print(xyxy)
+    conf = 0
+    while conf < 2:
+        if xyxy.size == 0:
+            print("warning, the box is not detected")
+            rotate(motor,30)
+            xyxy = Detect_Object()
+            conf = 0
+        else:
+            
+            print(xyxy)
+            if((xyxy[0][0]+xyxy[0][2])/2 > 320):
+                rotate(motor,5)
+            elif((xyxy[0][0]+xyxy[0][2])/2 < 280):
+                rotate(motor,-5)
+            else:
+                conf += 1
+            movement(motor,'stop',0.1)
+            xyxy = Detect_Object()
+
+def armControl(arm,y,ang):
+    L1 = 4.5
+    L2 = 6.1
+    L3 = 6.5
+    [Arm_Extend,Elbow,Wrist] = IK(y,ang,L1=L1,L2=L2,L3=L3)
+    
+    arm.setPosition(3, round(500 - 700 * (Wrist/np.pi)), wait=False)
+    arm.setPosition(4, round(450 - 600 * (Elbow/np.pi)), wait=False)
+    arm.setPosition(5, round(800 - 600 * Arm_Extend/np.pi), wait=False)
+
 def Terminal_Control(motor):
     try:
         checkpoint = 0
@@ -139,17 +171,10 @@ def Terminal_Control(motor):
             print("ang[0:1]:",round(500 + 500 * parsed_elements[0]),' ',round(400 + 800*(parsed_elements[1]/180)))
         if mode == 'arm':
             #arm 14 18.5 40
-            L1 = 4.5
-            L2 = 6.1
-            L3 = 6.5
+            
             parsed_elements = [float(element.strip()) for element in elements[1:]]
             print(parsed_elements)
-            [Arm_Extend,Elbow,Wrist] = IK(parsed_elements[0],parsed_elements[1],L1=L1,L2=L2,L3=L3)
-            checkpoint = 1
-            
-            arm.setPosition(3, round(500 - 700 * (Wrist/np.pi)), wait=False)
-            arm.setPosition(4, round(450 - 600 * (Elbow/np.pi)), wait=False)
-            arm.setPosition(5, round(800 - 600 * Arm_Extend/np.pi), wait=False)
+            armControl(arm,parsed_elements[0],parsed_elements[1])
             # rotate(motor,np.rad2deg(Base))
             # if(move > 0.1):
             #     movement(motor,'foward',move/5)
@@ -204,28 +229,10 @@ def Terminal_Control(motor):
         if mode == "dis":
             print(distance())
         if mode == "scan":
-            xyxy = Detect_Object()
-            print(xyxy)
-            conf = 0
-            while conf < 2:
-                if xyxy.size == 0:
-                    print("warning, the box is not detected")
-                    rotate(motor,30)
-                    xyxy = Detect_Object()
-                    conf = 0
-                else:
-                    
-                    print(xyxy)
-                    if((xyxy[0][0]+xyxy[0][2])/2 > 320):
-                        rotate(motor,5)
-                    elif((xyxy[0][0]+xyxy[0][2])/2 < 280):
-                        rotate(motor,-5)
-                    else:
-                        conf += 1
-                    movement(motor,'stop',0.1)
-                    xyxy = Detect_Object()
+            scan(motor)
         if mode == "auto":
-            #arm 16 0
+            armControl(arm,16,0)
+            scan(motor)
             
 
 
