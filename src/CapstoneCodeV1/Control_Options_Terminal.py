@@ -128,9 +128,9 @@ def scan(motor):
         else:
             
             print(xyxy)
-            if((xyxy[0][0]+xyxy[0][2])/2 > 320):
+            if((xyxy[0][0]+xyxy[0][2])/2 > 360):
                 rotate(motor,5)
-            elif((xyxy[0][0]+xyxy[0][2])/2 < 280):
+            elif((xyxy[0][0]+xyxy[0][2])/2 < 320):
                 rotate(motor,-5)
             else:
                 conf += 1
@@ -251,6 +251,7 @@ def Terminal_Control(motor):
                 dis = distance()
             motor.move(0,0,0.1)
             armControl(arm,10,-30)
+            sleep(2)
             rotate(motor,40)
             sleep(1)
             movement(motor,'backward',0.1)
