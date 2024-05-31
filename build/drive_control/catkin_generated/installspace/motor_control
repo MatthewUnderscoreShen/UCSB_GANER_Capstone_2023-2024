@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import rospy
+import time
 import numpy as np
+import operator as op
 from scipy.spatial.transform import Rotation as R
 from drive_control.motor import Motor
 from std_msgs.msg import String
@@ -22,15 +24,18 @@ class MotorController(object):
         topics = rospy.get_param("/topics")
         hz = 100
         self.min_pow = 0.3
-        self.align_rate = rospy.Rate(4)
+        self.align_rate = rospy.Rate(1)
+        self.align_rate_f = rospy.Rate(4)
+        self.align_rate_b = rospy.Rate(2)
         self.check_rate = rospy.Rate(10)
         self.euler = [0.0, 0.0, 0.0]    # x, y, z
+        self.dists = [0.0, 0.0, 0.0, 0.0, 0.0]  # front, left, right, back, arm
 
         self.left_motor = Motor(pins["pwm"]["left"], pins["dir"]["left"], hz, False)
         self.right_motor = Motor(pins["pwm"]["right"], pins["dir"]["right"], hz, False)
 
         self.drive_pub = rospy.Publisher(topics["drive_out"], String, queue_size=10)
-        self.cmplt_pub = rospy.Publisher(topics["cmd_cmplt"], String, queue_size=3)
+        self.task_pub = rospy.Publisher(topics["task"], String, queue_size=10)
         rospy.Subscriber(topics["drive_in"], String, self.drive_callback)
         rospy.Subscriber(topics["is_on"], Int16MultiArray, self.is_on_callback)
         rospy.Subscriber(topics["joy"], Joy, self.joy_callback)
@@ -40,20 +45,29 @@ class MotorController(object):
         self.test_pub = rospy.Publisher("test", String, queue_size=10)
 
         self.is_teleop = False
-        # (dist lower limit(cm), counts to activate, current count (10Hz), is_active)
-        self.dist_limits = {"front": (10.0, 10, 0, 0),
-                            "left": (7.5, 10, 0, 0),
-                            "right": (7.5, 10, 0, 0) 
-                           }
 
-        self.auto_cmds = {"drive forward": (self.drive_open, (0.67,0.7)),
-                          "drive backward": (self.drive_open, (-0.67,-0.7)),
-                          "stair up": (self.drive_open, (0.38,0.4)),
-                          "stair down": (self.drive_open, (-0.38,0.4)),
-                          "stop": (self.drive_open, (0,0)),
-                          "align stairs": (self.align_on_stairs, (1)),
-                          "upstairs turn":(self.turn_to_angle, (0.4,))
-                         }
+        self.auto_cmds = {
+            "drive forward": (self.drive_open, (0.67,0.7)),
+            "drive backward": (self.drive_open, (-0.67,-0.7)),
+            "stair up": (self.drive_open, (0.38,0.4)),
+            "stair down": (self.drive_open, (-0.38,0.4)),
+            "stop": (self.drive_open, (0,0)),
+            "align stairs": (self.align_on_stairs, (1)),
+            "upstairs straight": (self.straight_until, 
+                                  (0.35, self.check_walls,  # spd, stop_cond_func
+                                   ((0, 1, 2), (op.le, op.le, op.ge), (20.0, 40.0, 40.0)),  # stop_conds
+                                   self.pub_msg, (self.task_pub, String(), "Upstairs Turn 1"),  # stop_func # stop_args
+                                   self.check_walls, ((0,), (op.le,), (15.0,)),    # fail_cond_func, fail_conds
+                                   self.pub_msg, (self.task_pub, String(), "Test P"))), # fail func, fail_args(empty)
+            "turn 90deg": (self.turn_until, (0.25, -1*np.deg2rad(90), self.stop, [])),
+            "upstairs turn 90": (self.turn_until, 
+                                 (0.25, np.deg2rad(90), self.pub_msg, 
+                                  (self.task_pub, String(), "Upstairs Straight 2")))
+            }
+        
+    def pub_msg(self, content):
+        content[1].data = content[2]
+        content[0].publish(content[1])
     
     def drive_callback(self, data):
         cmd = self.auto_cmds[data.data]
@@ -69,58 +83,91 @@ class MotorController(object):
         self.drive_open((np.power(data.axes[1],3), np.power(data.axes[4],3)))
     
     def front_dist_callback(self, data):
-        dist = self.dist_limits["front"]
-        if data.range < dist[0]:
-            dist[2] += 1
-            if dist[2] >= dist[1]:
-                dist[2] = 0
-                self.stop()
-        return
+        self.dists[0] = data.range
     
+    def left_dist_callback(self, data):
+        self.dists[1] = data.range
+
+    def right_dist_callback(self, data):
+        self.dists[2] = data.range
+    
+    def back_dist_callback(self, data):
+        self.dists[3] = data.range
+
+    def arm_dist_callback(self, data):
+        self.dists[4] = data.range
+
     def imu_callback(self, data):
+        # [-pi pi]
         r = R.from_quat([data.orientation.x, data.orientation.y, data.orientation.z, data.orientation.w])
-        euler = r.as_euler('xyz')
-        self.test_pub.publish(str(euler))
+        self.euler = r.as_euler('xyz')
+        self.test_pub.publish(str(self.euler))
         return
     
-    def turn_to_angle(self, spd, dir, stop_ang, stop_func, stop_args=[]):
-        # spd, left(1) or right(-1), stopping angle in radians
+    def turn_until(self, args): # (spd, stop_angle, stop_func, stop_args)
+        # spd(- turns left), stopping angle in radians. Turns to absolute angle.
         # function can be used as a wall avoidance safety measure by passing
         # self.stop into stop_func, but is also used as part of a chain of
         # commands.
-        self.drive_open(dir*spd, -1*dir*spd)
-        while not abs(self.euler[2] - stop_ang) < 0.1:
+        self.drive_open((args[0], -1*args[0]))
+        while not abs(self.euler[2] - args[1]) < 0.1:
+            self.drive_pub.publish(str(abs(self.euler[2]-args[1])))
             self.check_rate.sleep()
         self.stop()
-        if not stop_args:
-            stop_func()
+        if not args[3]:
+            args[2]()
         else:
-            stop_func(stop_args)
+            args[2](args[3])
         return
 
-    def straight_until(self, spd, stop_cond_func, stop_cond, stop_func, stop_args):
-        self.drive_open(spd, spd)
-        while not stop_cond_func(stop_cond):
-            return
+    def straight_until(self, args): 
+        # (spd, stop_cond_func, (stop_conds), stop_func, stop_args, 
+        # fail_cond_func, fail_cond_args, fail_func, fail_args)
+        ang = self.euler[2]
+        self.drive_open((args[0], args[0]))
+        while not args[1](args[2]):
+            self.drive_open((args[0]+0.3*(self.euler[2]-ang), args[0]-0.3*(self.euler[2]-ang)))
+            if args[5](args[6]):    # Some kind of fail function
+                if not args[8]:
+                    args[7]()
+                else:
+                    args[7](args[8])
+            self.check_rate.sleep()
+        self.stop()
+        if not args[4]:
+            args[3]()
+        else:
+            args[3](args[4])
         return
     
     def align_on_stairs(self, cycles):
         # assumes pointed directly at the stairs, at its base
         # Movement: left forward, right forward, back, pray, repeat
         for _ in range(cycles):
-            self.left_motor.set_vel(0.2)
-            self.align_rate.sleep()
-            self.stop()
-            self.align_rate.sleep()
-            self.right_motor.set_vel(0.2)
-            self.align_rate.sleep()
-            self.stop()
-            self.align_rate.sleep()
-            self.left_motor.set_vel(-0.4)
-            self.right_motor.set_vel(-0.4)
-            self.align_rate.sleep()
-            self.stop()
-            self.align_rate.sleep()
+            self.start_and_stop((0.25, 0.25), 0.25)
+            self.start_and_stop((0.25, 0.25), 0.25)
+            self.start_and_stop((0.25, 0.25), 0.25)
+            self.start_and_stop((-0.9, -0.9), 0.4)
+        return
+    
+    def start_and_stop(self, pow, t):
+        # the drive_open function has a anti-stall measure put in, but
+        # as a janky exploit for aligning on the stairs we want a little stalling
+        # It should be an issue since it's not for long
+        self.left_motor.set_vel(pow[0])
+        self.right_motor.set_vel(pow[1])
+        time.sleep(t)
+        self.stop()
+
+    def door2stair(self): # After the robot exits the first door,
+        # it should stop when it no longer sees the stairs.
+        self.drive_open(0.3, 0.3)
+        time.sleep(0.75)
+        self.turn_until((-0.3, np.deg2rad(90.0), self.stop(), ()))
+
+
+
+    def find_stairs(self, arc):
         return
 
     def drive_open(self, pow):  # pow takes a tuple with left and right power (-1 to 1)
@@ -137,6 +184,16 @@ class MotorController(object):
         self.left_motor.stop()
         self.right_motor.stop()
         self.drive_pub.publish(String("Left: " + str(0.0) + "   Right: " + str(0.0)))
+
+    def check_walls(self, args):   # ((front, left, etc(index)), (operators), (conditions))
+        # Function checks all passed conditions and only returns True of all are True.
+        for i in range(len(args[0])):
+            if not args[1][i](self.dists[args[0][i]], args[2][i]):
+                return False
+        return True
+    
+    def is_near(self, a, b):    # numbers are for distance sensors
+        return abs(a - b) < 1.0
 
 if __name__ == "__main__":
     rospy.init_node("motor_control")

@@ -22,16 +22,18 @@ class Mux(object):
                          "Auto": (self.pub_msg, (self.is_pub, Int16MultiArray(), [0,0])),
                          "Test P": (self.pub_msg, (self.drive_pub, String(), "stop")),
                          "Test L": (self.pub_msg, (self.drive_pub, String(), "drive backward")),
-                         "Test R": (self.pub_msg, (self.drive_pub, String(), "drive forward")),
+                         "Test R": (self.pub_msg, (self.drive_pub, String(), "turn 90deg")),
                          "Align Stairs": (self.pub_msg, (self.drive_pub, String(), "align stairs")),
-                         "Upstairs Turn": (self.pub_msg, (self.drive_pub, String(), "upstairs turn")),
+                         "Upstairs Straight 1": (self.pub_msg, (self.drive_pub, String(), "upstairs straight")),
+                         "Upstairs Turn 1": (self.pub_msg, (self.drive_pub, String(), "upstairs turn 90")),
+                         "Upstairs Straight 2": (self.pub_msg, (self.drive_pub, String(), "upstairs straight 2")),
                          "Open Latch": (self.pub_msg, (self.arm_pub, String(), "open latch")),
                          "Upstairs": (self.set_sequence, ())
                         }
 
 
     def task_callback(self, data):
-        if self.is_teleop:
+        if self.is_teleop and data.data != "Auto":
             return
         try:
             stuff = self.commands[data.data]
@@ -41,6 +43,7 @@ class Mux(object):
         
     def is_on_callback(self, data):
         self.is_teleop = data.data[0]
+        return
     
     def set_sequence(self, content):
         count = 0
