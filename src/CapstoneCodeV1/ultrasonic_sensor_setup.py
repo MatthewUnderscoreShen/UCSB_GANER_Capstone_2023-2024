@@ -73,9 +73,8 @@ def distance_arm():
     while distance < 10: #elinate grip
         while GPIO.input(GPIO_ECHO) == 1:
             StopTime = time.time()
-            if(StopTime - StartTime > 0.5){
+            if(StopTime - StartTime > 0.5):
                 break
-            }
     
         # time difference between start and arrival
         TimeElapsed = StopTime - StartTime
