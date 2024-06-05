@@ -277,7 +277,7 @@ def Terminal_Control(motor):
         if mode == "door":
             i = 0
             while(i <= 10):
-                motor.move(0,-0.7,0.1)
+                motor.move(0,0.7,0.1)
                 rotate(motor,-10)
                 sleep(0.3)
                 i += 1
