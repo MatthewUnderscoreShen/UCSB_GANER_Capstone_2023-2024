@@ -195,7 +195,7 @@ def Terminal_Control(motor):
         elif mode == 'demo':
             [speed,turn,t] = [float(element.strip()) for element in elements[1:]]
             #turn right: t = 2 -> 90 degree
-            #turn left: t =2 -> 90 degree
+            #turn left: t =2 -> 90 degree 
             #
             if(t < 0):
                 print("time error")
