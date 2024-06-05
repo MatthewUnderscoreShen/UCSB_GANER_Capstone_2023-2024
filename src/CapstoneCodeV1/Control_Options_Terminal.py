@@ -278,7 +278,7 @@ def Terminal_Control(motor):
             i = 0
             while(i <= 10):
                 motor.move(0,0.8,0.1)
-                sleep(0.1)
+                sleep(0.3)
                 rotate(motor,-10)
                 sleep(0.3)
                 i += 1
