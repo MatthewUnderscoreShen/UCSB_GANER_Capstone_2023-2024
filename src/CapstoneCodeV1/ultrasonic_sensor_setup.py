@@ -69,14 +69,19 @@ def distance_arm():
         StartTime = time.time()
  
     # save time of arrival
-    while GPIO.input(GPIO_ECHO) == 1:
-        StopTime = time.time()
- 
-    # time difference between start and arrival
-    TimeElapsed = StopTime - StartTime
-    # multiply with the sonic speed (34300 cm/s)
-    # and divide by 2, because there and back
-    distance = (TimeElapsed * 34300) / 2
+    distance = 0
+    while distance < 10: #elinate grip
+        while GPIO.input(GPIO_ECHO) == 1:
+            StopTime = time.time()
+            if(StopTime - StartTime > 0.5){
+                break
+            }
+    
+        # time difference between start and arrival
+        TimeElapsed = StopTime - StartTime
+        # multiply with the sonic speed (34300 cm/s)
+        # and divide by 2, because there and back
+        distance = (TimeElapsed * 34300) / 2
  
     return distance
  
