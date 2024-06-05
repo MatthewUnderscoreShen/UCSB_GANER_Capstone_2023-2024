@@ -3,7 +3,7 @@ from Motor_DTLever import Motor_DTLever
 #from Arm_Class import Arm_Class
 import Arm_Class
 #import Controller as js
-from ultrasonic_sensor_setup import distance
+from ultrasonic_sensor_setup import distance,distance_arm
 from Latch_Detect import Detect_Object
 
 from time import sleep
@@ -282,6 +282,9 @@ def Terminal_Control(motor):
                 rotate(motor,-10)
                 sleep(0.3)
                 i += 1
+
+        if mode == "adis":
+            print(distance_arm())
 
             
 
