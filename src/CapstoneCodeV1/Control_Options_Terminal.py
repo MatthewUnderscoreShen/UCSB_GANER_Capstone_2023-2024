@@ -155,6 +155,12 @@ def armControl(arm,y,ang,grip=1,grip_ang = 0):
     print("ang[2:4]:",round(470 - 700 * (Wrist/np.pi)),' ',round(450 - 600 * (Elbow/np.pi)),' ',round(800 - 600 * Arm_Extend/np.pi))
 
 def Terminal_Control(motor):
+    # terminal control mode is intended to get data throught terminal
+    #manual take 5 input series to control arm
+    #photo take a string, take a photo with string.jpg to data file
+    #auto do some auto thing 
+    #arm take y = arm target height(inch) ang (griper angle) to let arm move
+    #grip take 1-0 grip close-open + grip rotate ang
     try:
         checkpoint = 0
         user_input = input("get input, separate by space, first element is control mode\n mode = arm,move,rotate\n")
@@ -236,6 +242,8 @@ def Terminal_Control(motor):
         if mode == "scan":
             scan(motor)
         if mode == "auto":
+            #dis = 19
+            #arm 19 30 for button
             gripControl(arm,1,-90)
             armControl(arm,11,0)
             scan(motor)
