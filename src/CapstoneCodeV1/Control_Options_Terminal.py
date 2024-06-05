@@ -271,7 +271,7 @@ def Terminal_Control(motor):
             movement(motor,'backward',0.1)
             rotate(motor,20)
             sleep(1)
-            rotate(motor,-60)
+            rotate(motor,-70)
             movement(motor,'backward',1)
 
             
