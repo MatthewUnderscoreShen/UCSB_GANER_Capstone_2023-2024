@@ -130,11 +130,13 @@ def scan(motor):
             print(xyxy)
             if((xyxy[0][0]+xyxy[0][2])/2 > 400):
                 rotate(motor,5)
-            elif((xyxy[0][0]+xyxy[0][2])/2 < 370):
+            elif((xyxy[0][0]+xyxy[0][2])/2 < 360):
                 rotate(motor,-5)
             else:
                 conf += 1
             movement(motor,'stop',0.1)
+
+
             xyxy = Detect_Object()
 def gripControl(arm,grip=1,grip_ang = 0):
     if(-0.1 < grip < 1.1):
@@ -253,10 +255,10 @@ def Terminal_Control(motor):
                 dis = distance()
             motor.move(0,0,0.1)
             scan(motor)
-            armControl(arm,17,30)
+            armControl(arm,18,50)
             sleep(1)
             while(dis > 29.3):
-                motor.move(0,-0.8,0.1)
+                motor.move(0,-0.7,0.1)
                 dis = distance()
             motor.move(0,0,0.1)
             armControl(arm,10,-30)
