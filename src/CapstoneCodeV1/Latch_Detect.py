@@ -38,13 +38,46 @@ import RPi.GPIO as GPIO
 #         print("Unknown movement type")
 # some prequisit from control option
 
+# emergency button detect(if button model does not work)
+import cv2
+
+def Button_detect():
+    os.system('raspistill -o image.jpg -h 640 -w 640 -t 10 -rot 0')
+    image = cv2.imread('image.jpg')
+    
+    hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+    
+    lower_red1 = np.array([0, 120, 70])
+    upper_red1 = np.array([10, 255, 255])
+    lower_red2 = np.array([170, 120, 70])
+    upper_red2 = np.array([180, 255, 255])
+    
+    # red mask
+    mask1 = cv2.inRange(hsv, lower_red1, upper_red1)
+    mask2 = cv2.inRange(hsv, lower_red2, upper_red2)
+    mask = mask1 + mask2
+    
+    contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    
+    if contours:
+        largest_contour = max(contours, key=cv2.contourArea)
+        
+        x, y, w, h = cv2.boundingRect(largest_contour)
+        
+        return [x,y,x+w,y+h]
+    else:
+        return None
 
 
 
-
-def Detect_Object():
-    model = YOLO('best.pt')  
-    model.conf = 0.80
+def Detect_Object(object = "default"):
+    if(object == "Button"):
+        model = YOLO('Button.pt')  
+    elif (object == "Latch"):
+        model = YOLO('Latch.pt')  
+    else:
+        model = YOLO('best.pt')  
+    model.conf = 0.50
     os.system('raspistill -o image.jpg -h 640 -w 640 -t 10 -rot 0')
     results = model(['image.jpg'])  # return a list of Results objects
     xyxy = results[0].boxes.xyxy.numpy()
