@@ -79,6 +79,7 @@ def Detect_Object(object = "default"):
     if(object == "Button"):
         model = YOLO('Button.pt')  
     elif (object == "Latch"):
+        print("Latch!")
         model = YOLO('Latch.pt')  
     else:
         model = YOLO('best.pt')  
