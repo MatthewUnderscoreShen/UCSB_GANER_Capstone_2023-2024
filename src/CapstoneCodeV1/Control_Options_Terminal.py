@@ -119,7 +119,7 @@ def rotate(motor,ang):
 
 
 def scan(motor):
-    xyxy = Detect_Object()
+    xyxy = Detect_Object("Latch")
     print(xyxy)
     conf = 0
     while conf < 2:
