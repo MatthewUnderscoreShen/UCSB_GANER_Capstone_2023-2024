@@ -115,6 +115,9 @@ def rotate(motor,ang):
     
     motor.move(0,0,0.1)
 
+
+
+
 def scan(motor):
     xyxy = Detect_Object()
     print(xyxy)
@@ -123,7 +126,7 @@ def scan(motor):
         if xyxy.size == 0:
             print("warning, the box is not detected")
             rotate(motor,30)
-            xyxy = Detect_Object()
+            xyxy = Detect_Object("Latch")
             conf = 0
         else:
             
@@ -138,6 +141,35 @@ def scan(motor):
 
 
             xyxy = Detect_Object()
+
+
+
+def scan_Button(motor):
+    xyxy = Detect_Object()
+    print(xyxy)
+    conf = 0
+    while conf < 2:
+        if xyxy.size == 0:
+            print("warning, the box is not detected")
+            rotate(motor,30)
+            xyxy = Detect_Object("Button")
+            conf = 0
+        else:
+            
+            print(xyxy)
+            if((xyxy[0][0]+xyxy[0][2])/2 > 400):
+                rotate(motor,5)
+            elif((xyxy[0][0]+xyxy[0][2])/2 < 360):
+                rotate(motor,-5)
+            else:
+                conf += 1
+            movement(motor,'stop',0.1)
+
+
+            xyxy = Detect_Object()
+
+
+
 def gripControl(arm,grip=1,grip_ang = 0):
     if(-0.1 < grip < 1.1):
         arm.setPosition(1, round(500 + 500 * grip), wait=False)
@@ -263,16 +295,13 @@ def Terminal_Control(motor):
             motor.move(0,0,0.1)
             armControl(arm,10,-30)
             sleep(2)
-            rotate(motor,40)
+            rotate(motor,50)
             sleep(1)
             movement(motor,'backward',0.1)
             rotate(motor,20)
             sleep(1)
-            movement(motor,'backward',0.1)
-            rotate(motor,20)
-            sleep(1)
+            movement(motor,'backward',0.5)
             rotate(motor,-65)
-            movement(motor,'backward',1)
 
         if mode == "door":
             i = 0
@@ -282,6 +311,31 @@ def Terminal_Control(motor):
                 rotate(motor,-10)
                 sleep(0.3)
                 i += 1
+
+        if mode == "button":
+            #no testing yet...
+            scan_Button()
+            gripControl(arm,1,-90)
+            armControl(arm,11,0)
+            scan(motor)
+            dis = distance()
+            while(dis > 40):
+                motor.move(0,-0.9,0.05)
+                dis = distance()
+            motor.move(0,0,0.1)
+            scan(motor)
+            armControl(arm,19,30)
+            gripControl(arm,0,-90)
+            sleep(1)
+            while(dis > 20):
+                motor.move(0,-0.7,0.1)
+                dis = distance()
+            motor.move(0,0,0.1)
+            gripControl(arm,1,-90)
+            sleep(1)
+            gripControl(arm,1,0)
+            sleep(1)
+            movement(motor,'backward',0.5)
 
         if mode == "adis":
             print(distance_arm())
