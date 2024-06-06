@@ -125,7 +125,7 @@ def scan(motor):
     while conf < 2:
         if xyxy.size == 0:
             print("warning, the box is not detected")
-            rotate(motor,30)
+            rotate(motor,20)
             xyxy = Detect_Object("Latch")
             conf = 0
         else:
@@ -139,7 +139,6 @@ def scan(motor):
                 conf += 1
             movement(motor,'stop',0.1)
 
-
             xyxy = Detect_Object()
 
 
@@ -151,7 +150,7 @@ def scan_Button(motor):
     while conf < 2:
         if xyxy.size == 0:
             print("warning, the box is not detected")
-            rotate(motor,30)
+            rotate(motor,20)
             xyxy = Detect_Object("Button")
             conf = 0
         else:
