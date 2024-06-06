@@ -148,7 +148,8 @@ def scan_Button(motor):
     print(xyxy)
     conf = 0
     while conf < 2:
-        if xyxy.size == 0:
+        # if xyxy.size == 0:
+        if xyxy == None:
             print("warning, the box is not detected")
             rotate(motor,20)
             xyxy = Detect_Object("Button")
@@ -156,9 +157,9 @@ def scan_Button(motor):
         else:
             
             print(xyxy)
-            if((xyxy[0][0]+xyxy[0][2])/2 > 400):
+            if((xyxy[0]+xyxy[2])/2 > 400):
                 rotate(motor,5)
-            elif((xyxy[0][0]+xyxy[0][2])/2 < 360):
+            elif((xyxy[0]+xyxy[2])/2 < 360):
                 rotate(motor,-5)
             else:
                 conf += 1
