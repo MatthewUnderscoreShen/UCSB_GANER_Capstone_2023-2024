@@ -82,7 +82,7 @@ def Detect_Object(object = "default"):
         model = YOLO('Latch.pt')  
     else:
         model = YOLO('best.pt')  
-    model.conf = 0.50
+    model.conf = 0.20
     os.system('raspistill -o image.jpg -h 640 -w 640 -t 10 -rot 0')
     results = model(['image.jpg'])  # return a list of Results objects
     xyxy = results[0].boxes.xyxy.numpy()
