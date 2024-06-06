@@ -313,16 +313,16 @@ def Terminal_Control(motor):
 
         if mode == "button": 
             #no testing yet...
-            scan_Button(motor)
+            
             gripControl(arm,1,-90)
             armControl(arm,11,0)
-            scan(motor)
+            scan_Button(motor)
             dis = distance()
             while(dis > 40):
                 motor.move(0,-0.9,0.05)
                 dis = distance()
             motor.move(0,0,0.1)
-            scan(motor)
+            scan_Button(motor)
             armControl(arm,19,30)
             gripControl(arm,0,-90)
             sleep(1)
