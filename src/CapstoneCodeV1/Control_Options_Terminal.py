@@ -311,7 +311,7 @@ def Terminal_Control(motor):
                 sleep(0.3)
                 i += 1
 
-        if mode == "button":
+        if mode == "button": 
             #no testing yet...
             scan_Button()
             gripControl(arm,1,-90)
